@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="256" height="64" tilewidth="32" tileheight="32" nextobjectid="6">
  <tileset firstgid="1" name="buildings" tilewidth="32" tileheight="32" tilecount="27" columns="9">
-  <image source="../../../Users/Quiv/Pictures/mygame/rubyred-tilemap.png" width="288" height="96"/>
+  <image source="rubyred-tilemap.png" width="288" height="96"/>
   <tile id="0">
    <objectgroup draworder="index">
     <object id="4" x="32" y="13.9375">

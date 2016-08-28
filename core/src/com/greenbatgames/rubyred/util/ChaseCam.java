@@ -68,9 +68,19 @@ public class ChaseCam
         }
     }
 
+
+
     private void centreOnTarget()
     {
         camera.position.x = target.getPosition().x;
         camera.position.y = target.getPosition().y;
     }
+
+
+
+    public float getX() {return camera.position.x - camera.viewportWidth / 2.0f;}
+    public float getY() {return camera.position.y - camera.viewportHeight / 2.0f;}
+    public float getWidth() {return camera.viewportWidth;}
+    public float getHeight() {return camera.viewportHeight;}
+    public Camera getCamera() {return camera;}
 }
