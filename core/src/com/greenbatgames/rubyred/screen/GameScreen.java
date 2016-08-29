@@ -83,19 +83,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         tiledMap = new TmxMapLoader().load("level-1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, Constants.TILED_UNIT_SCALE);
 
-        // Set player position to the spawn position object in the TiledMap
-        for (MapLayer layer: tiledMap.getLayers()) {
-            for (MapObject object : layer.getObjects()) {
-                if (object.getName().compareTo("spawn-position") == 0) {
-                    player.setSpawnPosition(
-                            object.getProperties().get("x", Float.class),
-                            object.getProperties().get("y", Float.class)
-                    );
-                    player.init();
-                }
-            }
-        }
-
         bodiesToAdd = new Array<BodyDef>();
         fixturesToAdd = new Array<FixtureDef>();
         userDataToAdd = new Array<PhysicsBody>();
@@ -105,8 +92,22 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         platforms = new Array<Platform>();
 
         // Other game objects
-        platforms.add(new Platform(0.5f, 0.5f, 40.0f, 2.0f, world, false));
+        platforms.add(new Platform(0.5f, 0.5f, 400.0f, 2.0f, world, false));
         platforms.add(new Platform(1.5f, 6.0f, 1.5f, 1.5f, world, true));
+
+        // Set player position to the spawn position object in the TiledMap
+        for (MapLayer layer: tiledMap.getLayers()) {
+            for (MapObject object : layer.getObjects()) {
+                if (object.getName().compareTo("spawn-position") == 0) {
+                    player.setSpawnPosition(
+                            object.getProperties().get("x", Float.class),
+                            object.getProperties().get("y", Float.class)
+                    );
+
+                    player.init();
+                }
+            }
+        }
 
         // Finalize
         Gdx.input.setInputProcessor(this);
@@ -138,6 +139,9 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         player.update(delta);
         chaseCam.update(delta);
+
+        if (player.getPosition().y <= Constants.KILL_PLANE_Y)
+            player.init();
 
         /*
             Rendering logic

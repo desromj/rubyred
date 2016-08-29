@@ -50,6 +50,7 @@ public class Constants
      */
 
     public static final float GRAVITY = -20f;
+    public static final float KILL_PLANE_Y = -100f;
 
     // Pixels-to-metres conversion
     public static final float PTM = 40f;

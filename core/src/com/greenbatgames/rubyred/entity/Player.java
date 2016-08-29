@@ -39,8 +39,11 @@ public class Player extends PhysicsBody
     {
         this.body.setLinearVelocity(0f, 0f);
 
-        this.getPosition().set(this.spawnPosition.x, this.spawnPosition.y);
-        this.getLastPosition().set(this.spawnPosition.x, this.spawnPosition.y);
+        this.body.setTransform(
+                (this.spawnPosition.x - width / 2.0f) / Constants.PTM,
+                (this.spawnPosition.y - height / 2.0f) / Constants.PTM,
+                0f
+        );
 
         this.jumped = true;
         this.facingRight = true;
