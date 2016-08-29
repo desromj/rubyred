@@ -34,13 +34,13 @@ public class Platform extends PhysicsBody
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(
-                this.position.x / Constants.PTM,
-                this.position.y / Constants.PTM);
+                getX() / Constants.PTM,
+                getY() / Constants.PTM);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(
-                (this.width / 2.0f) / Constants.PTM,
-                (this.height / 2.0f) / Constants.PTM);
+                (getWidth() / 2.0f) / Constants.PTM,
+                (getHeight() / 2.0f) / Constants.PTM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -59,8 +59,8 @@ public class Platform extends PhysicsBody
         renderer.rect(
                 this.left,
                 this.bottom,
-                this.width,
-                this.height
+                getWidth(),
+                getHeight()
         );
     }
 

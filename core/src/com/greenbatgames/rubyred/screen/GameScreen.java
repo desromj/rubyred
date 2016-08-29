@@ -140,7 +140,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         player.update(delta);
         chaseCam.update(delta);
 
-        if (player.getPosition().y <= Constants.KILL_PLANE_Y)
+        if (player.getY() <= Constants.KILL_PLANE_Y)
             player.init();
 
         /*

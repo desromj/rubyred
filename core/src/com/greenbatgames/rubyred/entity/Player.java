@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Utils;
@@ -28,7 +26,7 @@ public class Player extends PhysicsBody
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
-        this.spawnPosition = new Vector2(x, y);
+        spawnPosition = new Vector2(x, y);
 
         init();
     }
@@ -40,17 +38,17 @@ public class Player extends PhysicsBody
         this.body.setLinearVelocity(0f, 0f);
 
         this.body.setTransform(
-                (this.spawnPosition.x - width / 2.0f) / Constants.PTM,
-                (this.spawnPosition.y - height / 2.0f) / Constants.PTM,
+                (spawnPosition.x - getWidth() / 2.0f) / Constants.PTM,
+                (spawnPosition.y - getHeight() / 2.0f) / Constants.PTM,
                 0f
         );
 
-        this.jumped = true;
-        this.facingRight = true;
-        this.grounded = false;
-        this.crouched = false;
+        jumped = true;
+        facingRight = true;
+        grounded = false;
+        crouched = false;
 
-        this.disableCollisionFor = 0.0f;
+        disableCollisionFor = 0.0f;
     }
 
 
@@ -61,8 +59,8 @@ public class Player extends PhysicsBody
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
-                this.getPosition().x / Constants.PTM,
-                this.getPosition().y / Constants.PTM
+                getX() / Constants.PTM,
+                getY() / Constants.PTM
         );
         bodyDef.fixedRotation = true;
 
@@ -94,25 +92,13 @@ public class Player extends PhysicsBody
         move();
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
-        body.setAwake(true);
+        this.body.setAwake(true);
     }
 
 
 
     protected void move()
     {
-        // Check our contacts to see if we're grounded
-        Array<Contact> contacts = body.getWorld().getContactList();
-
-        if (contacts.size <= 0)
-        {
-            this.grounded = false;
-        }
-        else
-        {
-
-        }
-
         // Horizontal movement
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -158,8 +144,8 @@ public class Player extends PhysicsBody
 
     public void land()
     {
-        this.grounded = true;
-        this.jumped = false;
+        grounded = true;
+        jumped = false;
     }
 
 
@@ -167,19 +153,19 @@ public class Player extends PhysicsBody
     public void jump()
     {
         // cannot jump if we already jumped
-        if (this.jumped)
+        if (jumped)
             return;
 
         // If jumping down through a platform, disable collision and return
-        if (this.grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        if (grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
         {
             this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;
             return;
         }
 
         // Otherwise, proceed with jump
-        this.jumped = true;
-        this.grounded = false;
+        jumped = true;
+        grounded = false;
 
         this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
     }
@@ -194,10 +180,10 @@ public class Player extends PhysicsBody
     public void renderShapes(ShapeRenderer renderer) {
         renderer.setColor(Color.BROWN);
         renderer.rect(
-                this.position.x,
-                this.position.y,
-                this.width,
-                this.height);
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight());
     }
 
 
@@ -259,6 +245,6 @@ public class Player extends PhysicsBody
         Getters and Setters
      */
 
-    public boolean isCollisionDisabled() { return this.disableCollisionFor > 0f; }
-    public void setSpawnPosition(float x, float y) { this.spawnPosition.set(x, y); }
+    public boolean isCollisionDisabled() { return disableCollisionFor > 0f; }
+    public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
 }

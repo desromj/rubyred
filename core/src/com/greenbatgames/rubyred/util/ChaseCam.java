@@ -36,21 +36,21 @@ public class ChaseCam
                     xLeeway = Constants.CHASE_CAM_X_LEEWAY / 2.0f,
                     yLeeway = Constants.CHASE_CAM_Y_LEEWAY / 2.0f;
 
-            if (camera.position.x > target.getPosition().x
-                    && camera.position.x - target.getPosition().x > xLeeway)
-                camera.position.x = target.getPosition().x + xLeeway;
+            if (camera.position.x > target.getX()
+                    && camera.position.x - target.getX() > xLeeway)
+                camera.position.x = target.getX() + xLeeway;
 
-            if (camera.position.x < target.getPosition().x
-                    && target.getPosition().x - camera.position.x > xLeeway)
-                camera.position.x = target.getPosition().x - xLeeway;
+            if (camera.position.x < target.getX()
+                    && target.getX() - camera.position.x > xLeeway)
+                camera.position.x = target.getX() - xLeeway;
 
-            if (camera.position.y > target.getPosition().y
-                    && camera.position.y - target.getPosition().y > yLeeway)
-                camera.position.y = target.getPosition().y + yLeeway;
+            if (camera.position.y > target.getY()
+                    && camera.position.y - target.getY() > yLeeway)
+                camera.position.y = target.getY() + yLeeway;
 
-            if (camera.position.y < target.getPosition().y
-                    && target.getPosition().y - camera.position.y > yLeeway)
-                camera.position.y = target.getPosition().y - yLeeway;
+            if (camera.position.y < target.getY()
+                    && target.getY() - camera.position.y > yLeeway)
+                camera.position.y = target.getY() - yLeeway;
 
         } else {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -72,8 +72,8 @@ public class ChaseCam
 
     private void centreOnTarget()
     {
-        camera.position.x = target.getPosition().x;
-        camera.position.y = target.getPosition().y;
+        camera.position.x = target.getX();
+        camera.position.y = target.getY();
     }
 
 

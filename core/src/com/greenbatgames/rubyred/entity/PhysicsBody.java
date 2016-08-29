@@ -16,9 +16,9 @@ public abstract class PhysicsBody
 {
     public static final String TAG = PhysicsBody.class.getSimpleName();
 
-    Vector2 position, lastPosition;
-    float width, height;
-    boolean atRest;
+    private Vector2 position, lastPosition;
+    private float width, height;
+    private boolean atRest;
 
     protected Body body;
 
@@ -71,19 +71,18 @@ public abstract class PhysicsBody
 
     public boolean isAtRest() { return atRest; }
 
-    public Vector2 getPosition() { return position; }
-    public Vector2 getLastPosition() { return lastPosition; }
-
     // Width and Height use Body bounds from below
     public float getWidth() { return width; }
     public float getHeight() { return height; }
 
-
+    public float getX() { return position.x; }
+    public float getY() { return position.y; }
+    public float getLastX() { return lastPosition.x; }
+    public float getLastY() { return lastPosition.y; }
 
     /*
         Get Bounds based on Body Shape
-      */
-
+     */
     public float getBottom()
     {
         Shape shape = this.body.getFixtureList().first().getShape();
