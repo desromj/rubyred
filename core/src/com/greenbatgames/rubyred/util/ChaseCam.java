@@ -10,9 +10,9 @@ import com.greenbatgames.rubyred.entity.PhysicsBody;
  */
 public class ChaseCam
 {
-    PhysicsBody target;
-    OrthographicCamera camera;
-    Boolean following;
+    private PhysicsBody target;
+    private OrthographicCamera camera;
+    private Boolean following;
 
     public ChaseCam(OrthographicCamera camera, PhysicsBody target)
     {

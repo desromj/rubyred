@@ -103,7 +103,7 @@ public class WorldContactListener implements ContactListener
                 if (player.isCollisionDisabled() && platform.isOneWay()) {
                     contact.setEnabled(false);
                 } else if (platform.isOneWay()) {
-                    if (player.getBottom() <= platform.top - Constants.PLATFORM_COLLISION_LEEWAY) {
+                    if (player.getBottom() <= platform.getTop() - Constants.PLATFORM_COLLISION_LEEWAY) {
                         contact.setEnabled(false);
                     }
                 }
