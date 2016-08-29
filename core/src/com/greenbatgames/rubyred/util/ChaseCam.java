@@ -2,7 +2,7 @@ package com.greenbatgames.rubyred.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 
 /**
@@ -11,10 +11,10 @@ import com.greenbatgames.rubyred.entity.PhysicsBody;
 public class ChaseCam
 {
     PhysicsBody target;
-    Camera camera;
+    OrthographicCamera camera;
     Boolean following;
 
-    public ChaseCam(Camera camera, PhysicsBody target)
+    public ChaseCam(OrthographicCamera camera, PhysicsBody target)
     {
         this.target = target;
         this.camera = camera;
@@ -82,5 +82,5 @@ public class ChaseCam
     public float getY() {return camera.position.y - camera.viewportHeight / 2.0f;}
     public float getWidth() {return camera.viewportWidth;}
     public float getHeight() {return camera.viewportHeight;}
-    public Camera getCamera() {return camera;}
+    public OrthographicCamera getCamera() {return camera;}
 }

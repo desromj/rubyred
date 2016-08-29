@@ -257,4 +257,5 @@ public class Player extends PhysicsBody
      */
 
     public boolean isCollisionDisabled() { return this.disableCollisionFor > 0f; }
+    public void setSpawnPosition(float x, float y) { this.spawnPosition.set(x, y); }
 }

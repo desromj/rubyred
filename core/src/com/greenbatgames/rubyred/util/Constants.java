@@ -36,29 +36,30 @@ public class Constants
     public static int KEY_CROUCH = Input.Keys.SHIFT_LEFT;
     public static int KEY_CROUCH_ALT = Input.Keys.CONTROL_LEFT;
 
-
-
     /*
         World Aspect Ratio
      */
 
-    public static final float WORLD_WIDTH = 800f;
+    public static final float WORLD_WIDTH = 320;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
 
     public static final Color BG_COLOR = Color.SKY;
 
     /*
-        Physics World Values
+        Physics and Tiled World Values
      */
 
-    public static final float GRAVITY = -9.81f;
+    public static final float GRAVITY = -20f;
 
     // Pixels-to-metres conversion
-    public static final float PTM = 100f;
+    public static final float PTM = 40f;
+
+    // Number of pixels per tile
+    public static final float TILED_TILE_SIZE = 32f;
+    public static final float TILED_UNIT_SCALE = TILED_TILE_SIZE / PTM;
+
     public static final float WOBBLE_ROOM = WORLD_WIDTH / 16000f;
-
     public static final float DISABLE_COLLISION_FOR_PLATFORM = 0.25f;
-
     public static final float PHYSICS_STEP_FREQ = 1f / 60f;
     public static final int PHYSICS_VEL_ITERATIONS = 6;
     public static final int PHYSICS_POS_ITERATIONS = 6;
@@ -68,10 +69,10 @@ public class Constants
      */
 
     public static final float RUBY_DENSITY = 400.0f;
-    public static final float RUBY_JUMP_IMPULSE = 160.0f * RUBY_DENSITY;
-    public static final float RUBY_RADIUS = WORLD_WIDTH / 36.0f;
+    public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 0.60f;
+    public static final float RUBY_RADIUS = WORLD_WIDTH / 32.0f;
 
-    public static final float RUBY_MOVE_SPEED = 250.0f;
+    public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 3.0f;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
     public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.90f;
@@ -80,25 +81,25 @@ public class Constants
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;
 
     public static final Vector2[] RUBY_VERTICIES_NORMAL = new Vector2[] {
-            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM)
+            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, 0.67f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, 0.67f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, -0.67f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, -0.67f * RUBY_VERTEX_Y_SCALE / PTM)
     };
 
     public static final Vector2[] RUBY_VERTICIES_CROUCHED = new Vector2[] {
-            new Vector2(1.67f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.00f * RUBY_VERTEX_X_SCALE / PTM, 0.75f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.00f * RUBY_VERTEX_X_SCALE / PTM, 0.75f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.67f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.67f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.00f * RUBY_VERTEX_X_SCALE / PTM, -0.75f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.00f * RUBY_VERTEX_X_SCALE / PTM, -0.75f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.67f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM)
+            new Vector2(1.20f * RUBY_VERTEX_X_SCALE / PTM, 0.33f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.75f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.75f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.20f * RUBY_VERTEX_X_SCALE / PTM, 0.33f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.20f * RUBY_VERTEX_X_SCALE / PTM, -0.33f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.75f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.75f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM),
+            new Vector2(1.20f * RUBY_VERTEX_X_SCALE / PTM, -0.33f * RUBY_VERTEX_Y_SCALE / PTM)
     };
 
     /*

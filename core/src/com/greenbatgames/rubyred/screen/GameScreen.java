@@ -5,8 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -66,13 +70,31 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         world = new World(new Vector2(0, Constants.GRAVITY), true);
         player = new Player(80.0f, 240.0f, Constants.RUBY_RADIUS * 2.0f, Constants.RUBY_RADIUS * 4.0f, world);
 
-        viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        // local Orthographic Camera for the viewport
+        OrthographicCamera camera = new OrthographicCamera();
+        camera.setToOrtho(false, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
+
+        // Proceed with other instance variables
         renderer = new ShapeRenderer();
         batch = new SpriteBatch();
-        chaseCam = new ChaseCam(viewport.getCamera(), player);
+        chaseCam = new ChaseCam(camera, player);
 
         tiledMap = new TmxMapLoader().load("level-1.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, Constants.TILED_UNIT_SCALE);
+
+        // Set player position to the spawn position object in the TiledMap
+        for (MapLayer layer: tiledMap.getLayers()) {
+            for (MapObject object : layer.getObjects()) {
+                if (object.getName().compareTo("spawn-position") == 0) {
+                    player.setSpawnPosition(
+                            object.getProperties().get("x", Float.class),
+                            object.getProperties().get("y", Float.class)
+                    );
+                    player.init();
+                }
+            }
+        }
 
         bodiesToAdd = new Array<BodyDef>();
         fixturesToAdd = new Array<FixtureDef>();
@@ -83,8 +105,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         platforms = new Array<Platform>();
 
         // Other game objects
-        platforms.add(new Platform(20.0f, 20.0f, 1600.0f, 80.0f, world, false));
-        platforms.add(new Platform(800.0f, 420.0f, 540.0f, 25.0f, world, true));
+        platforms.add(new Platform(0.5f, 0.5f, 40.0f, 2.0f, world, false));
+        platforms.add(new Platform(1.5f, 6.0f, 1.5f, 1.5f, world, true));
 
         // Finalize
         Gdx.input.setInputProcessor(this);
@@ -121,21 +143,11 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
             Rendering logic
          */
 
-        // Render Tiled Maps
-        tiledMapRenderer.setView(
-            chaseCam.getCamera().combined,
-            chaseCam.getX(),
-            chaseCam.getY(),
-            chaseCam.getWidth(),
-            chaseCam.getHeight()
-        );
-
-        tiledMapRenderer.render();
-
         // Set projection matricies
         viewport.apply();
         renderer.setProjectionMatrix(viewport.getCamera().combined);
         batch.setProjectionMatrix(viewport.getCamera().combined);
+        tiledMapRenderer.setView(chaseCam.getCamera());
 
         // Scale the debug Matrix to box2d sizes
         debugMatrix = viewport.getCamera().combined.cpy().scale(
@@ -146,6 +158,9 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Render Tiled Maps
+        tiledMapRenderer.render();
 
         // Render Shapes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -171,8 +186,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     public void doShapeRender(ShapeRenderer renderer)
     {
         // Render game background
+        /*
         renderer.setColor(Constants.BG_COLOR);
         renderer.rect(0, 0, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        */
 
         // Render platforms
         for (Platform platform: platforms)
