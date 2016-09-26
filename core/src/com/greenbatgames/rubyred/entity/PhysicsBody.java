@@ -7,12 +7,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.util.Constants;
 
 /**
  * Created by Quiv on 10-08-2016.
  */
-public abstract class PhysicsBody
+public abstract class PhysicsBody extends Actor
 {
     public static final String TAG = PhysicsBody.class.getSimpleName();
 

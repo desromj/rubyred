@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -45,7 +46,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     World world;
     Player player;
 
-    Viewport viewport;
+    Stage stage;
+
     ShapeRenderer renderer;
     SpriteBatch batch;
     ChaseCam chaseCam;
@@ -73,9 +75,9 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         // local Orthographic Camera for the viewport
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         // Proceed with other instance variables
+        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera));
         renderer = new ShapeRenderer();
         batch = new SpriteBatch();
         chaseCam = new ChaseCam(camera, player);
@@ -112,6 +114,9 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         // Finalize
         Gdx.input.setInputProcessor(this);
         world.setContactListener(new WorldContactListener());
+
+        // Add actors to stage
+        stage.addActor(player);
     }
 
 
@@ -148,13 +153,13 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
          */
 
         // Set projection matricies
-        viewport.apply();
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        stage.getViewport().apply();
+        renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
+        batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
         tiledMapRenderer.setView(chaseCam.getCamera());
 
         // Scale the debug Matrix to box2d sizes
-        debugMatrix = viewport.getCamera().combined.cpy().scale(
+        debugMatrix = stage.getViewport().getCamera().combined.cpy().scale(
                 Constants.PTM,
                 Constants.PTM,
                 0
@@ -172,9 +177,14 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         renderer.end();
 
         // Render Sprites
+
+        stage.draw();
+
+        /*
         batch.begin();
         doSpriteRender(batch);
         batch.end();
+        */
 
         // Render the debug physics engine settings
         debugRenderer.render(world, debugMatrix);
@@ -204,14 +214,16 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     }
 
 
+    /*
 
     public void doSpriteRender(SpriteBatch batch)
     {
         // Render player character
         player.renderSprites(batch);
+
     }
 
-
+    */
 
     /**
      * Adds and removes physics bodies outside of world.step()
@@ -269,7 +281,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     public Player getPlayer() { return player; }
     public Viewport getViewport()
     {
-        return viewport;
+        return stage.getViewport();
     }
 
 
@@ -281,7 +293,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     @Override
     public void resize(int width, int height)
     {
-        viewport.update(width, height, true);
+        stage.getViewport().update(width, height, true);
     }
 
 

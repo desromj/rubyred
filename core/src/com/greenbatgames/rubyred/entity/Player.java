@@ -3,12 +3,14 @@ package com.greenbatgames.rubyred.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
@@ -175,15 +177,32 @@ public class Player extends PhysicsBody
     // TODO: Render here
 
 
-
     @Override
-    public void renderShapes(ShapeRenderer renderer) {
+    public void draw(Batch batch, float parentAlpha)
+    {
+        batch.end();
+
+        ShapeRenderer renderer = new ShapeRenderer();
+        renderer.setProjectionMatrix(batch.getProjectionMatrix());
+
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+
         renderer.setColor(Color.BROWN);
         renderer.rect(
                 getX(),
                 getY(),
                 getWidth(),
                 getHeight());
+
+        renderer.end();
+
+        batch.begin();
+    }
+
+
+    @Override
+    public void renderShapes(ShapeRenderer renderer) {
+
     }
 
 
