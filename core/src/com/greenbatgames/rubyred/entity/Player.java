@@ -200,19 +200,6 @@ public class Player extends PhysicsBody
     }
 
 
-    @Override
-    public void renderShapes(ShapeRenderer renderer) {
-
-    }
-
-
-
-    @Override
-    public void renderSprites(SpriteBatch batch) {
-
-    }
-
-
 
     // TODO: Sets crouch collision, if crouching needs to be added to the game
 

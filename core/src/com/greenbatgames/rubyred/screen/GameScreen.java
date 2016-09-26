@@ -48,8 +48,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
     Stage stage;
 
-    ShapeRenderer renderer;
-    SpriteBatch batch;
     ChaseCam chaseCam;
 
     TiledMap tiledMap;
@@ -78,8 +76,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         // Proceed with other instance variables
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera));
-        renderer = new ShapeRenderer();
-        batch = new SpriteBatch();
         chaseCam = new ChaseCam(camera, player);
 
         tiledMap = new TmxMapLoader().load("level-1.tmx");
@@ -117,6 +113,9 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         // Add actors to stage
         stage.addActor(player);
+
+        for (Platform platform: platforms)
+            stage.addActor(platform);
     }
 
 
@@ -138,6 +137,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         // Edit Physics bodies outside of world.step
         runQueuedPhysicsChanges();
 
+        stage.act(delta);
+
         /*
             Game object updates
          */
@@ -154,12 +155,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         // Set projection matricies
         stage.getViewport().apply();
-        renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
-        batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
         tiledMapRenderer.setView(chaseCam.getCamera());
 
         // Scale the debug Matrix to box2d sizes
-        debugMatrix = stage.getViewport().getCamera().combined.cpy().scale(
+        debugMatrix = chaseCam.getCamera().combined.cpy().scale(
                 Constants.PTM,
                 Constants.PTM,
                 0
@@ -171,20 +170,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         // Render Tiled Maps
         tiledMapRenderer.render();
 
-        // Render Shapes
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        doShapeRender(renderer);
-        renderer.end();
-
-        // Render Sprites
-
+        // Render Stage and actors
         stage.draw();
-
-        /*
-        batch.begin();
-        doSpriteRender(batch);
-        batch.end();
-        */
 
         // Render the debug physics engine settings
         debugRenderer.render(world, debugMatrix);
@@ -192,38 +179,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
 
 
-    /*
-        Separated shape and sprite renderers
-     */
-
-
-    public void doShapeRender(ShapeRenderer renderer)
-    {
-        // Render game background
-        /*
-        renderer.setColor(Constants.BG_COLOR);
-        renderer.rect(0, 0, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        */
-
-        // Render platforms
-        for (Platform platform: platforms)
-            platform.renderShapes(renderer);
-
-        // TODO: temp player render, until sprites are done
-        player.renderShapes(renderer);
-    }
-
-
-    /*
-
-    public void doSpriteRender(SpriteBatch batch)
-    {
-        // Render player character
-        player.renderSprites(batch);
-
-    }
-
-    */
 
     /**
      * Adds and removes physics bodies outside of world.step()

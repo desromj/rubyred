@@ -1,5 +1,7 @@
 package com.greenbatgames.rubyred.entity;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -53,8 +55,15 @@ public class Platform extends PhysicsBody
     }
 
     @Override
-    public void renderShapes(ShapeRenderer renderer)
+    public void draw(Batch batch, float parentAlpha)
     {
+        batch.end();
+
+        ShapeRenderer renderer = new ShapeRenderer();
+        renderer.setProjectionMatrix(batch.getProjectionMatrix());
+
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+
         renderer.setColor(Constants.PLATFORM_COLOR);
         renderer.rect(
                 this.left,
@@ -62,10 +71,11 @@ public class Platform extends PhysicsBody
                 getWidth(),
                 getHeight()
         );
-    }
 
-    @Override
-    public void renderSprites(SpriteBatch batch) {}
+        renderer.end();
+
+        batch.begin();
+    }
 
     public boolean isOneWay() { return this.oneWay; }
 }

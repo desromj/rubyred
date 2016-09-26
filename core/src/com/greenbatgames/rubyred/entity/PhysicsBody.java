@@ -38,8 +38,6 @@ public abstract class PhysicsBody extends Actor
     }
 
     protected abstract void initPhysics(World world);
-    public abstract void renderShapes(ShapeRenderer renderer);
-    public abstract void renderSprites(SpriteBatch batch);
 
     public void update(float delta)
     {
