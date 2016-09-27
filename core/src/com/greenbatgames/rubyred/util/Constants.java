@@ -2,6 +2,7 @@ package com.greenbatgames.rubyred.util;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -73,13 +74,14 @@ public class Constants
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
     public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
-    public static final float RUBY_HOP_ANGLE_RIGHT = 35.0f;
-    public static final float RUBY_HOP_ANGLE_LEFT = 145.0f;
+    public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
+    public static final float RUBY_HOP_ANGLE_LEFT = 135.0f;
 
     public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 54.0f;
+    public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_MOVE_SPEED;
 
-    public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
-    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.975f;
+    public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.90f;
+    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.95f;
 
     public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;

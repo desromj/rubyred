@@ -76,7 +76,7 @@ public class Player extends PhysicsBody
         fixtureDef.shape = shape;
         fixtureDef.density = Constants.RUBY_DENSITY;
         fixtureDef.restitution = 0f;
-        fixtureDef.friction = 0.75f;
+        fixtureDef.friction = 1f;
 
         this.body.createFixture(fixtureDef);
         this.body.setUserData(this);
@@ -114,6 +114,7 @@ public class Player extends PhysicsBody
                 );
 
                 this.facingRight = true;
+                return;
 
             } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 
@@ -124,15 +125,35 @@ public class Player extends PhysicsBody
                 );
 
                 this.facingRight = false;
-
+                return;
             }
         } else {
             if (!this.grounded)
             {
-                this.body.setLinearVelocity(
-                        this.body.getLinearVelocity().x * Constants.RUBY_HORIZONTAL_FALL_DAMPEN,
-                        this.body.getLinearVelocity().y
-                );
+
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    this.body.setLinearVelocity(
+                            MathUtils.clamp(
+                                    this.body.getLinearVelocity().x + Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
+                                    -Constants.RUBY_MAX_HORIZ_HOP_SPEED,
+                                    Constants.RUBY_MAX_HORIZ_HOP_SPEED),
+                            this.body.getLinearVelocity().y
+                    );
+                } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    this.body.setLinearVelocity(
+                            MathUtils.clamp(
+                                    this.body.getLinearVelocity().x - Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
+                                    -Constants.RUBY_MAX_HORIZ_HOP_SPEED,
+                                    Constants.RUBY_MAX_HORIZ_HOP_SPEED),
+                            this.body.getLinearVelocity().y
+                    );
+                } else {
+                    this.body.setLinearVelocity(
+                            this.body.getLinearVelocity().x * Constants.RUBY_HORIZONTAL_FALL_DAMPEN,
+                            this.body.getLinearVelocity().y
+                    );
+                }
+
             } else {
                 this.body.setLinearVelocity(
                         this.body.getLinearVelocity().x * Constants.RUBY_HORIZONTAL_WALK_DAMPEN,
@@ -143,9 +164,11 @@ public class Player extends PhysicsBody
 
         // Jumping movement
 
-        if (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT)) {
+        if (!jumped && grounded &&
+                (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT))) {
             jump();
             this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
+            return;
         }
     }
 
