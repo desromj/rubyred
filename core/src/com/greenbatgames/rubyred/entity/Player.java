@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -75,7 +76,7 @@ public class Player extends PhysicsBody
         fixtureDef.shape = shape;
         fixtureDef.density = Constants.RUBY_DENSITY;
         fixtureDef.restitution = 0f;
-        fixtureDef.friction = 0f;
+        fixtureDef.friction = 0.75f;
 
         this.body.createFixture(fixtureDef);
         this.body.setUserData(this);
@@ -103,24 +104,28 @@ public class Player extends PhysicsBody
     {
         // Horizontal movement
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (!jumped && grounded) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
+                jump();
                 this.body.setLinearVelocity(
-                        Constants.RUBY_MOVE_SPEED / Constants.PTM,
-                        this.body.getLinearVelocity().y
+                        Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
+                        Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
                 );
 
-            this.facingRight = true;
+                this.facingRight = true;
 
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 
+                jump();
                 this.body.setLinearVelocity(
-                        -Constants.RUBY_MOVE_SPEED / Constants.PTM,
-                        this.body.getLinearVelocity().y
+                        Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
+                        Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
                 );
 
-            this.facingRight = false;
+                this.facingRight = false;
 
+            }
         } else {
             if (!this.grounded)
             {
@@ -138,8 +143,10 @@ public class Player extends PhysicsBody
 
         // Jumping movement
 
-        if (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT))
+        if (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT)) {
             jump();
+            this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
+        }
     }
 
 
@@ -168,8 +175,6 @@ public class Player extends PhysicsBody
         // Otherwise, proceed with jump
         jumped = true;
         grounded = false;
-
-        this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
     }
 
 

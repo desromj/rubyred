@@ -40,7 +40,7 @@ public class Constants
         World Aspect Ratio
      */
 
-    public static final float WORLD_WIDTH = 320;
+    public static final float WORLD_WIDTH = 640;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
 
     public static final Color BG_COLOR = Color.SKY;
@@ -49,7 +49,7 @@ public class Constants
         Physics and Tiled World Values
      */
 
-    public static final float GRAVITY = -20f;
+    public static final float GRAVITY = -32f;
     public static final float KILL_PLANE_Y = -100f;
 
     // Pixels-to-metres conversion
@@ -70,13 +70,16 @@ public class Constants
      */
 
     public static final float RUBY_DENSITY = 400.0f;
-    public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 0.60f;
-    public static final float RUBY_RADIUS = WORLD_WIDTH / 32.0f;
+    public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
+    public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
-    public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 3.0f;
+    public static final float RUBY_HOP_ANGLE_RIGHT = 35.0f;
+    public static final float RUBY_HOP_ANGLE_LEFT = 145.0f;
+
+    public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 54.0f;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
-    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.90f;
+    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.975f;
 
     public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;
