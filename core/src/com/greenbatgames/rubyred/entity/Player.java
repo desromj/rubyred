@@ -40,8 +40,8 @@ public class Player extends PhysicsBody
         this.body.setLinearVelocity(0f, 0f);
 
         this.body.setTransform(
-                (spawnPosition.x - getWidth() / 2.0f) / Constants.PTM,
-                (spawnPosition.y - getHeight() / 2.0f) / Constants.PTM,
+                (spawnPosition.x + getWidth() / 2.0f) / Constants.PTM,
+                (spawnPosition.y + getHeight() / 2.0f) / Constants.PTM,
                 0f
         );
 
@@ -61,8 +61,8 @@ public class Player extends PhysicsBody
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
-                getX() / Constants.PTM,
-                getY() / Constants.PTM
+                (getX() + getWidth() / 2.0f) / Constants.PTM,
+                (getY() + getHeight() / 2.0f) / Constants.PTM
         );
         bodyDef.fixedRotation = true;
 

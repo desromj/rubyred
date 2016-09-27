@@ -33,6 +33,8 @@ import com.greenbatgames.rubyred.entity.WorldContactListener;
 import com.greenbatgames.rubyred.util.ChaseCam;
 import com.greenbatgames.rubyred.util.Constants;
 
+import java.util.Iterator;
+
 /**
  * Created by Quiv on 10-08-2016.
  */
@@ -79,7 +81,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         chaseCam = new ChaseCam(camera, player);
 
         tiledMap = new TmxMapLoader().load("level-1.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, Constants.TILED_UNIT_SCALE);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         bodiesToAdd = new Array<BodyDef>();
         fixturesToAdd = new Array<FixtureDef>();
@@ -93,19 +95,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         platforms.add(new Platform(0.5f, 0.5f, 400.0f, 2.0f, world, false));
         platforms.add(new Platform(1.5f, 6.0f, 1.5f, 1.5f, world, true));
 
-        // Set player position to the spawn position object in the TiledMap
-        for (MapLayer layer: tiledMap.getLayers()) {
-            for (MapObject object : layer.getObjects()) {
-                if (object.getName().compareTo("spawn-position") == 0) {
-                    player.setSpawnPosition(
-                            object.getProperties().get("x", Float.class),
-                            object.getProperties().get("y", Float.class)
-                    );
-
-                    player.init();
-                }
-            }
-        }
+        loadTileMap();
 
         // Finalize
         Gdx.input.setInputProcessor(this);
@@ -118,6 +108,57 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
             stage.addActor(platform);
     }
 
+
+
+    /**
+     * All objects loaded through the tile map
+     */
+    private void loadTileMap()
+    {
+        // Set player position to the spawn position object in the TiledMap
+        for (MapLayer layer: tiledMap.getLayers()) {
+
+            if (layer.getName().compareTo("collision") == 0)
+            {
+                for (MapObject object : layer.getObjects()) {
+
+                    MapProperties props = object.getProperties();
+                    String type = props.get("type", String.class);
+
+                    if (type.compareTo("platform") == 0)
+                    {
+                        for (Iterator<String> iter = props.getKeys(); iter.hasNext(); )
+                        {
+                            String key = iter.next();
+                            Gdx.app.log(TAG, key + ", " + props.get(key));
+                        }
+
+                        platforms.add(new Platform(
+                                props.get("x", Float.class),
+                                props.get("y", Float.class),
+                                props.get("width", Float.class),
+                                props.get("height", Float.class),
+                                world,
+                                false
+                        ));
+                    }
+                }
+            }
+
+            if (layer.getName().compareTo("spawn") == 0) {
+                for (MapObject object : layer.getObjects()) {
+                    if (object.getName().compareTo("spawn-position") == 0) {
+                        player.setSpawnPosition(
+                                object.getProperties().get("x", Float.class),
+                                object.getProperties().get("y", Float.class)
+                        );
+
+                        player.init();
+                    }
+                }
+            }
+        }
+    }
 
 
     /*

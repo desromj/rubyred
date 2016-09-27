@@ -36,8 +36,8 @@ public class Platform extends PhysicsBody
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(
-                getX() / Constants.PTM,
-                getY() / Constants.PTM);
+                (getX() + getWidth() / 2.0f) / Constants.PTM,
+                (getY() + getHeight() / 2.0f) / Constants.PTM);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(
@@ -52,29 +52,6 @@ public class Platform extends PhysicsBody
         this.body.setUserData(this);
 
         shape.dispose();
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        batch.end();
-
-        ShapeRenderer renderer = new ShapeRenderer();
-        renderer.setProjectionMatrix(batch.getProjectionMatrix());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        renderer.setColor(Constants.PLATFORM_COLOR);
-        renderer.rect(
-                this.left,
-                this.bottom,
-                getWidth(),
-                getHeight()
-        );
-
-        renderer.end();
-
-        batch.begin();
     }
 
     public boolean isOneWay() { return this.oneWay; }
