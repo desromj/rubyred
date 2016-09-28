@@ -73,16 +73,19 @@ public class Constants
     public static final float RUBY_DENSITY = 400.0f;
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
     public static final float RUBY_SPRING_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 1.25f;
+    public static final float RUBY_LONG_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 2.0f;
     public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
     public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
-    public static final float RUBY_HOP_ANGLE_LEFT = 135.0f;
+    public static final float RUBY_HOP_ANGLE_LEFT = 180.0f - RUBY_HOP_ANGLE_RIGHT;
+    public static final float RUBY_LONG_JUMP_ANGLE_RIGHT = 20.0f;
+    public static final float RUBY_LONG_JUMP_ANGLE_LEFT = 180.0f - RUBY_LONG_JUMP_ANGLE_RIGHT;
 
     public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 54.0f;
     public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_MOVE_SPEED;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.90f;
-    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.95f;
+    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.96f;
 
     public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;

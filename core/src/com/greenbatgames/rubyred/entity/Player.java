@@ -169,6 +169,18 @@ public class Player extends PhysicsBody
 
             if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
                 this.body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+                float angle;
+
+                if (this.facingRight)
+                    angle = MathUtils.degreesToRadians * Constants.RUBY_LONG_JUMP_ANGLE_RIGHT;
+                else
+                    angle = MathUtils.degreesToRadians * Constants.RUBY_LONG_JUMP_ANGLE_LEFT;
+
+                this.body.applyForceToCenter(
+                        Constants.RUBY_LONG_JUMP_IMPULSE * MathUtils.cos(angle),
+                        Constants.RUBY_LONG_JUMP_IMPULSE * MathUtils.sin(angle),
+                        true);
             } else {
                 this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
             }
