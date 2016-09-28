@@ -90,7 +90,7 @@ public class Constants
     public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;
 
-    public static final Vector2[] RUBY_VERTICIES_NORMAL = new Vector2[] {
+    public static final Vector2[] RUBY_VERTICES_NORMAL = new Vector2[] {
             new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, 0.67f * RUBY_VERTEX_Y_SCALE / PTM),
             new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
             new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),

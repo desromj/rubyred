@@ -68,7 +68,7 @@ public class Player extends PhysicsBody
         this.body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.set(Constants.RUBY_VERTICIES_NORMAL);
+        shape.set(Constants.RUBY_VERTICES_NORMAL);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -264,17 +264,17 @@ public class Player extends PhysicsBody
             bodyDef.position.set(
                     this.body.getPosition().x,
                     (this.body.getPosition().y -
-                            (Utils.getMaxHeight(Constants.RUBY_VERTICIES_NORMAL)
+                            (Utils.getMaxHeight(Constants.RUBY_VERTICES_NORMAL)
                                     - Utils.getMaxHeight(Constants.RUBY_VERTICIES_CROUCHED))
                                     / 2.0f)
             );
         } else {
-            shape.set(Constants.RUBY_VERTICIES_NORMAL);
+            shape.set(Constants.RUBY_VERTICES_NORMAL);
             bodyDef.position.set(
                     this.body.getPosition().x,
                     (this.body.getPosition().y -
                             (Utils.getMaxHeight(Constants.RUBY_VERTICIES_CROUCHED)
-                                    - Utils.getMaxHeight(Constants.RUBY_VERTICIES_NORMAL))
+                                    - Utils.getMaxHeight(Constants.RUBY_VERTICES_NORMAL))
                                     / 2.0f)
             );
         }
