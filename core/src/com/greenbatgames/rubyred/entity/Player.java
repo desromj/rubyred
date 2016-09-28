@@ -85,9 +85,9 @@ public class Player extends PhysicsBody
 
 
     @Override
-    public void update(float delta)
+    public void act(float delta)
     {
-        super.update(delta);
+        super.act(delta);
 
         disableCollisionFor -= delta;
 

@@ -39,7 +39,8 @@ public abstract class PhysicsBody extends Actor
 
     protected abstract void initPhysics(World world);
 
-    public void update(float delta)
+    @Override
+    public void act(float delta)
     {
         // Update our last position for the next frame
         lastPosition.set(position.x, position.y);

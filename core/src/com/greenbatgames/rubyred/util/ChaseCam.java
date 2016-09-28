@@ -3,12 +3,13 @@ package com.greenbatgames.rubyred.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 
 /**
  * Created by Quiv on 10-08-2016.
  */
-public class ChaseCam
+public class ChaseCam extends Actor
 {
     private PhysicsBody target;
     private OrthographicCamera camera;
@@ -21,7 +22,8 @@ public class ChaseCam
         this.following = true;
     }
 
-    public void update(float delta)
+    @Override
+    public void act(float delta)
     {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
         {

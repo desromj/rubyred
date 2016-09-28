@@ -1,13 +1,10 @@
 package com.greenbatgames.rubyred.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -91,18 +88,26 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
         platforms = new Array<Platform>();
 
-        // Other game objects
-        platforms.add(new Platform(0.5f, 0.5f, 400.0f, 2.0f, world, false));
-        platforms.add(new Platform(1.5f, 6.0f, 1.5f, 1.5f, world, true));
-
+        // Load map from the tile map
         loadTileMap();
 
         // Finalize
         Gdx.input.setInputProcessor(this);
         world.setContactListener(new WorldContactListener());
 
-        // Add actors to stage
+        // Finally, add actors to stage so they can be updated
+        addActors();
+    }
+
+
+
+    /**
+     * Add all actors to the stage for this level
+     */
+    private void addActors()
+    {
         stage.addActor(player);
+        stage.addActor(chaseCam);
 
         for (Platform platform: platforms)
             stage.addActor(platform);
@@ -183,9 +188,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         /*
             Game object updates
          */
-
-        player.update(delta);
-        chaseCam.update(delta);
 
         if (player.getY() <= Constants.KILL_PLANE_Y)
             player.init();
