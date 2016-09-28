@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
@@ -92,6 +90,7 @@ public class Player extends PhysicsBody
         super.update(delta);
 
         disableCollisionFor -= delta;
+
         move();
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
@@ -167,7 +166,13 @@ public class Player extends PhysicsBody
         if (!jumped && grounded &&
                 (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT))) {
             jump();
-            this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
+
+            if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                this.body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
+            } else {
+                this.body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
+            }
+
             return;
         }
     }

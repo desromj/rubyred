@@ -72,6 +72,7 @@ public class Constants
 
     public static final float RUBY_DENSITY = 400.0f;
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
+    public static final float RUBY_SPRING_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 1.25f;
     public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
     public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
