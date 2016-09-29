@@ -19,10 +19,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.entity.Player;
@@ -132,12 +134,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
                     if (type.compareTo("platform") == 0)
                     {
-                        for (Iterator<String> iter = props.getKeys(); iter.hasNext(); )
-                        {
-                            String key = iter.next();
-                            Gdx.app.log(TAG, key + ", " + props.get(key));
-                        }
-
                         platforms.add(new Platform(
                                 props.get("x", Float.class),
                                 props.get("y", Float.class),
@@ -146,6 +142,25 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
                                 world,
                                 false
                         ));
+                    }
+                }
+            }
+
+            if (layer.getName().compareTo("obstacle") == 0) {
+
+                for (MapObject object : layer.getObjects()) {
+
+                    MapProperties props = object.getProperties();
+                    String type = props.get("type", String.class);
+
+                    if (type.compareTo("bird-spawner") == 0)
+                    {
+                        BirdSpawner spawner = new BirdSpawner(
+                                object.getProperties().get("x", Float.class),
+                                object.getProperties().get("y", Float.class)
+                        );
+
+                        stage.addActor(spawner);
                     }
                 }
             }
@@ -164,6 +179,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
             }
         }
     }
+
 
 
     /*
@@ -258,9 +274,13 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         Physics body queueing methods
      */
 
-    public void queueBodyToDestroy(Body body)
+    public void queueBodyToDestroy(PhysicsBody body)
     {
-        this.bodiesToRemove.add(body);
+        this.bodiesToRemove.add(body.getBody());
+
+        for (Actor actor: stage.getActors())
+            if (actor == body)
+                actor.remove();
     }
 
     public void queueBodyToCreate(BodyDef bodyDef, FixtureDef fixtureDef, PhysicsBody newUserData)
@@ -282,6 +302,12 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         return stage.getViewport();
     }
 
+
+    /*
+        Adders and Removers
+     */
+
+    public void addActorToStage(Actor actor) { stage.addActor(actor); }
 
 
     /*

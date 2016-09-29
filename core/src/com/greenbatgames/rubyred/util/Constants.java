@@ -141,4 +141,15 @@ public class Constants
     public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 60.0f;
     public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 960.0f;
 
+    /*
+        Bird object values
+     */
+
+    public static final float BIRD_SPAWN_DELAY = 2.5f;
+
+    public static final float BIRD_WIDTH = WORLD_WIDTH / 25.0f;
+    public static final float BIRD_HEIGHT = WORLD_WIDTH / 75.0f;
+    public static final float BIRD_DENSITY = 200.0f;
+    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 60.0f;
+
 }
