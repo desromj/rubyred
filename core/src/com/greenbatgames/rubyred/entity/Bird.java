@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 
@@ -16,53 +17,26 @@ import com.greenbatgames.rubyred.util.Constants;
  * Created by Quiv on 28-09-2016.
  */
 
-public class Bird extends PhysicsBody
+public class Bird extends Actor
 {
-    private boolean moveRight;
-    private Vector2 velocity;
+    private Vector2 position, velocity;
+    private float width, height;
+    private boolean hitPlayer;
 
     public Bird(float x, float y, boolean moveRight) {
-        super(
-                x,
-                y,
-                Constants.BIRD_WIDTH,
-                Constants.BIRD_HEIGHT,
-                null);
 
-        this.moveRight = moveRight;
-
-        Gdx.app.log(TAG, "Bird object created");
-    }
-
-    @Override
-    protected void initPhysics(World world) {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(
-                getX() / Constants.PTM,
-                getY() / Constants.PTM);
-
-        bodyDef.fixedRotation = true;
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(
-                Constants.BIRD_WIDTH / Constants.PTM,
-                Constants.BIRD_HEIGHT / Constants.PTM);
-
-        FixtureDef fixtureDef = new FixtureDef();
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = Constants.BIRD_DENSITY;
-        fixtureDef.restitution = 0f;
-        fixtureDef.friction = 0f;
-
-        GameScreen.instance.queueBodyToCreate(bodyDef, fixtureDef, this);
-        GameScreen.instance.addActorToStage(this);
-
+        this.position = new Vector2(x, y);
         this.velocity = new Vector2(
-                (this.moveRight) ? Constants.BIRD_MOVE_SPEED : -Constants.BIRD_MOVE_SPEED,
+                (moveRight) ? Constants.BIRD_MOVE_SPEED : -Constants.BIRD_MOVE_SPEED,
                 0f
         );
+
+        this.width = Constants.BIRD_WIDTH;
+        this.height = Constants.BIRD_HEIGHT;
+
+        this.hitPlayer = false;
+
+        GameScreen.instance.addActorToStage(this);
     }
 
     @Override
@@ -70,25 +44,37 @@ public class Bird extends PhysicsBody
     {
         super.act(delta);
 
-        velocity = velocity.scl(delta);
-        Player player = GameScreen.instance.getPlayer();
-        this.body.setLinearVelocity(velocity);
+        this.position.mulAdd(velocity, delta);
 
-        // Destroy the body if we are farther away than twice the world width
+        Player player = GameScreen.instance.getPlayer();
+
+        // If player is hit, add impact recoil
+        if(
+                !this.hitPlayer
+                && Math.abs(player.getX() - position.x) < Constants.RUBY_RADIUS + width / 2.0f
+                && Math.abs(player.getY() - position.y) < (Constants.RUBY_RADIUS * 2.0f) + height / 2.0f
+                )
+        {
+            boolean pushRight = (player.getX() > this.position.x);
+
+            // Cancel velocity and apply knockback force
+            player.getBody().setLinearVelocity(0f, 0f);
+            player.getBody().applyForceToCenter(
+                    (pushRight) ? Constants.BIRD_KNOCKBACK_IMPULSE.x : -Constants.BIRD_KNOCKBACK_IMPULSE.x,
+                    Constants.BIRD_KNOCKBACK_IMPULSE.y,
+                    true
+            );
+            this.hitPlayer = true;
+        }
+
+        // If bird is out of range of the player (2 screen widths), destroy it
         if (
             Math.abs(Vector2.dst(
                     player.getX(), player.getY(),
-                    this.getX(), this.getY()))
-            > Constants.WORLD_WIDTH * 2.0f)
+                    position.x, position.y))
+            > Constants.WORLD_WIDTH * 1.25f)
         {
-            GameScreen.instance.queueBodyToDestroy(this);
-
-            Gdx.app.log(TAG, "Bird object destroyed");
-            Gdx.app.log(TAG, "Player x,y: " + player.getX() + ", " + player.getY());
-            Gdx.app.log(TAG, "Bird x,y: " + this.getX() + ", " + this.getY());
-            Gdx.app.log(TAG, "World Width: " + Constants.WORLD_WIDTH * 2.0f);
-
-
+            this.remove();
         }
     }
 
@@ -105,10 +91,10 @@ public class Bird extends PhysicsBody
 
         renderer.setColor(Color.BLUE);
         renderer.rect(
-                getX(),
-                getY(),
-                getWidth(),
-                getHeight());
+                this.position.x - this.width / 2.0f,
+                this.position.y - this.height / 2.0f,
+                this.width,
+                this.height);
 
         renderer.end();
 

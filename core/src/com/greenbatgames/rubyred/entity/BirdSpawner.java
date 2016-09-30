@@ -18,7 +18,7 @@ public class BirdSpawner extends Actor
     public BirdSpawner(float x, float y)
     {
         this.position = new Vector2(x, y);
-        this.spawnDelay = Constants.BIRD_SPAWN_DELAY;
+        this.spawnDelay = 0.0f;
     }
 
 
@@ -26,6 +26,7 @@ public class BirdSpawner extends Actor
     @Override
     public void act(float delta)
     {
+
         Player player = GameScreen.instance.getPlayer();
 
         // Skip spawn if it is too far offscreen
@@ -33,7 +34,7 @@ public class BirdSpawner extends Actor
                 Math.abs(Vector2.dst(
                         player.getX(), player.getY(),
                         position.x, position.y))
-                        > Constants.WORLD_WIDTH * 2.0f)
+                        > Constants.WORLD_WIDTH * 1.25f)
         {
             return;
         }
@@ -45,7 +46,7 @@ public class BirdSpawner extends Actor
         {
             boolean moveRight;
 
-            if (player.getX() < this.getX())
+            if (player.getX() < position.x)
                 moveRight = false;
             else
                 moveRight = true;
@@ -59,7 +60,6 @@ public class BirdSpawner extends Actor
 
     private void spawnBird(boolean moveRight)
     {
-        // Creates the physics body, queues it to world and adds actor to stage
         new Bird(
                 this.position.x,
                 this.position.y,

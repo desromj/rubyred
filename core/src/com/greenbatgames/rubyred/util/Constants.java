@@ -150,6 +150,7 @@ public class Constants
     public static final float BIRD_WIDTH = WORLD_WIDTH / 25.0f;
     public static final float BIRD_HEIGHT = WORLD_WIDTH / 75.0f;
     public static final float BIRD_DENSITY = 200.0f;
-    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 60.0f;
+    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 2.0f;
+    public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.8f);
 
 }
