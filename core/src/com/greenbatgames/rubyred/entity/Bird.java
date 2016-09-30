@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -22,6 +23,7 @@ public class Bird extends Actor
     private Vector2 position, velocity;
     private float width, height;
     private boolean hitPlayer;
+    private Rectangle aabb;
 
     public Bird(float x, float y, boolean moveRight) {
 
@@ -35,6 +37,7 @@ public class Bird extends Actor
         this.height = Constants.BIRD_HEIGHT;
 
         this.hitPlayer = false;
+        this.aabb = new Rectangle(x, y, this.width, this.height);
 
         GameScreen.instance.addActorToStage(this);
     }
@@ -48,12 +51,10 @@ public class Bird extends Actor
 
         Player player = GameScreen.instance.getPlayer();
 
+        this.aabb.set(position.x, position.y, width, height);
+
         // If player is hit, add impact recoil
-        if(
-                !this.hitPlayer
-                && Math.abs(player.getX() - position.x) < Constants.RUBY_RADIUS + width / 2.0f
-                && Math.abs(player.getY() - position.y) < (Constants.RUBY_RADIUS * 2.0f) + height / 2.0f
-                )
+        if(!this.hitPlayer && this.aabb.overlaps(player.getAabb()))
         {
             boolean pushRight = (player.getX() > this.position.x);
 
@@ -64,6 +65,8 @@ public class Bird extends Actor
                     Constants.BIRD_KNOCKBACK_IMPULSE.y,
                     true
             );
+            player.jump();
+
             this.hitPlayer = true;
         }
 

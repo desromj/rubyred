@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -23,11 +24,13 @@ public class Player extends PhysicsBody
     private boolean grounded, jumped, facingRight, crouched;
     private float disableCollisionFor;
     private Vector2 spawnPosition;
+    private Rectangle aabb;
 
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
         spawnPosition = new Vector2(x, y);
+        aabb = new Rectangle(x, y, width, height);
 
         init();
     }
@@ -298,4 +301,10 @@ public class Player extends PhysicsBody
 
     public boolean isCollisionDisabled() { return disableCollisionFor > 0f; }
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
+
+    public Rectangle getAabb()
+    {
+        aabb.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        return aabb;
+    }
 }
