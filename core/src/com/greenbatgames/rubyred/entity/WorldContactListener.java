@@ -1,5 +1,6 @@
 package com.greenbatgames.rubyred.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -60,17 +61,16 @@ public class WorldContactListener implements ContactListener
                     }
                 }
 
+                // Activate other Platform-based objects if player lands on them
                 if (landed)
+                {
                     player.land();
 
-                // Activate other Platform-based objects if player lands on them
+                    if (other instanceof Skylight)
+                        ((Skylight)other).activate();
 
-                if (other instanceof Skylight)
-                    ((Skylight)other).activate();
-
-                // Activate drop only is we hit it from above
-                if (other instanceof DropPlatform) {
-                    if (playerPos.y > otherPos.y)
+                    // Activate drop only is we hit it from above
+                    if (other instanceof DropPlatform)
                         ((DropPlatform) other).activate();
                 }
             }

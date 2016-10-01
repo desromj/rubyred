@@ -44,8 +44,6 @@ public class Constants
     public static final float WORLD_WIDTH = 640;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
 
-    public static final Color BG_COLOR = Color.SKY;
-
     /*
         Physics and Tiled World Values
      */
@@ -116,15 +114,6 @@ public class Constants
             new Vector2(1.20f * RUBY_VERTEX_X_SCALE / PTM, -0.33f * RUBY_VERTEX_Y_SCALE / PTM)
     };
 
-    /*
-        Animation Helper Values
-     */
-
-    public static final float LAND_SPEED_THRESHOLD = RUBY_MOVE_SPEED / 20000.0f;
-    public static final float RUBY_IDLE_SPEED_THRESHOLD = 25f;
-    public static final float RUBY_WALK_SPEED_THRESHOLD = RUBY_MOVE_SPEED * 2f;
-
-
 
 
     /*
@@ -141,9 +130,8 @@ public class Constants
         Platform object values
      */
 
-    public static final Color PLATFORM_COLOR = Color.BLUE;
     public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 60.0f;
-    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 960.0f;
+    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 16.0f;
 
     /*
         Bird object values
@@ -153,7 +141,6 @@ public class Constants
 
     public static final float BIRD_WIDTH = WORLD_WIDTH / 25.0f;
     public static final float BIRD_HEIGHT = WORLD_WIDTH / 75.0f;
-    public static final float BIRD_DENSITY = 200.0f;
     public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 2.0f;
     public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.8f);
 

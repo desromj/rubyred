@@ -17,7 +17,7 @@ public class DropPlatform extends Platform
 
     public DropPlatform(float x, float y, float width, float height, World world)
     {
-        super(x, y, width, height, world, false);
+        super(x, y, width, height, world, true);
         broken = false;
         active = false;
         lifetime = Constants.DROP_PLATFORM_LIFETIME;
