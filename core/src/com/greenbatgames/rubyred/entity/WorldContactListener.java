@@ -64,8 +64,10 @@ public class WorldContactListener implements ContactListener
                     player.land();
 
                 // Activate other Platform-based objects if player lands on them
+
                 if (other instanceof Skylight)
                     ((Skylight)other).activate();
+
                 if (other instanceof DropPlatform)
                     ((DropPlatform)other).activate();
             }
@@ -116,7 +118,7 @@ public class WorldContactListener implements ContactListener
             }
 
             // Collision disabling for other objects
-            
+
             if (other instanceof DropPlatform) {
                 if (((DropPlatform) other).isBroken())
                     contact.setEnabled(false);
