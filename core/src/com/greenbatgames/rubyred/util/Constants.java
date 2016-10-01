@@ -162,5 +162,7 @@ public class Constants
      */
 
     public static final float SKYLIGHT_LIFETIME = 2.0f;
+    public static final float DROP_PLATFORM_LIFETIME = 3.0f;
+    public static final float DROP_PLATFORM_RESET_TIME = 1.5f;
 
 }
