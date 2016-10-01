@@ -75,8 +75,12 @@ public class DropPlatform extends Platform
         renderer.setProjectionMatrix(batch.getProjectionMatrix());
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
+        
+        if (broken)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(Color.WHITE);
 
-        renderer.setColor(Color.WHITE);
         renderer.rect(
                 getX(),
                 getY(),
