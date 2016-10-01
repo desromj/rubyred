@@ -171,23 +171,16 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
                                 props.get("height", Float.class),
                                 world
                         );
+                        stage.addActor(light);
                     } else if (type.compareTo("drop-platform") == 0) {
-
-                        float startLife;
-
-                        if (props.containsKey("start-life"))
-                            startLife = props.get("start-life", Float.class);
-                        else
-                            startLife = 0f;
-
-                        DropPlatform light = new DropPlatform(
+                        DropPlatform plat = new DropPlatform(
                                 props.get("x", Float.class),
                                 props.get("y", Float.class),
                                 props.get("width", Float.class),
                                 props.get("height", Float.class),
-                                world,
-                                startLife
+                                world
                         );
+                        stage.addActor(plat);
                     }
                 }
             }

@@ -68,8 +68,11 @@ public class WorldContactListener implements ContactListener
                 if (other instanceof Skylight)
                     ((Skylight)other).activate();
 
-                if (other instanceof DropPlatform)
-                    ((DropPlatform)other).activate();
+                // Activate drop only is we hit it from above
+                if (other instanceof DropPlatform) {
+                    if (playerPos.y > otherPos.y)
+                        ((DropPlatform) other).activate();
+                }
             }
         }
     }

@@ -15,12 +15,12 @@ public class DropPlatform extends Platform
     private boolean broken, active;
     private float lifetime;
 
-    public DropPlatform(float x, float y, float width, float height, World world, float startLifeAt)
+    public DropPlatform(float x, float y, float width, float height, World world)
     {
-        super(x, y, width, height, world, true);
+        super(x, y, width, height, world, false);
         broken = false;
         active = false;
-        lifetime = Constants.DROP_PLATFORM_LIFETIME - startLifeAt;
+        lifetime = Constants.DROP_PLATFORM_LIFETIME;
     }
 
 
@@ -34,35 +34,31 @@ public class DropPlatform extends Platform
         lifetime -= delta;
 
         // Check what to do depending on if the platform is currently broken or not
-        if (broken) {
-            recover(delta);
-        } else {
-            decay(delta);
+
+        if (lifetime < 0f) {
+            if (broken) {
+                recover();
+            } else {
+                decay();
+            }
         }
     }
 
 
 
-    public void decay(float delta)
+    public void decay()
     {
-        if (lifetime < 0f)
-        {
-            broken = true;
-            active = true;
-            lifetime = Constants.DROP_PLATFORM_RESET_TIME;
-        }
+        broken = true;
+        lifetime = Constants.DROP_PLATFORM_RESET_TIME;
     }
 
 
 
-    public void recover(float delta)
+    public void recover()
     {
-        if (lifetime < 0f)
-        {
-            broken = false;
-            active = false;
-            lifetime = Constants.DROP_PLATFORM_LIFETIME;
-        }
+        broken = false;
+        active = false;
+        lifetime = Constants.DROP_PLATFORM_LIFETIME;
     }
 
 

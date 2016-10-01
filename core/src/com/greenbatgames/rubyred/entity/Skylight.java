@@ -29,18 +29,14 @@ public class Skylight extends Platform
     public void act(float delta)
     {
         // No action if we're broken or deactivated
-        if (!active || broken)
+        if (!active)
             return;
+
+        lifetime -= delta;
 
         // Only update if we're NOT broken with a positive lifetime
-        if (!broken && lifetime < 0.0f)
-        {
+        if (lifetime < 0.0f)
             broken = true;
-            return;
-        }
-
-        // If we're still alive, decrement the lifetime
-        lifetime -= delta;
     }
 
 
@@ -55,7 +51,11 @@ public class Skylight extends Platform
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        renderer.setColor(Color.WHITE);
+        if (broken)
+            renderer.setColor(Color.RED);
+        else
+            renderer.setColor(Color.WHITE);
+
         renderer.rect(
                 getX(),
                 getY(),
