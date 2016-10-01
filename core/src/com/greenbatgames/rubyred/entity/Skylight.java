@@ -19,6 +19,7 @@ public class Skylight extends Platform
     {
         super(x, y, width, height, world, false);
         broken = false;
+        active = false;
         lifetime = Constants.SKYLIGHT_LIFETIME;
     }
 
