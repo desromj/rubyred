@@ -22,7 +22,7 @@ import com.greenbatgames.rubyred.util.Utils;
 public class Player extends PhysicsBody
 {
     private boolean grounded, jumped, facingRight, crouched;
-    private float disableCollisionFor;
+    private float disableCollisionFor, cannotJumpFor;
     private Vector2 spawnPosition;
     private Rectangle aabb;
 
@@ -53,6 +53,7 @@ public class Player extends PhysicsBody
         crouched = false;
 
         disableCollisionFor = 0.0f;
+        cannotJumpFor = 0.0f;
     }
 
 
@@ -93,6 +94,7 @@ public class Player extends PhysicsBody
         super.act(delta);
 
         disableCollisionFor -= delta;
+        cannotJumpFor -= delta;
 
         move();
 
@@ -104,6 +106,10 @@ public class Player extends PhysicsBody
 
     protected void move()
     {
+        // First handle recovery time for landing
+        if (cannotJumpFor > 0f)
+            return;
+
         // Horizontal movement
 
         if (!jumped && grounded) {
@@ -198,6 +204,8 @@ public class Player extends PhysicsBody
     {
         grounded = true;
         jumped = false;
+
+        cannotJumpFor = Constants.RUBY_JUMP_RECOVERY;
     }
 
 

@@ -76,6 +76,10 @@ public class Constants
     public static final float RUBY_LONG_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 2.0f;
     public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
+    // Give a bit of leeway between when Ruby lands and when she can jump again
+    // 0.1 second accounts for minimum player reaction time
+    public static final float RUBY_JUMP_RECOVERY = 0.04f;
+
     public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
     public static final float RUBY_HOP_ANGLE_LEFT = 180.0f - RUBY_HOP_ANGLE_RIGHT;
     public static final float RUBY_LONG_JUMP_ANGLE_RIGHT = 20.0f;
