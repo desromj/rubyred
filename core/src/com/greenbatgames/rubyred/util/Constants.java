@@ -157,4 +157,10 @@ public class Constants
     public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 2.0f;
     public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.8f);
 
+    /*
+        Skylight values
+     */
+
+    public static final float SKYLIGHT_LIFETIME = 2.0f;
+
 }
