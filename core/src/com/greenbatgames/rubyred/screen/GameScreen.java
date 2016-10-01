@@ -28,6 +28,7 @@ import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.entity.Player;
+import com.greenbatgames.rubyred.entity.Skylight;
 import com.greenbatgames.rubyred.entity.WorldContactListener;
 import com.greenbatgames.rubyred.util.ChaseCam;
 import com.greenbatgames.rubyred.util.Constants;
@@ -161,6 +162,14 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
                         );
 
                         stage.addActor(spawner);
+                    } else if (type.compareTo("skylight") == 0) {
+                        Skylight light = new Skylight(
+                                props.get("x", Float.class),
+                                props.get("y", Float.class),
+                                props.get("width", Float.class),
+                                props.get("height", Float.class),
+                                world
+                        );
                     }
                 }
             }

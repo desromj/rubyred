@@ -62,7 +62,7 @@ public class WorldContactListener implements ContactListener
 
                 if (landed)
                     player.land();
-                
+
                 // Activate skylights if player lands on them
                 if (other instanceof Skylight)
                     ((Skylight)other).activate();
