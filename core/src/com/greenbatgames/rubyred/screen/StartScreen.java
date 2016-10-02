@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.rubyred.RubyGame;
 import com.greenbatgames.rubyred.util.Constants;
 
 /**
@@ -179,6 +180,9 @@ public class StartScreen extends ScreenAdapter
         }
 
         batch.end();
+
+        if (this.isFinished())
+            RubyGame.setScreen(GameScreen.class);
     }
 
 
