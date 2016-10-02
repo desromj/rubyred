@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.DropPlatform;
+import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.entity.Player;
@@ -235,9 +236,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
             Game object updates
          */
 
-        if (player.getY() <= Constants.KILL_PLANE_Y)
+        if (player.getY() <= Constants.KILL_PLANE_Y) {
             player.init();
-
+            reinitializeAllActors();
+        }
         /*
             Rendering logic
          */
@@ -338,6 +340,13 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
      */
 
     public void addActorToStage(Actor actor) { stage.addActor(actor); }
+
+    public void reinitializeAllActors()
+    {
+        for (Actor actor: stage.getActors())
+            if (actor instanceof Initializeable)
+                ((Initializeable) actor).init();
+    }
 
 
     /*

@@ -11,7 +11,7 @@ import com.greenbatgames.rubyred.util.Utils;
  * Created by Quiv on 01-10-2016.
  */
 
-public class Skylight extends Platform
+public class Skylight extends Platform implements Initializeable
 {
     private boolean broken, active;
     private float lifetime;
@@ -19,11 +19,18 @@ public class Skylight extends Platform
     public Skylight(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world, false);
+        init();
+    }
+
+
+
+    @Override
+    public void init()
+    {
         broken = false;
         active = false;
         lifetime = Constants.SKYLIGHT_LIFETIME;
     }
-
 
 
     @Override

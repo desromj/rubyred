@@ -10,7 +10,7 @@ import com.greenbatgames.rubyred.util.Constants;
  * Created by Quiv on 01-10-2016.
  */
 
-public class DropPlatform extends Platform
+public class DropPlatform extends Platform implements Initializeable
 {
     private boolean broken, active;
     private float lifetime;
@@ -18,6 +18,14 @@ public class DropPlatform extends Platform
     public DropPlatform(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world, true);
+        init();
+    }
+
+
+
+    @Override
+    public void init()
+    {
         broken = false;
         active = false;
         lifetime = Constants.DROP_PLATFORM_LIFETIME;
