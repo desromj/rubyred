@@ -41,10 +41,20 @@ import java.util.Iterator;
  */
 public class GameScreen  extends ScreenAdapter implements InputProcessor
 {
-    public static final GameScreen instance = new GameScreen();
+    private static GameScreen instance = null;
     public static final String TAG = GameScreen.class.getSimpleName();
 
-    private GameScreen() { init(); }
+    private GameScreen() {}
+
+    public static final GameScreen getInstance()
+    {
+        if (instance == null) {
+            instance = new GameScreen();
+            instance.init();
+        }
+
+        return instance;
+    }
 
     World world;
     Player player;

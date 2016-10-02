@@ -297,8 +297,8 @@ public class Player extends PhysicsBody
         fixtureDef.restitution = 0f;
         fixtureDef.friction = 0f;
 
-        GameScreen.instance.queueBodyToCreate(bodyDef, fixtureDef, this);
-        GameScreen.instance.queueBodyToDestroy(this);
+        GameScreen.getInstance().queueBodyToCreate(bodyDef, fixtureDef, this);
+        GameScreen.getInstance().queueBodyToDestroy(this);
     }
 
 

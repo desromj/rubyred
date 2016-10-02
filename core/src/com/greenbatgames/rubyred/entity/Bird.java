@@ -39,7 +39,7 @@ public class Bird extends Actor
         this.hitPlayer = false;
         this.aabb = new Rectangle(x, y, this.width, this.height);
 
-        GameScreen.instance.addActorToStage(this);
+        GameScreen.getInstance().addActorToStage(this);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Bird extends Actor
 
         this.position.mulAdd(velocity, delta);
 
-        Player player = GameScreen.instance.getPlayer();
+        Player player = GameScreen.getInstance().getPlayer();
 
         this.aabb.set(position.x, position.y, width, height);
 

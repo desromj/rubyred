@@ -11,6 +11,6 @@ import com.greenbatgames.rubyred.screen.GameScreen;
 public class RubyGame extends Game {
 	@Override
 	public void create () {
-		setScreen(GameScreen.instance);
+		setScreen(GameScreen.getInstance());
 	}
 }
