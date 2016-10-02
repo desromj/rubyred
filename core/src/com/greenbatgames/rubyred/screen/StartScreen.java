@@ -1,6 +1,7 @@
 package com.greenbatgames.rubyred.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -89,6 +90,15 @@ public class StartScreen extends ScreenAdapter
         int period = (int) (elapsedTime / fadeTime);
         float alpha;
         finished = period > 11;
+
+        // Allow skipping through the start screen
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z))
+        {
+            if (period <= 6)
+                startTime = TimeUtils.nanoTime() - (long)(1000000000 * fadeTime * 7);
+            else if (period <= 11)
+                startTime = TimeUtils.nanoTime() - (long)(1000000000 * fadeTime * 12);
+        }
 
         switch (period)
         {
@@ -181,18 +191,8 @@ public class StartScreen extends ScreenAdapter
 
         batch.end();
 
-        if (this.isFinished())
+        if (finished)
             RubyGame.setScreen(GameScreen.class);
-    }
-
-
-
-
-
-
-    public boolean isFinished()
-    {
-        return this.finished;
     }
 
 
