@@ -71,6 +71,9 @@ public class StartScreen extends ScreenAdapter
     @Override
     public void render(float delta)
     {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            Gdx.app.exit();
+
         // increment elapsed Time
         elapsedTime = TimeUtils.nanosToMillis(TimeUtils.nanoTime() - startTime) / 1000f;
         scale += delta * delta * fadeTime * 0.5f;

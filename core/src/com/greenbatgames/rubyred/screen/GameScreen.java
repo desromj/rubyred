@@ -1,6 +1,7 @@
 package com.greenbatgames.rubyred.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -368,7 +369,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     @Override
     public boolean keyDown(int keycode)
     {
-        return false;
+        if (keycode == Input.Keys.ESCAPE)
+            Gdx.app.exit();
+
+        return true;
     }
 
     @Override
