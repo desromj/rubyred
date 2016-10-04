@@ -37,7 +37,7 @@ public class WorldContactListener implements ContactListener
                 other = a;
             }
 
-            // Collision logic for Bug landing on other physics objects
+            // Collision logic for landing on other physics objects
             if (other instanceof PhysicsBody)
             {
                 PhysicsBody physical = (PhysicsBody) other;
@@ -64,14 +64,21 @@ public class WorldContactListener implements ContactListener
                 // Activate other Platform-based objects if player lands on them
                 if (landed)
                 {
-                    player.land();
-
-                    if (other instanceof Skylight)
-                        ((Skylight)other).activate();
-
-                    // Activate drop only is we hit it from above
-                    if (other instanceof DropPlatform)
-                        ((DropPlatform) other).activate();
+                    if (other instanceof Skylight) {
+                        Skylight sl = (Skylight) other;
+                        if (!sl.isBroken()) {
+                            sl.activate();
+                            player.land();
+                        }
+                    } else if (other instanceof DropPlatform) {
+                        DropPlatform dp = ((DropPlatform) other);
+                        if (!dp.isBroken()) {
+                            dp.activate();
+                            player.land();
+                        }
+                    } else {
+                        player.land();
+                    }
                 }
             }
         }
