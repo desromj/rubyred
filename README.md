@@ -1,9 +1,34 @@
 # rubyred
 Mario/Metroid-esque platformer to test tile editors
 
-CLONE THE FIRST COMMIT OF THIS REPO TO START WITH A BASIC
-2D PLATFORMER IMPLEMENTATION. RAW FEATURES INCLUDE A GAME SCREEN
-WITH CHASE CAMERA, CONSTANTS FILES, PLAYER CONTROL, PLATFORMS,
-BOX2D WORLD SETUP, ONE-WAY PLATFORMS, AND SUCH. 
+In this project, you control a kangaroo named Ruby who needs to jump across rooftops. 
+The project is built with LibGDX and uses the Tiled map editor to load in tile maps
+and game objects.
 
-From there, many other types of games can be created.
+As you control a kangaroo, all movement is done by a combination of short and long hops.
+
+NOTE: There is a current known framerate issue. A LibGDX Scene is used to handle actors,
+but terminates the drawing batch and uses a ShapeRenderer for EVERY object. This is a
+costly operation, but it will be removed when objects use actual sprites instead of
+placeholder shapes for the graphics.
+
+In order to run the project, do the following
+
+1. Import the project into Android Studio
+2. Open the terminal
+3. Type in "gradlew desktop:run" and press enter
+4. The project will build and launch
+
+Controls:
+
+- Left/Right Arrow keys
+  - small hop left or right
+- Z
+  - normal jump
+  - jump straight up in the air
+- Hold SHIFT+Z
+  - spring jump
+  - jump straight up in the air with double height
+- Hold CTRL+Z
+  - crouch jump
+  - a very long, horizontal jump in the direction you are currently facing
