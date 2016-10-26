@@ -56,10 +56,9 @@ public class DropPlatform extends Platform implements Initializeable
         if (lifetime <= Constants.DROP_PLATFORM_FALL_DURATION) {
             float ratio = lifetime / Constants.DROP_PLATFORM_FALL_DURATION;
             if (broken) {
-                ratio = MathUtils.clamp(ratio * 2f, 0, 1);
-                rotation = Interpolation.circleIn.apply(0f, -90f, ratio);
+                rotation = Interpolation.circle.apply(0f, -90f, ratio);
             } else {
-                rotation = Interpolation.circleIn.apply(-90f, 0f, ratio);
+                rotation = Interpolation.circle.apply(-90f, 0f, ratio);
             }
         }
 
