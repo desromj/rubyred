@@ -231,16 +231,11 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         // Edit Physics bodies outside of world.step
         runQueuedPhysicsChanges();
 
+        // Update and re-initialize if required
         stage.act(delta);
-
-        /*
-            Game object updates
-         */
-
-        if (player.getY() <= Constants.KILL_PLANE_Y) {
-            player.init();
+        if (player.getY() <= Constants.KILL_PLANE_Y)
             reinitializeAllActors();
-        }
+
         /*
             Rendering logic
          */

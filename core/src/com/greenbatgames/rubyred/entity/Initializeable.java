@@ -6,5 +6,5 @@ package com.greenbatgames.rubyred.entity;
 
 public interface Initializeable
 {
-    public void init();
+    void init();
 }

@@ -4,12 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 
 /**
  * Created by Quiv on 10-08-2016.
  */
-public class ChaseCam extends Actor
+public class ChaseCam extends Actor implements Initializeable
 {
     private PhysicsBody target;
     private OrthographicCamera camera;
@@ -19,7 +20,14 @@ public class ChaseCam extends Actor
     {
         this.target = target;
         this.camera = camera;
+        init();
+    }
+
+    @Override
+    public void init()
+    {
         this.following = true;
+        this.centreOnTarget();
     }
 
     @Override
@@ -72,7 +80,7 @@ public class ChaseCam extends Actor
 
 
 
-    private void centreOnTarget()
+    public void centreOnTarget()
     {
         camera.position.x = target.getX();
         camera.position.y = target.getY();

@@ -19,7 +19,7 @@ import com.greenbatgames.rubyred.util.Utils;
 /**
  * Created by Quiv on 10-08-2016.
  */
-public class Player extends PhysicsBody
+public class Player extends PhysicsBody implements Initializeable
 {
     private boolean grounded, jumped, facingRight, crouched;
     private float disableCollisionFor, cannotJumpFor;
@@ -36,7 +36,7 @@ public class Player extends PhysicsBody
     }
 
 
-
+    @Override
     public void init()
     {
         this.body.setLinearVelocity(0f, 0f);
