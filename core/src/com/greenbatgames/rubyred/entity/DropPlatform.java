@@ -15,7 +15,7 @@ import com.greenbatgames.rubyred.util.Utils;
 
 public class DropPlatform extends Platform implements Initializeable
 {
-    private boolean broken, active, pivotOnLeft;
+    private boolean broken, active, pivotOnLeft = true;
     private float lifetime;
     private float rotation;
 
@@ -36,7 +36,6 @@ public class DropPlatform extends Platform implements Initializeable
     {
         broken = false;
         active = false;
-        pivotOnLeft = true;
         rotation = 0f;
         sprite.setPosition(getX(), getY());
         sprite.setScale(getWidth() / sprite.getWidth());
