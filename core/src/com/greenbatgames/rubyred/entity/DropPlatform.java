@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.util.Constants;
+import com.greenbatgames.rubyred.util.Utils;
 
 /**
  * Created by Quiv on 01-10-2016.
@@ -113,6 +113,11 @@ public class DropPlatform extends Platform implements Initializeable
 
 
 
-    public void activate() { active = true; }
+    public void activate()
+    {
+        active = true;
+        Utils.playSound("sounds/wood-creak.wav", 0.5f);
+    }
+
     public boolean isBroken() { return broken; }
 }
