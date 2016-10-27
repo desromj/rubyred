@@ -15,17 +15,18 @@ import com.greenbatgames.rubyred.util.Utils;
 
 public class DropPlatform extends Platform implements Initializeable
 {
-    private boolean broken, active;
+    private boolean broken, active, pivotOnLeft;
     private float lifetime;
     private float rotation;
 
     private Sprite sprite;
 
-    public DropPlatform(float x, float y, float width, float height, World world)
+    public DropPlatform(float x, float y, float width, float height, World world, boolean pivotOnLeft)
     {
         super(x, y, width, height, world, true);
         sprite = new Sprite(new Texture(Gdx.files.internal("sprites/drop-platform.png")));
         init();
+        this.pivotOnLeft = pivotOnLeft;
     }
 
 
@@ -35,6 +36,7 @@ public class DropPlatform extends Platform implements Initializeable
     {
         broken = false;
         active = false;
+        pivotOnLeft = true;
         rotation = 0f;
         sprite.setPosition(getX(), getY());
         sprite.setScale(getWidth() / sprite.getWidth());
@@ -56,9 +58,15 @@ public class DropPlatform extends Platform implements Initializeable
         if (lifetime <= Constants.DROP_PLATFORM_FALL_DURATION) {
             float ratio = lifetime / Constants.DROP_PLATFORM_FALL_DURATION;
             if (broken) {
-                rotation = Interpolation.circle.apply(0f, -90f, ratio);
+                if (this.pivotOnLeft)
+                    rotation = Interpolation.circle.apply(0f, -90f, ratio);
+                else
+                    rotation = Interpolation.circle.apply(0f, 90f, ratio);
             } else {
-                rotation = Interpolation.circle.apply(-90f, 0f, ratio);
+                if (this.pivotOnLeft)
+                    rotation = Interpolation.circle.apply(-90f, 0f, ratio);
+                else
+                    rotation = Interpolation.circle.apply(90f, 0f, ratio);
             }
         }
 
@@ -96,7 +104,7 @@ public class DropPlatform extends Platform implements Initializeable
                 sprite.getTexture(),
                 getX(),
                 getY(),
-                getHeight() / 2.0f,
+                (this.pivotOnLeft ? getHeight() / 2.0f : this.getWidth() - getHeight() / 2.0f),
                 getHeight() / 2.0f,
                 getWidth(),
                 getHeight(),

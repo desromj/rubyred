@@ -190,7 +190,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
                                 props.get("y", Float.class),
                                 props.get("width", Float.class),
                                 props.get("height", Float.class),
-                                world
+                                world,
+                                false
                         );
                         stage.addActor(plat);
                     }
