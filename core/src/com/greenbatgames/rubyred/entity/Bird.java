@@ -1,11 +1,17 @@
 package com.greenbatgames.rubyred.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 
@@ -15,6 +21,17 @@ import com.greenbatgames.rubyred.util.Constants;
 
 public class Bird extends Actor
 {
+    public static final String TAG = Bird.class.getSimpleName();
+
+    private static final int FRAME_COLS = 6;
+    private static final int FRAME_ROWS = 2;
+
+    private Animation animation;
+    private Texture spriteSheet;
+    private TextureRegion [] flyFrames;
+    private TextureRegion currentFrame;
+    private long startTime;
+
     private Vector2 position, velocity;
     private float width, height;
     private boolean hitPlayer;
@@ -22,6 +39,7 @@ public class Bird extends Actor
 
     public Bird(float x, float y, boolean moveRight) {
 
+        this.startTime = TimeUtils.nanoTime();
         this.position = new Vector2(x, y);
         this.velocity = new Vector2(
                 (moveRight) ? Constants.BIRD_MOVE_SPEED : -Constants.BIRD_MOVE_SPEED,
@@ -34,14 +52,43 @@ public class Bird extends Actor
         this.hitPlayer = false;
         this.aabb = new Rectangle(x, y, this.width, this.height);
 
+        initAnimation();
+
         GameScreen.getInstance().addActorToStage(this);
     }
+
+
+
+    private void initAnimation()
+    {
+        spriteSheet = new Texture(Gdx.files.internal("sprites/birds.32x32.png"));
+
+        TextureRegion [][] temp = TextureRegion.split(
+                spriteSheet,
+                spriteSheet.getWidth() / FRAME_COLS,
+                spriteSheet.getHeight() / FRAME_ROWS);
+
+        flyFrames = new TextureRegion[FRAME_COLS - 1];
+
+        for (int i = 0; i < FRAME_COLS - 1; i++)
+            flyFrames[i] = temp[1][i];
+
+        currentFrame = flyFrames[0];
+        animation = new Animation(1f / 5f, flyFrames);
+    }
+
+
 
     @Override
     public void act(float delta)
     {
         super.act(delta);
 
+        // Animation controls
+        float elapsedTime = (TimeUtils.nanoTime() - startTime) * MathUtils.nanoToSec;
+        currentFrame = animation.getKeyFrame(elapsedTime, true);
+
+        // Rest of updates
         this.position.mulAdd(velocity, delta);
 
         Player player = GameScreen.getInstance().getPlayer();
@@ -80,23 +127,21 @@ public class Bird extends Actor
     @Override
     public void draw(Batch batch, float parentAlpha)
     {
-        batch.end();
+        batch.draw(
+                currentFrame,
+                position.x,
+                position.y,
+                position.x + width / 2.0f,
+                position.y + height / 2.0f,
+                currentFrame.getRegionWidth(),
+                currentFrame.getRegionHeight(),
+                isMovingRight() ? -1f : 1f,
+                1f,
+                0f);
+    }
 
-        ShapeRenderer renderer = new ShapeRenderer();
-        renderer.setProjectionMatrix(batch.getProjectionMatrix());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        renderer.setColor(Color.BLUE);
-        renderer.rect(
-                this.position.x - this.width / 2.0f,
-                this.position.y - this.height / 2.0f,
-                this.width,
-                this.height);
-
-        renderer.end();
-
-        batch.begin();
+    private boolean isMovingRight() {
+        return this.velocity.x > 0f;
     }
 
 }
