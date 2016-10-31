@@ -74,7 +74,7 @@ public class Bird extends Actor
             flyFrames[i] = temp[1][i];
 
         currentFrame = flyFrames[0];
-        animation = new Animation(1f / 5f, flyFrames);
+        animation = new Animation(1f / 10f, flyFrames);
     }
 
 
@@ -128,16 +128,22 @@ public class Bird extends Actor
     public void draw(Batch batch, float parentAlpha)
     {
         batch.draw(
-                currentFrame,
+                currentFrame.getTexture(),
                 position.x,
                 position.y,
                 position.x + width / 2.0f,
                 position.y + height / 2.0f,
                 currentFrame.getRegionWidth(),
                 currentFrame.getRegionHeight(),
-                isMovingRight() ? -1f : 1f,
                 1f,
-                0f);
+                1f,
+                0f,
+                currentFrame.getRegionX(),
+                currentFrame.getRegionY(),
+                currentFrame.getRegionWidth(),
+                currentFrame.getRegionHeight(),
+                isMovingRight() ? true : false,
+                false);
     }
 
     private boolean isMovingRight() {
