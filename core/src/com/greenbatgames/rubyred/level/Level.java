@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.DropPlatform;
+import com.greenbatgames.rubyred.entity.FinishFlag;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
@@ -44,6 +45,7 @@ public class Level implements Initializeable
 
     World world;
     Player player;
+    FinishFlag flag;
 
     Stage stage;
 
@@ -184,6 +186,12 @@ public class Level implements Initializeable
                                 false
                         );
                         stage.addActor(plat);
+                    } else if (type.compareTo("finish-flag") == 0) {
+                        flag = new FinishFlag(
+                                props.get("x", Float.class),
+                                props.get("y", Float.class)
+                        );
+                        stage.addActor(flag);
                     }
                 }
             }

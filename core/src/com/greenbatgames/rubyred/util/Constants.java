@@ -153,4 +153,11 @@ public class Constants
     public static final float DROP_PLATFORM_RESET_TIME = 1.5f;
     public static final float DROP_PLATFORM_FALL_DURATION = 0.75f;
 
+    /*
+        Finish Flag values
+     */
+
+    public static final float FINISH_FLAG_WIDTH = TILED_TILE_SIZE;
+    public static final float FINISH_FLAG_HEIGHT = TILED_TILE_SIZE * 4.0f;
+
 }
