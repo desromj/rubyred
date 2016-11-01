@@ -1,7 +1,10 @@
 package com.greenbatgames.rubyred.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.util.Constants;
@@ -16,9 +19,13 @@ public class Skylight extends Platform implements Initializeable
     private boolean broken, active;
     private float lifetime;
 
+    private Sprite spriteNormal, spriteBroken;
+
     public Skylight(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world, false);
+        spriteNormal = new Sprite(new Texture(Gdx.files.internal("sprites/skylight.png")));
+        spriteBroken = new Sprite(new Texture(Gdx.files.internal("sprites/skylight-broken.png")));
         init();
     }
 
@@ -29,6 +36,10 @@ public class Skylight extends Platform implements Initializeable
     {
         broken = false;
         active = false;
+        spriteNormal.setPosition(getX(), getY());
+        spriteNormal.setScale(getWidth() / spriteNormal.getWidth());
+        spriteBroken.setPosition(getX(), getY());
+        spriteBroken.setScale(getWidth() / spriteBroken.getWidth());
         lifetime = Constants.SKYLIGHT_LIFETIME;
     }
 
@@ -54,27 +65,25 @@ public class Skylight extends Platform implements Initializeable
     @Override
     public void draw(Batch batch, float parentAlpha)
     {
-        batch.end();
+        Sprite toDraw = this.broken ? spriteBroken : spriteNormal;
 
-        ShapeRenderer renderer = new ShapeRenderer();
-        renderer.setProjectionMatrix(batch.getProjectionMatrix());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        if (broken)
-            renderer.setColor(Color.RED);
-        else
-            renderer.setColor(Color.WHITE);
-
-        renderer.rect(
+        batch.draw(
+                toDraw.getTexture(),
                 getX(),
                 getY(),
+                getWidth() / 2.0f,
+                getHeight() / 2.0f,
                 getWidth(),
-                getHeight());
-
-        renderer.end();
-
-        batch.begin();
+                getHeight(),
+                1,
+                1,
+                0f,
+                toDraw.getRegionX(),
+                toDraw.getRegionY(),
+                toDraw.getRegionWidth(),
+                toDraw.getRegionHeight(),
+                false,
+                false);
     }
 
 
