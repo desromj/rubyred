@@ -26,6 +26,7 @@ public class RubyGame extends Game
     {
         if (type == GameScreen.class) {
             instance.setScreen(GameScreen.getInstance());
+            GameScreen.getInstance().init();
         } else if (type == StartScreen.class) {
             instance.setScreen(new StartScreen(
                     "GBG-logo-shaded.png",

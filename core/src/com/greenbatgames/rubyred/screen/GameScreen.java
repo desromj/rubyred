@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.rubyred.RubyGame;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Player;
 import com.greenbatgames.rubyred.level.Level;
@@ -45,6 +46,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     @Override
     public void render(float delta) {
         level.render(delta);
+        if (level.hasWon()) {
+            Gdx.app.log(TAG, "You have Won!");
+            RubyGame.setScreen(StartScreen.class);
+        }
     }
 
     /*
