@@ -327,6 +327,16 @@ public class Level implements Initializeable
         return stage.getViewport();
     }
 
+    public boolean hasWon()
+    {
+        return player.getBounds().overlaps(flag.getBounds());
+    }
+
+    public boolean hasLost()
+    {
+        return false;
+    }
+
 
     /*
         Adders and Removers

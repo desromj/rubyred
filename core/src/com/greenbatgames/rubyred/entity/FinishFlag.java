@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.screen.GameScreen;
@@ -15,6 +16,7 @@ import com.greenbatgames.rubyred.util.Constants;
 
 public class FinishFlag extends Actor
 {
+    private Rectangle bounds;
     private Vector2 position;
     private Sprite sprite;
 
@@ -22,6 +24,7 @@ public class FinishFlag extends Actor
     {
         this.position = new Vector2(x, y);
         sprite = new Sprite(new Texture(Gdx.files.internal("sprites/finish-flag.png")));
+        bounds = new Rectangle(x, y, Constants.FINISH_FLAG_WIDTH, Constants.FINISH_FLAG_HEIGHT);
     }
 
     @Override
@@ -45,4 +48,6 @@ public class FinishFlag extends Actor
                 false,
                 false);
     }
+
+    public Rectangle getBounds() { return this.bounds; }
 }

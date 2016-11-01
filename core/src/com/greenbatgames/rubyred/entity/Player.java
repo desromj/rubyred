@@ -24,13 +24,13 @@ public class Player extends PhysicsBody implements Initializeable
     private boolean grounded, jumped, facingRight, crouched;
     private float disableCollisionFor, cannotJumpFor;
     private Vector2 spawnPosition;
-    private Rectangle aabb;
+    private Rectangle bounds;
 
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
         spawnPosition = new Vector2(x, y);
-        aabb = new Rectangle(x, y, width, height);
+        bounds = new Rectangle(x, y, width, height);
 
         init();
     }
@@ -310,9 +310,9 @@ public class Player extends PhysicsBody implements Initializeable
     public boolean isCollisionDisabled() { return disableCollisionFor > 0f; }
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
 
-    public Rectangle getAabb()
+    public Rectangle getBounds()
     {
-        aabb.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        return aabb;
+        bounds.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        return bounds;
     }
 }
