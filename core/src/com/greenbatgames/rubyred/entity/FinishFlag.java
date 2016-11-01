@@ -22,8 +22,6 @@ public class FinishFlag extends Actor
     {
         this.position = new Vector2(x, y);
         sprite = new Sprite(new Texture(Gdx.files.internal("sprites/finish-flag.png")));
-
-        GameScreen.getInstance().addActorToStage(this);
     }
 
     @Override
