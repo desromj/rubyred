@@ -15,5 +15,11 @@ public abstract class PlayerComponent implements Initializeable
         init();
     }
 
-    public abstract void update(float delta);
+    /**
+     * Standard update method, altered to return a status flag
+     *
+     * @param delta delta time since last update
+     * @return true if the update loop should keep going in the sequence of Component updates
+     */
+    public abstract boolean update(float delta);
 }

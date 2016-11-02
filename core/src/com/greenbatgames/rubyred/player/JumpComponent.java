@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.util.Constants;
 
 /**
@@ -33,13 +32,13 @@ public class JumpComponent extends PlayerComponent
 
 
     @Override
-    public void update(float delta)
+    public boolean update(float delta)
     {
         cannotJumpFor -= delta;
         disableCollisionFor -= delta;
 
         // First handle recovery time for landing
-        if (!canJump()) return;
+        if (!canJump()) return true;
 
         // Horizontal hopping movement
         Body body = player.getBody();
@@ -54,7 +53,7 @@ public class JumpComponent extends PlayerComponent
                 );
 
                 player.facingRight = true;
-                return;
+                return true;
 
             } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 
@@ -65,7 +64,7 @@ public class JumpComponent extends PlayerComponent
                 );
 
                 player.facingRight = false;
-                return;
+                return true;
             }
         } else {
             if (isInAir())
@@ -125,6 +124,8 @@ public class JumpComponent extends PlayerComponent
                 body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
             }
         }
+
+        return true;
     }
 
 

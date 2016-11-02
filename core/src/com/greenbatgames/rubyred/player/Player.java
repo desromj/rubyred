@@ -94,8 +94,13 @@ public class Player extends PhysicsBody implements Initializeable
     public void act(float delta)
     {
         super.act(delta);
-        climber.update(delta);
-        jumper.update(delta);
+
+        // Run Component updates in sequence, and break through
+        // any later updates if we receive a returned request to
+        do {
+            if (!climber.update(delta)) break;
+            if (!jumper.update(delta)) break;
+        } while (false);
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
@@ -141,6 +146,8 @@ public class Player extends PhysicsBody implements Initializeable
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
     public void loseLife() { lives--; }
     public boolean isOutOfLives() { return lives <= 0; }
+    public JumpComponent jumper() { return jumper; }
+    public ClimbComponent climber() { return climber; }
 
     public Rectangle getBounds()
     {
