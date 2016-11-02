@@ -1,5 +1,6 @@
 package com.greenbatgames.rubyred.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -102,6 +103,12 @@ public class Player extends PhysicsBody implements Initializeable
             if (!jumper.update(delta)) break;
         } while (false);
 
+        // Set the direction facing based on x velocity
+        if (body.getLinearVelocity().x > 0.1f)
+            facingRight = true;
+        else if (body.getLinearVelocity().x < -0.1f)
+            facingRight = false;
+
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
     }
@@ -111,6 +118,7 @@ public class Player extends PhysicsBody implements Initializeable
     // JumpComponent accessors
     public void land() { jumper.land(); }
     public void jump() { jumper.jump(); }
+    public void climb() { climber.climbing = true; }
 
 
 

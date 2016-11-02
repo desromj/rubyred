@@ -52,7 +52,6 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
                 );
 
-                player.facingRight = true;
                 return true;
 
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
@@ -63,7 +62,6 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
                 );
 
-                player.facingRight = false;
                 return true;
             }
         } else {
