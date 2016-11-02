@@ -260,65 +260,18 @@ public class Player extends PhysicsBody implements Initializeable
 
 
 
-    // TODO: Sets crouch collision, if crouching needs to be added to the game
-
-
-
-    protected void setCrouchCollision(boolean crouching)
-    {
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        bodyDef.fixedRotation = true;
-
-        PolygonShape shape = new PolygonShape();
-
-        if (this.crouched) {
-            shape.set(Constants.RUBY_VERTICIES_CROUCHED);
-            bodyDef.position.set(
-                    this.body.getPosition().x,
-                    (this.body.getPosition().y -
-                            (Utils.getMaxHeight(Constants.RUBY_VERTICES_NORMAL)
-                                    - Utils.getMaxHeight(Constants.RUBY_VERTICIES_CROUCHED))
-                                    / 2.0f)
-            );
-        } else {
-            shape.set(Constants.RUBY_VERTICES_NORMAL);
-            bodyDef.position.set(
-                    this.body.getPosition().x,
-                    (this.body.getPosition().y -
-                            (Utils.getMaxHeight(Constants.RUBY_VERTICIES_CROUCHED)
-                                    - Utils.getMaxHeight(Constants.RUBY_VERTICES_NORMAL))
-                                    / 2.0f)
-            );
-        }
-
-        FixtureDef fixtureDef = new FixtureDef();
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = Constants.RUBY_DENSITY;
-        fixtureDef.restitution = 0f;
-        fixtureDef.friction = 0f;
-
-        GameScreen.getInstance().queueBodyToCreate(bodyDef, fixtureDef, this);
-        GameScreen.getInstance().queueBodyToDestroy(this);
-    }
-
-
-
     /*
         Getters and Setters
      */
 
     public boolean isCollisionDisabled() { return disableCollisionFor > 0f; }
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
+    public void loseLife() { lives--; }
+    public boolean isOutOfLives() { return lives <= 0; }
 
     public Rectangle getBounds()
     {
         bounds.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         return bounds;
     }
-    
-    public void loseLife() { lives--; }
-    public boolean isOutOfLives() { return lives <= 0; }
 }
