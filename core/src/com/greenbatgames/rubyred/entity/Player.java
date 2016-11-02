@@ -26,11 +26,14 @@ public class Player extends PhysicsBody implements Initializeable
     private Vector2 spawnPosition;
     private Rectangle bounds;
 
+    private int lives;
+
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
         spawnPosition = new Vector2(x, y);
         bounds = new Rectangle(x, y, width, height);
+        lives = Constants.RUBY_STARTING_LIVES;
 
         init();
     }
@@ -315,4 +318,7 @@ public class Player extends PhysicsBody implements Initializeable
         bounds.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         return bounds;
     }
+    
+    public void loseLife() { lives--; }
+    public boolean isOutOfLives() { return lives <= 0; }
 }

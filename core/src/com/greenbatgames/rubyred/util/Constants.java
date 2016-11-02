@@ -68,6 +68,8 @@ public class Constants
         Ruby Player Values
      */
 
+    public static final int RUBY_STARTING_LIVES = 3;
+
     public static final float RUBY_DENSITY = 400.0f;
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
     public static final float RUBY_SPRING_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 1.25f;

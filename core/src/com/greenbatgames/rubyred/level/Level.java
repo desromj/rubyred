@@ -231,8 +231,11 @@ public class Level implements Initializeable
 
         // Update and re-initialize if required
         stage.act(delta);
-        if (player.getY() <= Constants.KILL_PLANE_Y)
+
+        if (player.getY() <= Constants.KILL_PLANE_Y) {
             reinitializeAllActors();
+            player.loseLife();
+        }
 
         /*
             Rendering logic
@@ -327,14 +330,12 @@ public class Level implements Initializeable
         return stage.getViewport();
     }
 
-    public boolean hasWon()
-    {
+    public boolean hasWon() {
         return player.getBounds().overlaps(flag.getBounds());
     }
 
-    public boolean hasLost()
-    {
-        return false;
+    public boolean hasLost() {
+        return player.isOutOfLives();
     }
 
 

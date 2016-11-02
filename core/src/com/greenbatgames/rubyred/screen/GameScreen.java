@@ -45,9 +45,14 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
     @Override
     public void render(float delta) {
+
         level.render(delta);
+
         if (level.hasWon()) {
             Gdx.app.log(TAG, "You have Won!");
+            RubyGame.setScreen(StartScreen.class);
+        } else if (level.hasLost()) {
+            Gdx.app.log(TAG, "You have Lost!");
             RubyGame.setScreen(StartScreen.class);
         }
     }
