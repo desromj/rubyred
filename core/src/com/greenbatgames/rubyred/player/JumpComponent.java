@@ -12,7 +12,7 @@ import com.greenbatgames.rubyred.util.Constants;
  * Created by Quiv on 02-11-2016.
  */
 
-public class JumpComponent extends Actor implements Initializeable
+public class JumpComponent implements Initializeable
 {
     private Player player;
 
@@ -36,8 +36,7 @@ public class JumpComponent extends Actor implements Initializeable
 
 
 
-    @Override
-    public void act(float delta)
+    public void update(float delta)
     {
         cannotJumpFor -= delta;
         disableCollisionFor -= delta;

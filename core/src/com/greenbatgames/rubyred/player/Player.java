@@ -91,8 +91,8 @@ public class Player extends PhysicsBody implements Initializeable
     public void act(float delta)
     {
         super.act(delta);
-        jumper.act(delta);
-
+        jumper.update(delta);
+        
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
     }
