@@ -44,7 +44,7 @@ public class JumpComponent extends PlayerComponent
         Body body = player.getBody();
 
         if (isOnGround()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
 
                 jump();
                 body.setLinearVelocity(
@@ -55,7 +55,7 @@ public class JumpComponent extends PlayerComponent
                 player.facingRight = true;
                 return true;
 
-            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
 
                 jump();
                 body.setLinearVelocity(
@@ -70,7 +70,7 @@ public class JumpComponent extends PlayerComponent
             if (isInAir())
             {
 
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
                     body.setLinearVelocity(
                             MathUtils.clamp(
                                     body.getLinearVelocity().x + Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
@@ -78,7 +78,7 @@ public class JumpComponent extends PlayerComponent
                                     Constants.RUBY_MAX_HORIZ_HOP_SPEED),
                             body.getLinearVelocity().y
                     );
-                } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
                     body.setLinearVelocity(
                             MathUtils.clamp(
                                     body.getLinearVelocity().x - Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
@@ -106,9 +106,9 @@ public class JumpComponent extends PlayerComponent
         if (isOnGround() && (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT))) {
             jump();
 
-            if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+            } else if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
                 float angle;
 
                 if (player.facingRight)
@@ -141,11 +141,10 @@ public class JumpComponent extends PlayerComponent
 
     public void jump() {
         // cannot jump if we already jumped
-        if (jumped)
-            return;
+        if (jumped) return;
 
         // If jumping down through a platform, disable collision and return
-        if (grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        if (grounded && (Gdx.input.isKeyPressed(Constants.KEY_DOWN) || Gdx.input.isKeyPressed(Constants.KEY_DOWN_ALT)))
         {
             this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;
             return;

@@ -28,14 +28,17 @@ public class Constants
     public static int KEY_LEFT = Input.Keys.LEFT;
     public static int KEY_LEFT_ALT = Input.Keys.A;
 
+    public static int KEY_DOWN = Input.Keys.DOWN;
+    public static int KEY_DOWN_ALT = Input.Keys.S;
+
     public static int KEY_JUMP = Input.Keys.Z;
     public static int KEY_JUMP_ALT = Input.Keys.SPACE;
 
     public static int KEY_ATTACK = Input.Keys.X;
     public static int KEY_ATTACK_ALT = Input.Keys.E;
 
-    public static int KEY_CROUCH = Input.Keys.SHIFT_LEFT;
-    public static int KEY_CROUCH_ALT = Input.Keys.CONTROL_LEFT;
+    public static int KEY_SPRING = Input.Keys.SHIFT_LEFT;
+    public static int KEY_LONG = Input.Keys.CONTROL_LEFT;
 
     /*
         World Aspect Ratio
