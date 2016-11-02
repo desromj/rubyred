@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.util.Constants;
 
@@ -12,16 +11,13 @@ import com.greenbatgames.rubyred.util.Constants;
  * Created by Quiv on 02-11-2016.
  */
 
-public class JumpComponent implements Initializeable
+public class JumpComponent extends PlayerComponent
 {
-    private Player player;
-
     private boolean grounded, jumped;
     private float cannotJumpFor, disableCollisionFor;
 
     public JumpComponent(Player player) {
-        this.player = player;
-        init();
+        super(player);
     }
 
 
@@ -36,6 +32,7 @@ public class JumpComponent implements Initializeable
 
 
 
+    @Override
     public void update(float delta)
     {
         cannotJumpFor -= delta;

@@ -1,22 +1,18 @@
 package com.greenbatgames.rubyred.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.greenbatgames.rubyred.entity.Initializeable;
 
 /**
  * Created by Quiv on 02-11-2016.
  */
 
-public class ClimbComponent implements Initializeable
+public class ClimbComponent extends PlayerComponent
 {
-    private Player player;
-
     private boolean climbing;
     private Vector2 gripPoint;
 
     public ClimbComponent(Player player) {
-        this.player = player;
-        init();
+        super(player);
     }
 
     @Override
@@ -26,7 +22,7 @@ public class ClimbComponent implements Initializeable
     }
 
 
-
+    @Override
     public void update(float delta) {
 
     }
