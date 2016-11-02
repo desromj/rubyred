@@ -18,11 +18,12 @@ import com.greenbatgames.rubyred.util.Constants;
  */
 public class Player extends PhysicsBody implements Initializeable
 {
-    private boolean climbing;
     private Vector2 spawnPosition;
     private Rectangle bounds;
     private int lives;
+
     private JumpComponent jumper;
+    private ClimbComponent climber;
 
     boolean facingRight;
 
@@ -32,7 +33,9 @@ public class Player extends PhysicsBody implements Initializeable
         spawnPosition = new Vector2(x, y);
         bounds = new Rectangle(x, y, width, height);
         lives = Constants.RUBY_STARTING_LIVES;
+
         jumper = new JumpComponent(this);
+        climber = new ClimbComponent(this);
 
         init();
     }
@@ -50,9 +53,9 @@ public class Player extends PhysicsBody implements Initializeable
         );
 
         jumper.init();
+        climber.init();
 
         facingRight = true;
-        climbing = false;
     }
 
 
@@ -91,8 +94,9 @@ public class Player extends PhysicsBody implements Initializeable
     public void act(float delta)
     {
         super.act(delta);
+        climber.update(delta);
         jumper.update(delta);
-        
+
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
     }
