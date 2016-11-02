@@ -1,6 +1,5 @@
 package com.greenbatgames.rubyred.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.screen.GameScreen;
@@ -26,7 +25,7 @@ public class BirdSpawner extends Actor
     @Override
     public void act(float delta)
     {
-        Player player = GameScreen.getInstance().getPlayer();
+        com.greenbatgames.rubyred.player.Player player = GameScreen.getInstance().getPlayer();
 
         // Skip spawn if it is too far offscreen
         float dist = Math.abs(Vector2.dst(

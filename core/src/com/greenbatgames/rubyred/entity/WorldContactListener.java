@@ -1,6 +1,5 @@
 package com.greenbatgames.rubyred.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -21,19 +20,19 @@ public class WorldContactListener implements ContactListener
                 a = Utils.getUserData(contact, true),
                 b = Utils.getUserData(contact, false);
 
-        if (a instanceof Player || b instanceof Player)
+        if (a instanceof com.greenbatgames.rubyred.player.Player || b instanceof com.greenbatgames.rubyred.player.Player)
         {
-            Player player;
+            com.greenbatgames.rubyred.player.Player player;
             Object other;
 
-            if (a instanceof Player)
+            if (a instanceof com.greenbatgames.rubyred.player.Player)
             {
-                player = (Player) a;
+                player = (com.greenbatgames.rubyred.player.Player) a;
                 other = b;
             }
             else
             {
-                player = (Player) b;
+                player = (com.greenbatgames.rubyred.player.Player) b;
                 other = a;
             }
 
@@ -97,19 +96,19 @@ public class WorldContactListener implements ContactListener
                 b = Utils.getUserData(contact, false);
 
         // Player collision
-        if (a instanceof Player || b instanceof Player)
+        if (a instanceof com.greenbatgames.rubyred.player.Player || b instanceof com.greenbatgames.rubyred.player.Player)
         {
-            Player player;
+            com.greenbatgames.rubyred.player.Player player;
             Object other;
 
-            if (a instanceof Player)
+            if (a instanceof com.greenbatgames.rubyred.player.Player)
             {
-                player = (Player) a;
+                player = (com.greenbatgames.rubyred.player.Player) a;
                 other = b;
             }
             else
             {
-                player = (Player) b;
+                player = (com.greenbatgames.rubyred.player.Player) b;
                 other = a;
             }
 

@@ -89,7 +89,7 @@ public class Bird extends Actor
         // Rest of updates
         this.position.mulAdd(velocity, delta);
 
-        Player player = GameScreen.getInstance().getPlayer();
+        com.greenbatgames.rubyred.player.Player player = GameScreen.getInstance().getPlayer();
 
         this.aabb.set(position.x, position.y, width, height);
 

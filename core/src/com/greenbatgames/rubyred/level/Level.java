@@ -28,7 +28,7 @@ import com.greenbatgames.rubyred.entity.FinishFlag;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
-import com.greenbatgames.rubyred.entity.Player;
+import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.entity.Skylight;
 import com.greenbatgames.rubyred.entity.WorldContactListener;
 import com.greenbatgames.rubyred.util.ChaseCam;

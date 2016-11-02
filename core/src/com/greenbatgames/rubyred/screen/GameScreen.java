@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.RubyGame;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
-import com.greenbatgames.rubyred.entity.Player;
+import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.level.Level;
 import com.greenbatgames.rubyred.level.LevelLoader;
 
