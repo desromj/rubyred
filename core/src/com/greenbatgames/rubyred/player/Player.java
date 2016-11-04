@@ -115,13 +115,6 @@ public class Player extends PhysicsBody implements Initializeable
 
 
 
-    // JumpComponent accessors
-    public void land() { jumper.land(); }
-    public void jump() { jumper.jump(); }
-    public void climb() { climber.climbing = true; }
-
-
-
     @Override
     public void draw(Batch batch, float parentAlpha)
     {
@@ -154,8 +147,14 @@ public class Player extends PhysicsBody implements Initializeable
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
     public void loseLife() { lives--; }
     public boolean isOutOfLives() { return lives <= 0; }
+
     public JumpComponent jumper() { return jumper; }
     public ClimbComponent climber() { return climber; }
+
+    public boolean isJumpButtonHeld() {
+        return Gdx.input.isKeyPressed(Constants.KEY_JUMP)
+                || Gdx.input.isKeyPressed(Constants.KEY_JUMP_ALT);
+    }
 
     public Rectangle getBounds()
     {

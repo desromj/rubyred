@@ -11,18 +11,11 @@ import com.greenbatgames.rubyred.util.Constants;
  */
 public class Platform extends PhysicsBody
 {
-    private float left, right, top, bottom;
     private boolean oneWay;
 
     public Platform(float x, float y, float width, float height, World world, boolean oneWay)
     {
         super(x, y, width, height, world);
-
-        this.left = x - width / 2.0f;
-        this.right = x + width / 2.0f;
-        this.bottom = y - height / 2.0f;
-        this.top = y +  height / 2.0f;
-
         this.oneWay = oneWay;
     }
 

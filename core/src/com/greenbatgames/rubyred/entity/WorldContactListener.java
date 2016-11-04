@@ -1,5 +1,6 @@
 package com.greenbatgames.rubyred.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -60,23 +61,38 @@ public class WorldContactListener implements ContactListener
                     }
                 }
 
-                // Activate other Platform-based objects if player lands on them
-                if (landed)
+                // If the top of the platform is within player bounds,
+                // if the player is holding the jump button,
+                // start climbing on top of the platform
+                if (!player.climber().isClimbing()
+                        && player.isJumpButtonHeld()
+                        && other instanceof Platform
+                        && physical.getTop() < player.getTop()
+                        && physical.getTop() > player.getBottom())
                 {
+                    Vector2 gripPoint = new Vector2(
+                            (player.getX() < physical.getX()) ? physical.getLeft() : physical.getRight(),
+                            physical.getTop()
+                    );
+
+                    player.climber().startClimbing(gripPoint);
+
+                } else if (landed) {
+                    // Activate other Platform-based objects if player lands on them
                     if (other instanceof Skylight) {
                         Skylight sl = (Skylight) other;
                         if (!sl.isBroken()) {
                             sl.activate();
-                            player.land();
+                            player.jumper().land();
                         }
                     } else if (other instanceof DropPlatform) {
                         DropPlatform dp = ((DropPlatform) other);
                         if (!dp.isBroken()) {
                             dp.activate();
-                            player.land();
+                            player.jumper().land();
                         }
                     } else {
-                        player.land();
+                        player.jumper().land();
                     }
                 }
             }

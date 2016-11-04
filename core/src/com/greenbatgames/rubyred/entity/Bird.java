@@ -105,7 +105,7 @@ public class Bird extends Actor
                     Constants.BIRD_KNOCKBACK_IMPULSE.y,
                     true
             );
-            player.jump();
+            player.jumper().jump();
 
             this.hitPlayer = true;
         }
