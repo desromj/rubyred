@@ -92,6 +92,7 @@ public class Constants
     public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_MOVE_SPEED;
 
     public static final Vector2 RUBY_CLIMB_SPEED = new Vector2(WORLD_WIDTH / 100.0f, WORLD_WIDTH / 100.0f);
+    public static final float RUBY_MAX_CLIMB_TIME = 1f;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.90f;
     public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.96f;
@@ -137,7 +138,7 @@ public class Constants
         Platform object values
      */
 
-    public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 60.0f;
+    public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 160.0f;
     public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 16.0f;
 
     /*

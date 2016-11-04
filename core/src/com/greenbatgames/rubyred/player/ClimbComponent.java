@@ -45,6 +45,11 @@ public class ClimbComponent extends PlayerComponent
     @Override
     public boolean update(float delta) {
 
+        // Return true if we're not climbing or have been climbing for too long already
+        if ((TimeUtils.nanosToMillis(TimeUtils.nanoTime() - climbStartTime) / 1000f) > Constants.RUBY_MAX_CLIMB_TIME) {
+            climbing = false;
+        }
+
         if (!climbing) return true;
 
         // If climbing, we override the speed of the player and move their
@@ -59,7 +64,7 @@ public class ClimbComponent extends PlayerComponent
         );
 
         // Handle Y factor first, then X (left, then right)
-        if (baseY() < gripY()) {
+        if (baseY() < gripY() + Constants.PLATFORM_EDGE_LEEWAY) {
             player.getBody().setLinearVelocity(
                     0f,
                     Constants.RUBY_CLIMB_SPEED.y
@@ -79,7 +84,7 @@ public class ClimbComponent extends PlayerComponent
         // Check for completion of the climb
         Gdx.app.log(TAG, "Grip Point, Base Point: (" + gripX() + ", " + gripY() + ") - (" + baseX() + ", " + baseY() + ")");
 
-        if (Vector2.dst(baseX(), baseY(), gripX(), gripY()) < Constants.PLATFORM_EDGE_LEEWAY) {
+        if (Vector2.dst(baseX(), baseY(), gripX(), gripY()) < Constants.PLATFORM_EDGE_LEEWAY * 2f) {
             Gdx.app.log(TAG, "Stop Climbing Triggered");
             Gdx.app.log(TAG, "Distance: " + Vector2.dst(baseX(), baseY(), gripX(), gripY()));
             climbing = false;
