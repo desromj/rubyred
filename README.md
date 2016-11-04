@@ -8,8 +8,8 @@ and game objects.
 As you control a kangaroo, all movement is done by a combination of short and long hops.
 
 NOTE: There is a current known framerate issue. A LibGDX Scene is used to handle actors,
-but terminates the drawing batch and uses a ShapeRenderer for EVERY object. This is a
-costly operation, but it will be removed when objects use actual sprites instead of
+but terminates the drawing batch and uses a ShapeRenderer for every object without assets. 
+This is a costly operation, but it will be removed when objects use actual sprites instead of
 placeholder shapes for the graphics.
 
 In order to run the project, do the following
@@ -26,6 +26,7 @@ Controls:
 - Z
   - normal jump
   - jump straight up in the air
+  - hold while jumping towards a ledge to grab the edge and pull yourself up
 - Hold SHIFT+Z
   - spring jump
   - jump straight up in the air with double height
