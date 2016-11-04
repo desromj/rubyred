@@ -99,7 +99,7 @@ public abstract class PhysicsBody extends Actor
                 lowest = vert.y;
         }
 
-        return position.y + lowest * Constants.PTM;
+        return (body.getPosition().y + lowest) * Constants.PTM;
     }
 
 
@@ -120,7 +120,7 @@ public abstract class PhysicsBody extends Actor
                 highest = vert.y;
         }
 
-        return position.y + highest * Constants.PTM;
+        return (body.getPosition().y + highest) * Constants.PTM;
     }
 
 
@@ -141,7 +141,7 @@ public abstract class PhysicsBody extends Actor
                 leftest = vert.x;
         }
 
-        return position.y + leftest * Constants.PTM;
+        return (body.getPosition().x + leftest) * Constants.PTM;
     }
 
 
@@ -162,6 +162,6 @@ public abstract class PhysicsBody extends Actor
                 rightest = vert.x;
         }
 
-        return position.y + rightest * Constants.PTM;
+        return (body.getPosition().x + rightest) * Constants.PTM;
     }
 }
