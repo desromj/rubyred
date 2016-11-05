@@ -98,13 +98,16 @@ public class Bird extends Actor
         {
             boolean pushRight = (player.getX() > this.position.x);
 
-            // Cancel velocity and apply knockback force
+            // Cancel velocity
             player.getBody().setLinearVelocity(0f, 0f);
             player.getBody().applyForceToCenter(
                     (pushRight) ? Constants.BIRD_KNOCKBACK_IMPULSE.x : -Constants.BIRD_KNOCKBACK_IMPULSE.x,
                     Constants.BIRD_KNOCKBACK_IMPULSE.y,
                     true
             );
+            
+            // Cancel possible climbing and apply knockback force
+            player.climber().cancelClimb();
             player.jumper().jump();
 
             this.hitPlayer = true;

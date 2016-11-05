@@ -124,6 +124,7 @@ public class ClimbComponent extends PlayerComponent
         climbing = true;
     }
 
+    public void cancelClimb() { climbing = false; }
     public boolean isClimbing() { return climbing; }
     public float gripX() { return gripPoint.x; }
     public float gripY() { return gripPoint.y; }
