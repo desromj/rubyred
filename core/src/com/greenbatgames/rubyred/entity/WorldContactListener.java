@@ -67,6 +67,7 @@ public class WorldContactListener implements ContactListener
                 if (!player.climber().isClimbing()
                         && player.isJumpButtonHeld()
                         && other instanceof Platform
+                        && ((Platform)other).allowClimbing()
                         && physical.getTop() < player.getTop()
                         && physical.getTop() > player.getBottom())
                 {

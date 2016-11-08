@@ -44,4 +44,8 @@ public class Platform extends PhysicsBody
     }
 
     public boolean isOneWay() { return this.oneWay; }
+
+    // All platforms allow climbing on them by default. Override this method in child classes
+    // to deny the climbing ability
+    public boolean allowClimbing() { return true; }
 }

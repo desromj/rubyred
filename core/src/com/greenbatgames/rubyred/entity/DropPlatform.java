@@ -127,4 +127,7 @@ public class DropPlatform extends Platform implements Initializeable
     }
 
     public boolean isBroken() { return broken; }
+
+    @Override
+    public boolean allowClimbing() { return !broken; }
 }
