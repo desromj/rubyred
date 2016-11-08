@@ -1,8 +1,6 @@
 package com.greenbatgames.rubyred.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.greenbatgames.rubyred.util.Constants;
@@ -81,12 +79,8 @@ public class ClimbComponent extends PlayerComponent
             );
         }
 
-        // Check for completion of the climb
-        Gdx.app.log(TAG, "Grip Point, Base Point: (" + gripX() + ", " + gripY() + ") - (" + baseX() + ", " + baseY() + ")");
-
-        if (Vector2.dst(baseX(), baseY(), gripX(), gripY()) < Constants.PLATFORM_EDGE_LEEWAY * 2f) {
+        if (climbingRight ? baseX() > gripX() : gripX() > baseX()) {
             Gdx.app.log(TAG, "Stop Climbing Triggered");
-            Gdx.app.log(TAG, "Distance: " + Vector2.dst(baseX(), baseY(), gripX(), gripY()));
             climbing = false;
             player.getBody().setLinearVelocity(0f, 0f);
         }
