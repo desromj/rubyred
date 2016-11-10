@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.greenbatgames.rubyred.util.Constants;
+import com.greenbatgames.rubyred.util.Enums;
 
 /**
  * Created by Quiv on 02-11-2016.
@@ -51,6 +52,7 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
                         Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
                 );
+                player.animator().setNext(Enums.AnimationState.HOPPING);
 
                 return true;
 
@@ -61,6 +63,7 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
                         Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
                 );
+                player.animator().setNext(Enums.AnimationState.HOPPING);
 
                 return true;
             }
@@ -106,6 +109,7 @@ public class JumpComponent extends PlayerComponent
 
             if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
+                player.animator().setNext(Enums.AnimationState.HOPPING);        // TODO: set to Spring Jump animation
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
                 float angle;
 
@@ -118,8 +122,12 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_LONG_JUMP_IMPULSE * MathUtils.cos(angle),
                         Constants.RUBY_LONG_JUMP_IMPULSE * MathUtils.sin(angle),
                         true);
+
+                player.animator().setNext(Enums.AnimationState.HOPPING);        // TODO: Set to Long Jump animation
             } else {
                 body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
+
+                player.animator().setNext(Enums.AnimationState.HOPPING);        // TODO: Set to normal jump animation
             }
         }
 

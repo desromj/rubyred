@@ -14,20 +14,20 @@ import com.greenbatgames.rubyred.asset.Assets;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.util.Constants;
+import com.greenbatgames.rubyred.util.Enums;
 
 /**
  * Created by Quiv on 10-08-2016.
  */
 public class Player extends PhysicsBody implements Initializeable
 {
-    Assets.SpineAnimationAsset asset;
-
     private Vector2 spawnPosition;
     private Rectangle bounds;
     private int lives;
 
     private JumpComponent jumper;
     private ClimbComponent climber;
+    private AnimationComponent animator;
 
     boolean facingRight;
 
@@ -35,14 +35,13 @@ public class Player extends PhysicsBody implements Initializeable
     {
         super(x, y, width, height, world);
 
-        asset = Assets.instance.makeAsset(this);
-
         spawnPosition = new Vector2(x, y);
         bounds = new Rectangle(x, y, width, height);
         lives = Constants.RUBY_STARTING_LIVES;
 
         jumper = new JumpComponent(this);
         climber = new ClimbComponent(this);
+        animator = new AnimationComponent(this);
 
         init();
     }
@@ -61,6 +60,7 @@ public class Player extends PhysicsBody implements Initializeable
 
         jumper.init();
         climber.init();
+        animator.init();
 
         facingRight = true;
     }
@@ -105,6 +105,7 @@ public class Player extends PhysicsBody implements Initializeable
         // Run Component updates in sequence, and break through
         // any later updates if we receive a returned request to
         do {
+            if (!animator.update(delta)) break;
             if (!climber.update(delta)) break;
             if (!jumper.update(delta)) break;
         } while (false);
@@ -117,16 +118,13 @@ public class Player extends PhysicsBody implements Initializeable
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
-
-        // TODO: Try to encapsulate this out of the player class
-        this.asset.skeleton.setPosition(getX(), getY());
     }
 
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        asset.render(batch);
+        animator.asset.render(batch);
     }
 
 
@@ -142,14 +140,14 @@ public class Player extends PhysicsBody implements Initializeable
 
     public JumpComponent jumper() { return jumper; }
     public ClimbComponent climber() { return climber; }
+    public AnimationComponent animator() { return animator; }
 
     public boolean isJumpButtonHeld() {
         return Gdx.input.isKeyPressed(Constants.KEY_JUMP)
                 || Gdx.input.isKeyPressed(Constants.KEY_JUMP_ALT);
     }
 
-    public Rectangle getBounds()
-    {
+    public Rectangle getBounds() {
         bounds.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         return bounds;
     }

@@ -11,7 +11,9 @@ public class Enums
     public enum AnimationState {
 
         IDLE("idle", true),
-        HOPPING("hop", false);
+
+        // TODO: Figure out how to handle non-looping animations
+        HOPPING("hop", true);
 
         String label;
         boolean looping;

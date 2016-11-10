@@ -17,6 +17,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.player.Player;
+import com.greenbatgames.rubyred.util.Enums;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -89,6 +90,10 @@ public class Assets implements Disposable, AssetErrorListener
             skeletonRenderer.draw(batch, skeleton);
             // skeletonRendererDebug.draw(skeleton);
         }
+
+        public void setAnimation(Enums.AnimationState state) {
+            animationState.setAnimation(0, state.getLabel(), state.isLooping());
+        }
     }
 
 
@@ -106,7 +111,7 @@ public class Assets implements Disposable, AssetErrorListener
 
             atlas = new TextureAtlas(Gdx.files.internal("sprites/ruby/rubyred.atlas"));
             SkeletonJson json = new SkeletonJson(atlas);        // load stateless skeleton JSON data
-            json.setScale(0.05f);                               // set skeleton scale from Spine
+            json.setScale(0.045f);                               // set skeleton scale from Spine
 
             // Read the JSON data and create the skeleton
             SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("sprites/ruby/skeleton.json"));
