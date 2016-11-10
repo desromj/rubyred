@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.rubyred.asset.Assets;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.util.Constants;
@@ -19,6 +20,8 @@ import com.greenbatgames.rubyred.util.Constants;
  */
 public class Player extends PhysicsBody implements Initializeable
 {
+    Assets.SpineAnimationAsset asset;
+
     private Vector2 spawnPosition;
     private Rectangle bounds;
     private int lives;
@@ -31,6 +34,9 @@ public class Player extends PhysicsBody implements Initializeable
     public Player(float x, float y, float width, float height, World world)
     {
         super(x, y, width, height, world);
+
+        asset = Assets.instance.makeAsset(this);
+
         spawnPosition = new Vector2(x, y);
         bounds = new Rectangle(x, y, width, height);
         lives = Constants.RUBY_STARTING_LIVES;
@@ -111,30 +117,16 @@ public class Player extends PhysicsBody implements Initializeable
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);
+
+        // TODO: Try to encapsulate this out of the player class
+        this.asset.skeleton.setPosition(getX(), getY());
     }
 
 
 
     @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        batch.end();
-
-        ShapeRenderer renderer = new ShapeRenderer();
-        renderer.setProjectionMatrix(batch.getProjectionMatrix());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        renderer.setColor(Color.BROWN);
-        renderer.rect(
-                getX(),
-                getY(),
-                getWidth(),
-                getHeight());
-
-        renderer.end();
-
-        batch.begin();
+    public void draw(Batch batch, float parentAlpha) {
+        asset.render(batch);
     }
 
 
