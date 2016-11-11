@@ -24,14 +24,6 @@ public class AnimationComponent extends PlayerComponent
     @Override
     public boolean update(float delta) {
 
-        for (AnimationState.TrackEntry e: asset.animationState.getTracks())
-            Gdx.app.log("AnimComp", "Track: " + e.getAnimation().getName());
-
-        Gdx.app.log("AnimComp", "========= done =========");
-
-        float playbackSpeed = getAnimationPlaybackSpeed(asset.animationState.getCurrent(0).getAnimation());
-        asset.animationState.getCurrent(0).setTimeScale(playbackSpeed);
-
         // Set the player position and X orientation
         this.asset.skeleton.setPosition(
                 player.getX() + player.getWidth() / 2.0f,
@@ -71,18 +63,6 @@ public class AnimationComponent extends PlayerComponent
         } else {
             return Enums.AnimationState.IDLE;
         }
-    }
-
-
-
-    // Animations which have to be sped up
-    private float getAnimationPlaybackSpeed(Animation anim)
-    {
-        // Hopping at 4x speed
-        if (anim.getName().startsWith("hop"))
-            return 4.0f;
-
-        return 1.0f;
     }
 
 

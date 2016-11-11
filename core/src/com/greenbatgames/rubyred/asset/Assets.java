@@ -75,10 +75,13 @@ public class Assets implements Disposable, AssetErrorListener
 
         // All subclasses must initialize all required Spine classes above
         public abstract void initSpine();
+        // All subclasses must load animation blending (can be blank)
+        public abstract void loadBlends();
 
         public SpineAnimationAsset()
         {
             initSpine();
+            loadBlends();
         }
 
         public void render(Batch batch)
@@ -92,7 +95,7 @@ public class Assets implements Disposable, AssetErrorListener
         }
 
         public void setAnimation(Enums.AnimationState state) {
-            animationState.setAnimation(0, state.getLabel(), state.isLooping());
+            state.loadAnimations(animationState);
         }
     }
 
@@ -121,6 +124,18 @@ public class Assets implements Disposable, AssetErrorListener
             AnimationStateData stateData = new AnimationStateData(skeletonData);
             animationState = new AnimationState(stateData);
             animationState.setAnimation(0, "idle", true);
+        }
+
+        public void loadBlends() {
+            AnimationStateData data = animationState.getData();
+
+            data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
+
+            // TODO: Remove these once better blending is in place
+            data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+
         }
     }
 
