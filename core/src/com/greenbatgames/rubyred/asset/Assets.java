@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.esotericsoftware.spine.AnimationState;
@@ -16,7 +15,6 @@ import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
-import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.util.Enums;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -130,12 +128,19 @@ public class Assets implements Disposable, AssetErrorListener
             AnimationStateData data = animationState.getData();
 
             data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+
             data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
 
-            // TODO: Remove these once better blending is in place
-            data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
-            data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.IDLE.getLabel(), Enums.AnimationState.HOP.getLabel(), 0.1f);
+            data.setMix(Enums.AnimationState.IDLE.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.IDLE.getLabel(), Enums.AnimationState.LONG_JUMP_PREPARE.getLabel(), 0.1f);
 
+            data.setMix(Enums.AnimationState.LAND.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.1f);
+
+            data.setMix(Enums.AnimationState.LONG_JUMP_PREPARE.getLabel(), Enums.AnimationState.LONG_JUMP.getLabel(), 0.1f);
+
+            data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
         }
     }
 
