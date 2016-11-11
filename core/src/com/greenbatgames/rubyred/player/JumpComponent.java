@@ -45,12 +45,17 @@ public class JumpComponent extends PlayerComponent
 
         if (isOnGround()) {
 
-            // Special jumping animation preparation - disallows hopping while key is pressed
+            // Special jumping animation preparation
             if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
                 player.animator().setNext(Enums.AnimationState.LONG_JUMP_PREPARE);
             } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
 
-            } else if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
+            } else {
+                player.animator().setNext(Enums.AnimationState.IDLE);
+            }
+
+            // Normal hopping controls
+            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
 
                 jump();
                 body.setLinearVelocity(
