@@ -1,8 +1,5 @@
 package com.greenbatgames.rubyred.player;
 
-import com.badlogic.gdx.Gdx;
-import com.esotericsoftware.spine.Animation;
-import com.esotericsoftware.spine.AnimationState;
 import com.greenbatgames.rubyred.asset.Assets;
 import com.greenbatgames.rubyred.util.Enums;
 
@@ -30,9 +27,6 @@ public class AnimationComponent extends PlayerComponent
                 player.getY());
         this.asset.skeleton.setFlipX(!player.facingRight);
 
-        // Determine next animation state and save previous animation state
-        this.animationState = nextAnimationState();
-
         // Update our animation if it has changed
         if (this.animationState != this.previousState) {
             asset.skeleton.setToSetupPose();
@@ -56,18 +50,8 @@ public class AnimationComponent extends PlayerComponent
 
 
 
-    public Enums.AnimationState nextAnimationState() {
-
-        if (player.jumper().isInAir()) {
-            return animationState;
-        } else {
-            return Enums.AnimationState.IDLE;
-        }
-    }
-
-
-
     public void setNext(Enums.AnimationState state) {
         this.animationState = state;
     }
+    public String getNextLabel() { return animationState.getLabel(); }
 }

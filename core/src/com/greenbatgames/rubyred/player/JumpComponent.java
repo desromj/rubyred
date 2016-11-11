@@ -44,7 +44,13 @@ public class JumpComponent extends PlayerComponent
         Body body = player.getBody();
 
         if (isOnGround()) {
-            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
+
+            // Special jumping animation preparation - disallows hopping while key is pressed
+            if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
+                player.animator().setNext(Enums.AnimationState.LONG_JUMP_PREPARE);
+            } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
+
+            } else if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
 
                 jump();
                 body.setLinearVelocity(
@@ -69,7 +75,6 @@ public class JumpComponent extends PlayerComponent
         } else {
             if (isInAir())
             {
-
                 if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
                     body.setLinearVelocity(
                             MathUtils.clamp(
@@ -102,13 +107,15 @@ public class JumpComponent extends PlayerComponent
         }
 
         // Special jumping movement
-
         if (isOnGround() && (Gdx.input.isKeyJustPressed(Constants.KEY_JUMP) || Gdx.input.isKeyJustPressed(Constants.KEY_JUMP_ALT))) {
             jump();
 
+            // Spring Jumps
             if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
                 player.animator().setNext(Enums.AnimationState.HOP);        // TODO: set to Spring Jump animation
+
+            // Long Jumps
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
                 float angle;
 
@@ -122,13 +129,17 @@ public class JumpComponent extends PlayerComponent
                         Constants.RUBY_LONG_JUMP_IMPULSE * MathUtils.sin(angle),
                         true);
 
-                player.animator().setNext(Enums.AnimationState.HOP);        // TODO: Set to Long Jump animation
+                player.animator().setNext(Enums.AnimationState.LONG_JUMP);  // Long jump animation
+
+            // Standard Jumps
             } else {
                 body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
 
-                player.animator().setNext(Enums.AnimationState.HOP);        // TODO: Set to normal jump animation
+                player.animator().setNext(Enums.AnimationState.HOP);        // Set to normal jump animation
             }
         }
+
+        Gdx.app.log("JumpComp", "end-of-jump-update Animation State: " + player.animator().getNextLabel());
 
         return true;
     }
@@ -140,6 +151,7 @@ public class JumpComponent extends PlayerComponent
         jumped = false;
 
         cannotJumpFor = Constants.RUBY_JUMP_RECOVERY;
+        player.animator().setNext(Enums.AnimationState.LAND);
     }
 
 
