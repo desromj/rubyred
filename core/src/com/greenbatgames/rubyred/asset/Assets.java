@@ -17,8 +17,6 @@ import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.util.Enums;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Created by Quiv on 09-11-2016.
  */
@@ -52,11 +50,8 @@ public class Assets implements Disposable, AssetErrorListener
 
 
 
-
-
-
-    public SpineAnimationAsset makeAsset(PhysicsBody pb) throws NotImplementedException
-    {
+    // If there are any other Spine assets to use, change this to a switch based on PhysicsBody
+    public SpineAnimationAsset makeAsset(PhysicsBody pb) {
         return new RubyAssets();
     }
 
