@@ -128,6 +128,8 @@ public class Assets implements Disposable, AssetErrorListener
             AnimationStateData data = animationState.getData();
 
             data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.HOP.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
 
             data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
 
