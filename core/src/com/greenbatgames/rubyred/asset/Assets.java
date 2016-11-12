@@ -129,7 +129,7 @@ public class Assets implements Disposable, AssetErrorListener
 
             data.setMix(Enums.AnimationState.HOP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
 
-            data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.FALL.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
 
             data.setMix(Enums.AnimationState.IDLE.getLabel(), Enums.AnimationState.HOP.getLabel(), 0.1f);
             data.setMix(Enums.AnimationState.IDLE.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
@@ -139,8 +139,10 @@ public class Assets implements Disposable, AssetErrorListener
 
             data.setMix(Enums.AnimationState.LONG_JUMP_PREPARE.getLabel(), Enums.AnimationState.LONG_JUMP.getLabel(), 0.1f);
             data.setMix(Enums.AnimationState.LONG_JUMP_PREPARE.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.LONG_JUMP_PREPARE.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
 
             data.setMix(Enums.AnimationState.LONG_JUMP_WAIT.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.LONG_JUMP_WAIT.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
 
             data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
             data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);

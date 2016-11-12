@@ -51,7 +51,7 @@ public class JumpComponent extends PlayerComponent
             } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
 
             } else {
-                player.animator().setNext(Enums.AnimationState.IDLE);
+                player.animator().setNext(Enums.AnimationState.LAND);
             }
 
             // Normal hopping controls
