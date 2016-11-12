@@ -144,6 +144,15 @@ public class Assets implements Disposable, AssetErrorListener
             data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
             data.setMix(Enums.AnimationState.LONG_JUMP.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
 
+            data.setMix(Enums.AnimationState.SPRING_JUMP_PREPARE.getLabel(), Enums.AnimationState.SPRING_JUMP.getLabel(), 0.1f);
+            data.setMix(Enums.AnimationState.SPRING_JUMP_PREPARE.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.SPRING_JUMP_PREPARE.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
+
+            data.setMix(Enums.AnimationState.SPRING_JUMP_WAIT.getLabel(), Enums.AnimationState.IDLE.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.SPRING_JUMP_WAIT.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.25f);
+
+            data.setMix(Enums.AnimationState.SPRING_JUMP.getLabel(), Enums.AnimationState.FALL.getLabel(), 0.25f);
+            data.setMix(Enums.AnimationState.SPRING_JUMP.getLabel(), Enums.AnimationState.LAND.getLabel(), 0.1f);
         }
     }
 
