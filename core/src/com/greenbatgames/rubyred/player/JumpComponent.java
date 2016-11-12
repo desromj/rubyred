@@ -49,7 +49,7 @@ public class JumpComponent extends PlayerComponent
             if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
                 player.animator().setNext(Enums.AnimationState.LONG_JUMP_PREPARE);
             } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
-
+                player.animator().setNext(Enums.AnimationState.SPRING_JUMP_PREPARE);
             } else {
                 player.animator().setNext(Enums.AnimationState.LAND);
             }
@@ -118,7 +118,7 @@ public class JumpComponent extends PlayerComponent
             // Spring Jumps
             if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 body.applyForceToCenter(0f, Constants.RUBY_SPRING_JUMP_IMPULSE, true);
-                player.animator().setNext(Enums.AnimationState.HOP);        // TODO: set to Spring Jump animation
+                player.animator().setNext(Enums.AnimationState.SPRING_JUMP);    // Spring Jump animation
 
             // Long Jumps
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LONG)) {
@@ -140,7 +140,7 @@ public class JumpComponent extends PlayerComponent
             } else {
                 body.applyForceToCenter(0f, Constants.RUBY_JUMP_IMPULSE, true);
 
-                player.animator().setNext(Enums.AnimationState.HOP);        // Set to normal jump animation
+                player.animator().setNext(Enums.AnimationState.HOP);        // Normal jump animation
             }
         }
 

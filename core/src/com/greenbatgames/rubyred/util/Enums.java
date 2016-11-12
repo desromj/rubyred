@@ -19,7 +19,11 @@ public class Enums
 
         LONG_JUMP("long-jump", false),
         LONG_JUMP_PREPARE("long-jump-prepare", false),
-        LONG_JUMP_WAIT("long-jump-wait", true);
+        LONG_JUMP_WAIT("long-jump-wait", true),
+
+        SPRING_JUMP("spring-jump", false),
+        SPRING_JUMP_PREPARE("spring-jump-prepare", false),
+        SPRING_JUMP_WAIT("spring-jump-wait", true);
 
         String label;
         boolean looping;
@@ -59,6 +63,14 @@ public class Enums
                     break;
 
                 case LONG_JUMP:
+                    animationState.addAnimation(0, FALL.getLabel(), FALL.isLooping(), 0f);
+                    break;
+
+                case SPRING_JUMP_PREPARE:
+                    animationState.addAnimation(0, SPRING_JUMP_WAIT.label, SPRING_JUMP_WAIT.isLooping(), 0f);
+                    break;
+
+                case SPRING_JUMP:
                     animationState.addAnimation(0, FALL.getLabel(), FALL.isLooping(), 0f);
                     break;
             }
