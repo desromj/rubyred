@@ -29,6 +29,7 @@ import com.greenbatgames.rubyred.entity.FinishFlag;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
+import com.greenbatgames.rubyred.entity.Tooltip;
 import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.entity.Skylight;
 import com.greenbatgames.rubyred.entity.WorldContactListener;
@@ -194,6 +195,15 @@ public class Level implements Initializeable
                                 props.get("y", Float.class)
                         );
                         stage.addActor(flag);
+                    } else if (type.compareTo("tooltip") == 0) {
+                        Tooltip tt = new Tooltip(
+                                props.get("label", String.class),
+                                props.get("x", Float.class),
+                                props.get("y", Float.class),
+                                props.get("width", Float.class),
+                                props.get("height", Float.class)
+                        );
+                        stage.addActor(tt);
                     }
                 }
             }

@@ -172,4 +172,10 @@ public class Constants
     public static final float FINISH_FLAG_WIDTH = TILED_TILE_SIZE;
     public static final float FINISH_FLAG_HEIGHT = TILED_TILE_SIZE * 4.0f;
 
+    /*
+        Font values
+     */
+
+    public static final Color TOOLTIP_COLOR = Color.BLACK;
+    public static final float TOOLTIP_SCALE = 1.0f;
 }
