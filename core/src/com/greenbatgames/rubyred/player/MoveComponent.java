@@ -10,12 +10,12 @@ import com.greenbatgames.rubyred.util.Enums;
  * Created by Quiv on 02-11-2016.
  */
 
-public class JumpComponent extends PlayerComponent
+public class MoveComponent extends PlayerComponent
 {
     private boolean grounded, jumped;
     private float cannotJumpFor, disableCollisionFor;
 
-    public JumpComponent(Player player) {
+    public MoveComponent(Player player) {
         super(player);
     }
 

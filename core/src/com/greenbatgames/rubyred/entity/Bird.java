@@ -109,7 +109,7 @@ public class Bird extends Actor
             
             // Cancel possible climbing and apply knockback force
             player.climber().cancelClimb();
-            player.jumper().jump();
+            player.mover().jump();
             player.animator().setNext(Enums.AnimationState.RECOIL);
 
             this.hitPlayer = true;

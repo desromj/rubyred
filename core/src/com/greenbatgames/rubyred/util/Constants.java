@@ -41,6 +41,7 @@ public class Constants
 
     public static int KEY_SPRING = Input.Keys.SHIFT_LEFT;
     public static int KEY_LONG = Input.Keys.CONTROL_LEFT;
+    public static int KEY_WALK = Input.Keys.DOWN;
 
     /*
         World Aspect Ratio

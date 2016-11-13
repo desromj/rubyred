@@ -1,6 +1,5 @@
 package com.greenbatgames.rubyred.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -65,7 +64,7 @@ public class WorldContactListener implements ContactListener
                 // if the player is holding the jump button,
                 // start climbing on top of the platform
                 if (!player.climber().isClimbing()
-                        && player.isJumpButtonHeld()
+                        && player.isClimbButtonHeld()
                         && other instanceof Platform
                         && ((Platform)other).allowClimbing()
                         && physical.getTop() < player.getTop()
@@ -84,16 +83,16 @@ public class WorldContactListener implements ContactListener
                         Skylight sl = (Skylight) other;
                         if (!sl.isBroken()) {
                             sl.activate();
-                            player.jumper().land();
+                            player.mover().land();
                         }
                     } else if (other instanceof DropPlatform) {
                         DropPlatform dp = ((DropPlatform) other);
                         if (!dp.isBroken()) {
                             dp.activate();
-                            player.jumper().land();
+                            player.mover().land();
                         }
                     } else {
-                        player.jumper().land();
+                        player.mover().land();
                     }
                 }
             }
