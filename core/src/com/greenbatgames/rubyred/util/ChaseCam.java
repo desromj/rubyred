@@ -33,7 +33,7 @@ public class ChaseCam extends Actor implements Initializeable
     @Override
     public void act(float delta)
     {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P))
         {
             if (!following)
                 centreOnTarget();
@@ -63,16 +63,16 @@ public class ChaseCam extends Actor implements Initializeable
                 camera.position.y = target.getY() - yLeeway;
 
         } else {
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.J)) {
                 camera.position.x -= delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
                 camera.position.x += delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.K)) {
                 camera.position.y += delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.I)) {
                 camera.position.y -= delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
         }
