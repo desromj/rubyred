@@ -17,6 +17,7 @@ public class Enums
         FALL("fall", true),
         LAND("land", false),
         CLIMB("climb", false),
+        RECOIL("recoil", true),
 
         LONG_JUMP("long-jump", false),
         LONG_JUMP_PREPARE("long-jump-prepare", false),
@@ -48,7 +49,7 @@ public class Enums
             /*
                 Specialized controls per animation afterwards
                 NOTE: EVERY non-looping animation should conclude with a looping animation
-                    */
+            */
             switch (this)
             {
                 case HOP:

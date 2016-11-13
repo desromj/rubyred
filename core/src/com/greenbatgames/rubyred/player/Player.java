@@ -110,11 +110,13 @@ public class Player extends PhysicsBody implements Initializeable
             if (!jumper.update(delta)) break;
         } while (false);
 
-        // Set the direction facing based on x velocity
-        if (body.getLinearVelocity().x > 0.1f)
-            facingRight = true;
-        else if (body.getLinearVelocity().x < -0.1f)
-            facingRight = false;
+        // Set the direction facing based on x velocity, only if not recoiling
+        if (animator.getNextLabel().compareTo("recoil") != 0) {
+            if (body.getLinearVelocity().x > 0.1f)
+                facingRight = true;
+            else if (body.getLinearVelocity().x < -0.1f)
+                facingRight = false;
+        }
 
         // Ensure our dynamic bodies are always awake and ready to be interacted with
         this.body.setAwake(true);

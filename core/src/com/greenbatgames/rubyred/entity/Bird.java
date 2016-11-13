@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
+import com.greenbatgames.rubyred.util.Enums;
 
 /**
  * Created by Quiv on 28-09-2016.
@@ -109,6 +110,7 @@ public class Bird extends Actor
             // Cancel possible climbing and apply knockback force
             player.climber().cancelClimb();
             player.jumper().jump();
+            player.animator().setNext(Enums.AnimationState.RECOIL);
 
             this.hitPlayer = true;
         }
