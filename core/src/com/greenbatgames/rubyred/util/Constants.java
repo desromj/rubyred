@@ -39,9 +39,9 @@ public class Constants
     public static int KEY_ATTACK = Input.Keys.X;
     public static int KEY_ATTACK_ALT = Input.Keys.E;
 
-    public static int KEY_SPRING = Input.Keys.SHIFT_LEFT;
-    public static int KEY_LONG = Input.Keys.CONTROL_LEFT;
-    public static int KEY_WALK = Input.Keys.DOWN;
+    public static int KEY_SPRING = Input.Keys.DOWN;
+    public static int KEY_LONG = Input.Keys.SHIFT_LEFT;
+    public static int KEY_WALK = Input.Keys.CONTROL_LEFT;
 
     /*
         World Aspect Ratio

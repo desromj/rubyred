@@ -51,31 +51,54 @@ public class MoveComponent extends PlayerComponent
             } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 player.animator().setNext(Enums.AnimationState.SPRING_JUMP_PREPARE);
             } else {
-                player.animator().setNext(Enums.AnimationState.LAND);
+                if (player.animator().getNext() == Enums.AnimationState.IDLE)   // TODO: Set to WALK when ready
+                    player.animator().setNext(Enums.AnimationState.IDLE);
+                else
+                    player.animator().setNext(Enums.AnimationState.LAND);
             }
 
-            // Normal hopping controls
+            // Normal movement controls
             if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
 
-                jump();
-                body.setLinearVelocity(
-                        Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
-                        Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
-                );
-                player.animator().setNext(Enums.AnimationState.HOP);
+                // Check for walking first, then hops
+                if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
+                    body.setLinearVelocity(
+                            Constants.RUBY_MOVE_SPEED / 4f,
+                            0f
+                    );
+                    player.animator().setNext(Enums.AnimationState.IDLE);       // TODO: set to WALK when ready
+                    return true;
+                } else {
+                    jump();
+                    body.setLinearVelocity(
+                            Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
+                            Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
+                    );
+                    player.animator().setNext(Enums.AnimationState.HOP);
 
-                return true;
+                    return true;
+                }
 
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
 
-                jump();
-                body.setLinearVelocity(
-                        Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
-                        Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
-                );
-                player.animator().setNext(Enums.AnimationState.HOP);
+                // Check for walking first
+                if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
+                    body.setLinearVelocity(
+                            -Constants.RUBY_MOVE_SPEED / 4f,
+                            0f
+                    );
+                    player.animator().setNext(Enums.AnimationState.IDLE);       // TODO: set to walk when ready
+                    return true;
+                } else {
+                    jump();
+                    body.setLinearVelocity(
+                            Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
+                            Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
+                    );
+                    player.animator().setNext(Enums.AnimationState.HOP);
 
-                return true;
+                    return true;
+                }
             }
         } else {
             if (isInAir())
@@ -144,14 +167,15 @@ public class MoveComponent extends PlayerComponent
             }
         }
 
-        Gdx.app.log("JumpComp", "end-of-jump-update Animation State: " + player.animator().getNextLabel());
-
         return true;
     }
 
 
 
     public void land() {
+
+        Gdx.app.log("MoveComp", "land triggered");
+
         grounded = true;
         jumped = false;
 
@@ -164,13 +188,6 @@ public class MoveComponent extends PlayerComponent
     public void jump() {
         // cannot jump if we already jumped
         if (jumped) return;
-
-        // If jumping down through a platform, disable collision and return
-        if (grounded && (Gdx.input.isKeyPressed(Constants.KEY_DOWN) || Gdx.input.isKeyPressed(Constants.KEY_DOWN_ALT)))
-        {
-            this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;
-            return;
-        }
 
         // Otherwise, proceed with jump
         jumped = true;

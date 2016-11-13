@@ -4,6 +4,8 @@ import com.esotericsoftware.spine.AnimationState;
 import com.greenbatgames.rubyred.asset.Assets;
 import com.greenbatgames.rubyred.util.Enums;
 
+import static com.greenbatgames.rubyred.util.Enums.AnimationState.*;
+
 /**
  * Created by Quiv on 09-11-2016.
  */
@@ -54,8 +56,8 @@ public class AnimationComponent extends PlayerComponent
     @Override
     public void init() {
         asset = Assets.instance.makeAsset(player);
-        animationState = Enums.AnimationState.IDLE;
-        previousState = Enums.AnimationState.IDLE;
+        animationState = IDLE;
+        previousState = IDLE;
     }
 
 
@@ -76,5 +78,6 @@ public class AnimationComponent extends PlayerComponent
         nextPercentRatioComplete = percentLeft;
     }
 
+    public Enums.AnimationState getNext() { return animationState; }
     public String getNextLabel() { return animationState.getLabel(); }
 }
