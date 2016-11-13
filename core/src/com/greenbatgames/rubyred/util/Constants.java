@@ -92,7 +92,9 @@ public class Constants
     public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_MOVE_SPEED;
 
     public static final Vector2 RUBY_CLIMB_SPEED = new Vector2(WORLD_WIDTH / 100.0f, WORLD_WIDTH / 100.0f);
-    public static final float RUBY_MAX_CLIMB_TIME = 1f;
+    public static final float RUBY_CLIMB_TIME = 1f;
+    public static final float RUBY_MAX_CLIMB_RATIO = 1f;
+    public static final float RUBY_MIN_CLIMB_RATIO = 0.35f;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.90f;
     public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.96f;

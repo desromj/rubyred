@@ -66,6 +66,18 @@ public abstract class PhysicsBody extends Actor
 
 
 
+    public final void setPosition(float x, float y) {
+        position.set(x, y);
+
+        body.setTransform(
+                (position.x + width / 2f) / Constants.PTM,
+                (position.y + height / 2f) / Constants.PTM,
+                body.getAngle()
+        );
+    }
+
+
+
     public void setBody(Body body) { this.body = body; }
     public Body getBody() { return body; }
 
