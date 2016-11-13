@@ -56,7 +56,7 @@ public class Skylight extends Platform implements Initializeable
         // Only update if we're NOT broken with a positive lifetime
         if (lifetime < 0.0f) {
             broken = true;
-            Utils.playSound("sounds/glass-shatter.wav", 1.0f);
+            Utils.playSound("sounds/glass-shatter.wav", 0.2f);
         }
     }
 
