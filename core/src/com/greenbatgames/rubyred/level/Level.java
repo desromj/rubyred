@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.greenbatgames.rubyred.RubyGame;
 import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.DropPlatform;
 import com.greenbatgames.rubyred.entity.FinishFlag;
@@ -31,6 +32,7 @@ import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.entity.Skylight;
 import com.greenbatgames.rubyred.entity.WorldContactListener;
+import com.greenbatgames.rubyred.screen.StartScreen;
 import com.greenbatgames.rubyred.util.ChaseCam;
 import com.greenbatgames.rubyred.util.Constants;
 
@@ -235,6 +237,10 @@ public class Level implements Initializeable
         if (player.getY() <= Constants.KILL_PLANE_Y) {
             reinitializeAllActors();
             player.loseLife();
+        }
+
+        if (Gdx.input.isKeyPressed(Constants.KEY_RESTART)) {
+            RubyGame.setScreen(StartScreen.class);
         }
 
         /*

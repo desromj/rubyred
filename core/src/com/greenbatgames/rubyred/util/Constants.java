@@ -22,6 +22,8 @@ public class Constants
 
     // Controls
 
+    public static int KEY_RESTART = Input.Keys.R;
+
     public static int KEY_RIGHT = Input.Keys.RIGHT;
     public static int KEY_RIGHT_ALT = Input.Keys.D;
 
