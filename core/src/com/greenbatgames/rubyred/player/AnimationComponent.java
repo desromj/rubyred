@@ -13,26 +13,17 @@ public class AnimationComponent extends PlayerComponent
     Assets.SpineAnimationAsset asset;
     private Enums.AnimationState animationState, previousState;
 
+    private float nextPercentRatioComplete;
+
     public AnimationComponent(Player player) {
         super(player);
+        nextPercentRatioComplete = 1.0f;
     }
 
 
 
     @Override
     public boolean update(float delta) {
-        return update(delta, 1f);
-    }
-
-    /**
-     * @param delta
-     * @param percentLeft If the animation changes, this value determines what percentage
-     *                    of the new animation should be played. Passing a value of 0.35 (35%)
-     *                    means that only the last 35% of the new animation will be played.
-     *                    Best used for non-looping animations
-     * @return
-     */
-    public boolean update(float delta, float percentLeft) {
 
         // Set the player position and X orientation
         this.asset.skeleton.setPosition(
@@ -46,9 +37,9 @@ public class AnimationComponent extends PlayerComponent
             asset.setAnimation(this.animationState);
 
             // Set the percentage remaining if it is not 100%
-            if (percentLeft < 1f) {
+            if (this.nextPercentRatioComplete < 1f) {
                 AnimationState.TrackEntry te = asset.animationState.getCurrent(0);
-                te.setTime(te.getAnimation().getDuration() - te.getAnimation().getDuration() * percentLeft);
+                te.setTime(te.getAnimation().getDuration() - te.getAnimation().getDuration() * nextPercentRatioComplete);
             }
         }
 
@@ -70,12 +61,19 @@ public class AnimationComponent extends PlayerComponent
 
 
     public void setNext(Enums.AnimationState state) {
-        this.animationState = state;
+        setNext(state, 1f);
     }
 
+    /**
+     * @param state
+     * @param percentLeft If the animation changes, this value determines what percentage
+     *                    of the new animation should be played. Passing a value of 0.35 (35%)
+     *                    means that only the last 35% of the new animation will be played.
+     *                    Best used for non-looping animations
+     */
     public void setNext(Enums.AnimationState state, float percentLeft) {
         this.animationState = state;
-
+        nextPercentRatioComplete = percentLeft;
     }
 
     public String getNextLabel() { return animationState.getLabel(); }

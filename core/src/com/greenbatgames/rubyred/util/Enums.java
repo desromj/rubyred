@@ -16,6 +16,7 @@ public class Enums
         HOP("hop", false),
         FALL("fall", true),
         LAND("land", false),
+        CLIMB("climb", false),
 
         LONG_JUMP("long-jump", false),
         LONG_JUMP_PREPARE("long-jump-prepare", false),
@@ -55,6 +56,10 @@ public class Enums
                     break;
 
                 case LAND:
+                    animationState.addAnimation(0, IDLE.getLabel(), IDLE.isLooping(), 0f);
+                    break;
+
+                case CLIMB:
                     animationState.addAnimation(0, IDLE.getLabel(), IDLE.isLooping(), 0f);
                     break;
 

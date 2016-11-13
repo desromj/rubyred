@@ -83,6 +83,15 @@ public class ClimbComponent extends PlayerComponent
         if (climbing) return;
         this.gripPoint.set(gripPoint.x, gripPoint.y);
 
+        // Determine if we're climbing left or right
+        if (gripPoint.x < player.getLeft())
+            climbingRight = false;
+        else
+            climbingRight = true;
+
+        // Add gripPoint offset of 1/2 player width based on if we're climbing left or right
+        this.gripPoint.x += (climbingRight) ? -player.getWidth() / 2f : player.getWidth() / 2f;
+
         Gdx.app.log(TAG, "Start Climbing Triggered");
 
         /*
@@ -110,8 +119,7 @@ public class ClimbComponent extends PlayerComponent
 
         climbing = true;
 
-        // TODO: when climbing animation is done, uncomment this line
-        // player.animator().setNext(Enums.AnimationState.CLIMB, timeRatio);
+        player.animator().setNext(Enums.AnimationState.CLIMB, timeRatio);
     }
 
     /*
@@ -120,6 +128,8 @@ public class ClimbComponent extends PlayerComponent
 
     public void cancelClimb() { climbing = false; }
     public boolean isClimbing() { return climbing; }
+    public float getClimbTimeLeft() { return this.climbTimeLeft; }
+
     public float gripX() { return gripPoint.x; }
     public float gripY() { return gripPoint.y; }
 }
