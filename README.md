@@ -19,17 +19,20 @@ In order to run the project, do the following
 3. Type in "gradlew desktop:run" and press enter
 4. The project will build and launch
 
-Controls:
+CONTROLS:
 
-- Left/Right Arrow keys
-  - small hop left or right
-- Z
-  - normal jump
-  - jump straight up in the air
-  - hold while jumping towards a ledge to grab the edge and pull yourself up
-- Hold SHIFT+Z
-  - spring jump
-  - jump straight up in the air with double height
-- Hold CTRL+Z
-  - crouch jump
-  - a very long, horizontal jump in the direction you are currently facing
+Left/Right Arrow Keys = hop left or right
+
+Hold CTRL + Left/Right to slowly walk and reposition yourself
+
+Z = jump
+
+SHIFT + Z = long jump
+
+DOWN + Z = high jump
+
+Hold X while jumping towards a ledge to grab it and climb up
+
+R = restart the game, in case of bugs
+
+There is a current known softlock that triggers if the edge of your character lands exactly on the corner edge of a platform. The game thinks you are still trying to fall when in fact you are not, and you are rendered immobile indefinitely. This will be fixed soon.
