@@ -43,6 +43,13 @@ public class MoveComponent extends PlayerComponent
         // Horizontal hopping movement
         Body body = player.getBody();
 
+        // First check if we should be falling right now
+        if (isOnGround() && body.getLinearVelocity().y < -Constants.RUBY_MOVE_SPEED / 20f) {
+            jump();
+            player.animator().setNext(Enums.AnimationState.FALL);
+        }
+
+        // Then determine what to do based on if we're in the air or one the ground
         if (isOnGround()) {
 
             // Special jumping animation preparation
@@ -61,7 +68,7 @@ public class MoveComponent extends PlayerComponent
                 if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
                     body.setLinearVelocity(
                             Constants.RUBY_MOVE_SPEED / 4f,
-                            0f
+                            body.getLinearVelocity().y
                     );
                     player.animator().setNext(Enums.AnimationState.WALK);
                     return true;
@@ -82,7 +89,7 @@ public class MoveComponent extends PlayerComponent
                 if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
                     body.setLinearVelocity(
                             -Constants.RUBY_MOVE_SPEED / 4f,
-                            0f
+                            body.getLinearVelocity().y
                     );
                     player.animator().setNext(Enums.AnimationState.WALK);
                     return true;
