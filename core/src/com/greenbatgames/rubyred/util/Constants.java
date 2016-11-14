@@ -74,7 +74,7 @@ public class Constants
         Ruby Player Values
      */
 
-    public static final int RUBY_STARTING_LIVES = 3;
+    public static final int RUBY_STARTING_LIVES = 5;
 
     public static final float RUBY_DENSITY = 400.0f;
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
@@ -150,12 +150,12 @@ public class Constants
         Bird object values
      */
 
-    public static final float BIRD_SPAWN_DELAY = 4f;
+    public static final float BIRD_SPAWN_DELAY = 5f;
 
-    public static final float BIRD_WIDTH = WORLD_WIDTH / 25.0f;
-    public static final float BIRD_HEIGHT = WORLD_WIDTH / 75.0f;
-    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 2.0f;
-    public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.8f);
+    public static final float BIRD_WIDTH = WORLD_WIDTH / 30.0f;
+    public static final float BIRD_HEIGHT = WORLD_WIDTH / 80.0f;
+    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 4.0f;
+    public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.6f);
 
     /*
         Skylight values
@@ -179,4 +179,6 @@ public class Constants
 
     public static final Color TOOLTIP_COLOR = Color.BLACK;
     public static final float TOOLTIP_SCALE = 1.0f;
+
+    public static final float CHECKPOINT_TEXT_ONSCREEN_TIME = 4f;
 }

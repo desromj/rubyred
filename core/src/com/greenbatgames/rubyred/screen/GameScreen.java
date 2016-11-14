@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.RubyGame;
+import com.greenbatgames.rubyred.entity.Checkpoint;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.level.Level;
@@ -83,6 +84,13 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
     public void addActorToStage(Actor actor) { level.addActorToStage(actor); }
 
+    public boolean isCurrentCheckPoint(Checkpoint cp) {
+        return level.isCurrentCheckPoint(cp);
+    }
+
+    public void setCurrentCheckpoint(Checkpoint cp) {
+        level.setCurrentCheckpoint(cp);
+    }
 
 
     /*

@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.RubyGame;
 import com.greenbatgames.rubyred.entity.BirdSpawner;
+import com.greenbatgames.rubyred.entity.Checkpoint;
 import com.greenbatgames.rubyred.entity.DropPlatform;
 import com.greenbatgames.rubyred.entity.FinishFlag;
 import com.greenbatgames.rubyred.entity.Initializeable;
@@ -49,6 +50,9 @@ public class Level implements Initializeable
     World world;
     Player player;
     FinishFlag flag;
+
+    Array<Checkpoint> checkpoints;
+    Checkpoint currentCheckpoint;
 
     Stage stage;
 
@@ -82,6 +86,9 @@ public class Level implements Initializeable
         // Level member variables
         world = new World(new Vector2(0, Constants.GRAVITY), true);
         player = new Player(80.0f, 240.0f, Constants.RUBY_RADIUS * 2.0f, Constants.RUBY_RADIUS * 4.0f, world);
+
+        checkpoints = new Array<Checkpoint>();
+        currentCheckpoint = null;
 
         // local Orthographic Camera for the viewport
         OrthographicCamera camera = new OrthographicCamera();
@@ -204,6 +211,18 @@ public class Level implements Initializeable
                                 props.get("height", Float.class)
                         );
                         stage.addActor(tt);
+                    } else if (type.compareTo("checkpoint") == 0) {
+                        Checkpoint cp = new Checkpoint(
+                                props.containsKey("label")
+                                    ? props.get("label", String.class)
+                                    : "Checkpoint Reached",
+                                props.get("x", Float.class),
+                                props.get("y", Float.class),
+                                props.get("width", Float.class),
+                                props.get("height", Float.class)
+                        );
+                        checkpoints.add(cp);
+                        stage.addActor(cp);
                     }
                 }
             }
@@ -246,6 +265,10 @@ public class Level implements Initializeable
 
         if (player.getY() <= Constants.KILL_PLANE_Y) {
             reinitializeAllActors();
+
+            if (currentCheckpoint != null)
+                player.setPosition(currentCheckpoint.x(), currentCheckpoint.y());
+
             player.loseLife();
         }
 
@@ -278,7 +301,7 @@ public class Level implements Initializeable
         stage.draw();
 
         // Render the debug physics engine settings
-        debugRenderer.render(world, debugMatrix);
+        // debugRenderer.render(world, debugMatrix);
     }
 
 
@@ -349,11 +372,19 @@ public class Level implements Initializeable
     public boolean hasWon() {
         return player.getBounds().overlaps(flag.getBounds());
     }
-
     public boolean hasLost() {
         return player.isOutOfLives();
     }
 
+    public boolean isCurrentCheckPoint(Checkpoint cp) {
+        if (checkpoints.size > 0)
+            return cp == currentCheckpoint;
+        return false;
+    }
+
+    public void setCurrentCheckpoint(Checkpoint cp) {
+        currentCheckpoint = cp;
+    }
 
     /*
         Adders and Removers
