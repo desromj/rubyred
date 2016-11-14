@@ -51,10 +51,7 @@ public class MoveComponent extends PlayerComponent
             } else if (Gdx.input.isKeyPressed(Constants.KEY_SPRING)) {
                 player.animator().setNext(Enums.AnimationState.SPRING_JUMP_PREPARE);
             } else {
-                if (player.animator().getNext() == Enums.AnimationState.IDLE)   // TODO: Set to WALK when ready
-                    player.animator().setNext(Enums.AnimationState.IDLE);
-                else
-                    player.animator().setNext(Enums.AnimationState.LAND);
+                player.animator().setNext(Enums.AnimationState.LAND);
             }
 
             // Normal movement controls
@@ -66,7 +63,7 @@ public class MoveComponent extends PlayerComponent
                             Constants.RUBY_MOVE_SPEED / 4f,
                             0f
                     );
-                    player.animator().setNext(Enums.AnimationState.IDLE);       // TODO: set to WALK when ready
+                    player.animator().setNext(Enums.AnimationState.WALK);
                     return true;
                 } else {
                     jump();
@@ -87,7 +84,7 @@ public class MoveComponent extends PlayerComponent
                             -Constants.RUBY_MOVE_SPEED / 4f,
                             0f
                     );
-                    player.animator().setNext(Enums.AnimationState.IDLE);       // TODO: set to walk when ready
+                    player.animator().setNext(Enums.AnimationState.WALK);
                     return true;
                 } else {
                     jump();

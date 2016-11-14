@@ -18,6 +18,7 @@ public class Enums
         LAND("land", false),
         CLIMB("climb", false),
         RECOIL("recoil", true),
+        WALK("walk", true),
 
         LONG_JUMP("long-jump", false),
         LONG_JUMP_PREPARE("long-jump-prepare", false),
