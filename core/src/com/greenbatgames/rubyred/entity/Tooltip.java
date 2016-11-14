@@ -45,6 +45,6 @@ public class Tooltip extends Actor
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (visible)
-            font.draw(batch, label, bounds.x, bounds.y, 0, Align.center, false);
+            font.draw(batch, label, bounds.x, bounds.y, 0, Align.top, false);
     }
 }

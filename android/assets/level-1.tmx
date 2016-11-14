@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="256" height="32" tilewidth="32" tileheight="32" nextobjectid="75">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="256" height="32" tilewidth="32" tileheight="32" nextobjectid="76">
  <tileset firstgid="1" name="buildings" tilewidth="32" tileheight="32" tilecount="27" columns="9">
   <image source="rubyred-tilemap.png" width="288" height="96"/>
   <tile id="0">
@@ -128,17 +128,22 @@
   </object>
   <object id="71" type="tooltip" x="1696" y="544" width="96" height="32">
    <properties>
-    <property name="label" value="Hold CTRL + Z to long jump"/>
+    <property name="label" value="Hold SHIFT + Z to long jump"/>
    </properties>
   </object>
   <object id="72" type="tooltip" x="2496" y="480" width="96" height="32">
    <properties>
-    <property name="label" value="Hold SHIFT + Z to high jump"/>
+    <property name="label" value="Hold DOWN + Z to high jump"/>
    </properties>
   </object>
   <object id="73" type="tooltip" x="3136" y="544" width="96" height="32">
    <properties>
-    <property name="label" value="Hold Z while jumping towards a ledge to pull up on it"/>
+    <property name="label" value="Hold X while jumping to grab a ledge and pull yourself up"/>
+   </properties>
+  </object>
+  <object id="75" type="tooltip" x="352" y="512" width="96" height="32">
+   <properties>
+    <property name="label" value="Hold CTRL to walk"/>
    </properties>
   </object>
  </objectgroup>
