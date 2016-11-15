@@ -67,7 +67,7 @@ public class WorldContactListener implements ContactListener
                         && player.isClimbButtonHeld()
                         && other instanceof Platform
                         && ((Platform)other).allowClimbing()
-                        && physical.getTop() < player.getTop()
+                        && physical.getTop() < player.getTop() + player.getHeight() / 4.0f
                         && physical.getTop() > player.getBottom())
                 {
                     Vector2 gripPoint = new Vector2(

@@ -146,7 +146,7 @@ public class Constants
      */
 
     public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 160.0f;
-    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 16.0f;
+    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 32.0f;
 
     /*
         Bird object values
@@ -156,7 +156,7 @@ public class Constants
 
     public static final float BIRD_WIDTH = WORLD_WIDTH / 30.0f;
     public static final float BIRD_HEIGHT = WORLD_WIDTH / 80.0f;
-    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 4.0f;
+    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 3.6f;
     public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.6f);
 
     /*
