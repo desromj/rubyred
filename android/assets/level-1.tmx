@@ -123,7 +123,7 @@
   </object>
   <object id="70" type="tooltip" x="640" y="512" width="96" height="32">
    <properties>
-    <property name="label" value="Z to jump"/>
+    <property name="label" value="Press Z to jump"/>
    </properties>
   </object>
   <object id="71" type="tooltip" x="1696" y="544" width="96" height="32">
@@ -136,14 +136,14 @@
     <property name="label" value="Hold DOWN + Z to high jump"/>
    </properties>
   </object>
-  <object id="73" type="tooltip" x="3136" y="544" width="96" height="32">
+  <object id="73" type="tooltip" x="3296" y="512" width="192" height="32">
    <properties>
-    <property name="label" value="Hold X while jumping to grab a ledge and pull yourself up"/>
+    <property name="label" value="Hold X while airborne to grab a ledge and pull yourself up"/>
    </properties>
   </object>
   <object id="75" type="tooltip" x="352" y="512" width="96" height="32">
    <properties>
-    <property name="label" value="Hold CTRL to walk"/>
+    <property name="label" value="Hold Up while walking to hop"/>
    </properties>
   </object>
   <object id="78" type="checkpoint" x="1536" y="256" width="32" height="320"/>

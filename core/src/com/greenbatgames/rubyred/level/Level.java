@@ -37,6 +37,7 @@ import com.greenbatgames.rubyred.entity.WorldContactListener;
 import com.greenbatgames.rubyred.screen.StartScreen;
 import com.greenbatgames.rubyred.util.ChaseCam;
 import com.greenbatgames.rubyred.util.Constants;
+import com.greenbatgames.rubyred.util.RubyHUD;
 
 /**
  * Created by Quiv on 27-10-2016.
@@ -50,6 +51,7 @@ public class Level implements Initializeable
     World world;
     Player player;
     FinishFlag flag;
+    RubyHUD hud;
 
     Array<Checkpoint> checkpoints;
     Checkpoint currentCheckpoint;
@@ -97,6 +99,7 @@ public class Level implements Initializeable
         // Proceed with other instance variables
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera));
         chaseCam = new ChaseCam(camera, player);
+        hud = new RubyHUD(stage.getViewport());
 
         tiledMap = new TmxMapLoader().load(resource);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -126,9 +129,7 @@ public class Level implements Initializeable
     {
         stage.addActor(player);
         stage.addActor(chaseCam);
-
-        for (Platform platform: platforms)
-            stage.addActor(platform);
+        stage.addActor(hud);
     }
 
 
@@ -150,14 +151,16 @@ public class Level implements Initializeable
 
                     if (type.compareTo("platform") == 0)
                     {
-                        platforms.add(new Platform(
+                        Platform plat = new Platform(
                                 props.get("x", Float.class),
                                 props.get("y", Float.class),
                                 props.get("width", Float.class),
                                 props.get("height", Float.class),
                                 world,
                                 false
-                        ));
+                        );
+                        platforms.add(plat);
+                        stage.addActor(plat);
                     }
                 }
             }
@@ -368,6 +371,7 @@ public class Level implements Initializeable
     {
         return stage.getViewport();
     }
+    public ChaseCam getChaseCam() { return chaseCam; }
 
     public boolean hasWon() {
         return player.getBounds().overlaps(flag.getBounds());

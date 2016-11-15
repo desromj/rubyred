@@ -3,6 +3,7 @@ package com.greenbatgames.rubyred.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
@@ -90,6 +91,12 @@ public class ChaseCam extends Actor implements Initializeable
 
     public float getX() {return camera.position.x - camera.viewportWidth / 2.0f;}
     public float getY() {return camera.position.y - camera.viewportHeight / 2.0f;}
+
+    public float getLeft() {return camera.position.x - camera.viewportWidth / 2.0f;}
+    public float getBottom() {return camera.position.y - camera.viewportHeight / 2.0f;}
+    public float getRight() {return camera.position.x + camera.viewportWidth / 2.0f;}
+    public float getTop() {return camera.position.y + camera.viewportHeight / 2.0f;}
+
     public float getWidth() {return camera.viewportWidth;}
     public float getHeight() {return camera.viewportHeight;}
     public OrthographicCamera getCamera() {return camera;}

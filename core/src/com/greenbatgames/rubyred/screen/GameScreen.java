@@ -14,6 +14,7 @@ import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.level.Level;
 import com.greenbatgames.rubyred.level.LevelLoader;
+import com.greenbatgames.rubyred.util.ChaseCam;
 
 /**
  * Created by Quiv on 10-08-2016.
@@ -77,17 +78,16 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
      */
 
     public Player getPlayer() { return level.getPlayer(); }
-
     public Viewport getViewport() {
         return level.getViewport();
     }
+    public ChaseCam getChaseCam() { return level.getChaseCam(); }
 
     public void addActorToStage(Actor actor) { level.addActorToStage(actor); }
 
     public boolean isCurrentCheckPoint(Checkpoint cp) {
         return level.isCurrentCheckPoint(cp);
     }
-
     public void setCurrentCheckpoint(Checkpoint cp) {
         level.setCurrentCheckpoint(cp);
     }

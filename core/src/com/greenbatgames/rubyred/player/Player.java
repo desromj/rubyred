@@ -135,6 +135,7 @@ public class Player extends PhysicsBody implements Initializeable
     public void setSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
     public void loseLife() { lives--; }
     public boolean isOutOfLives() { return lives <= 0; }
+    public int getLives() { return lives; }
 
     public MoveComponent mover() { return mover; }
     public ClimbComponent climber() { return climber; }
