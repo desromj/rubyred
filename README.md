@@ -5,12 +5,9 @@ In this project, you control a kangaroo named Ruby who needs to jump across roof
 The project is built with LibGDX and uses the Tiled map editor to load in tile maps
 and game objects.
 
-As you control a kangaroo, all movement is done by a combination of short and long hops.
+As you control a kangaroo, most movement is done by a combination of short and long hops.
 
-NOTE: There is a current known framerate issue. A LibGDX Scene is used to handle actors,
-but terminates the drawing batch and uses a ShapeRenderer for every object without assets. 
-This is a costly operation, but it will be removed when objects use actual sprites instead of
-placeholder shapes for the graphics.
+NOTE: There is a current known softlock that triggers if the edge of your character lands exactly on the corner edge of a platform. The game thinks you are still trying to fall when in fact you are not, and you are rendered immobile indefinitely. This will be fixed soon.
 
 In order to run the project, do the following
 
@@ -21,18 +18,10 @@ In order to run the project, do the following
 
 CONTROLS:
 
-Left/Right Arrow Keys = hop left or right
-
-Hold CTRL + Left/Right to slowly walk and reposition yourself
-
+Left/Right Arrow Keys = walk left or right
+Up Arrow = hop while walking (faster movement)
 Z = jump
-
-SHIFT + Z = long jump
-
-DOWN + Z = high jump
-
+Shift + Z = long jump
+Down + Z = high jump
 Hold X while jumping towards a ledge to grab it and climb up
-
 R = restart the game, in case of bugs
-
-There is a current known softlock that triggers if the edge of your character lands exactly on the corner edge of a platform. The game thinks you are still trying to fall when in fact you are not, and you are rendered immobile indefinitely. This will be fixed soon.
