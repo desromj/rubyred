@@ -30,18 +30,15 @@ public class Constants
     public static int KEY_LEFT = Input.Keys.LEFT;
     public static int KEY_LEFT_ALT = Input.Keys.A;
 
-    public static int KEY_DOWN = Input.Keys.DOWN;
-    public static int KEY_DOWN_ALT = Input.Keys.S;
-
     public static int KEY_JUMP = Input.Keys.Z;
     public static int KEY_JUMP_ALT = Input.Keys.SPACE;
 
     public static int KEY_ATTACK = Input.Keys.X;
     public static int KEY_ATTACK_ALT = Input.Keys.E;
 
+    public static int KEY_HOP = Input.Keys.UP;
     public static int KEY_SPRING = Input.Keys.DOWN;
     public static int KEY_LONG = Input.Keys.SHIFT_LEFT;
-    public static int KEY_WALK = Input.Keys.CONTROL_LEFT;
 
     /*
         World Aspect Ratio
@@ -79,7 +76,7 @@ public class Constants
     public static final float RUBY_DENSITY = 400.0f;
     public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
     public static final float RUBY_SPRING_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 1.25f;
-    public static final float RUBY_LONG_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 2.0f;
+    public static final float RUBY_LONG_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 3.5f;
     public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
 
     // Give a bit of leeway between when Ruby lands and when she can jump again
@@ -88,19 +85,20 @@ public class Constants
 
     public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
     public static final float RUBY_HOP_ANGLE_LEFT = 180.0f - RUBY_HOP_ANGLE_RIGHT;
-    public static final float RUBY_LONG_JUMP_ANGLE_RIGHT = 20.0f;
+    public static final float RUBY_LONG_JUMP_ANGLE_RIGHT = 15.0f;
     public static final float RUBY_LONG_JUMP_ANGLE_LEFT = 180.0f - RUBY_LONG_JUMP_ANGLE_RIGHT;
 
-    public static final float RUBY_MOVE_SPEED = WORLD_WIDTH / 54.0f;
-    public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_MOVE_SPEED;
+    public static final float RUBY_HOP_SPEED = WORLD_WIDTH / 54.0f;
+    public static final float RUBY_WALK_SPEED = RUBY_HOP_SPEED / 4.0f;
+    public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_HOP_SPEED;
 
     // Climbing values
     public static final float RUBY_CLIMB_TIME = 1.8f;
     public static final float RUBY_MAX_CLIMB_RATIO = 1f;
     public static final float RUBY_MIN_CLIMB_RATIO = 0.35f;
 
-    public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.90f;
-    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.96f;
+    public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
+    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.90f;
 
     public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
     public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;

@@ -301,7 +301,7 @@ public class Level implements Initializeable
         stage.draw();
 
         // Render the debug physics engine settings
-        // debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
     }
 
 

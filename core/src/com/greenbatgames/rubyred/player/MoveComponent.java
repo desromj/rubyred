@@ -44,7 +44,7 @@ public class MoveComponent extends PlayerComponent
         Body body = player.getBody();
 
         // First check if we should be falling right now
-        if (isOnGround() && body.getLinearVelocity().y < -Constants.RUBY_MOVE_SPEED / 20f) {
+        if (isOnGround() && body.getLinearVelocity().y < -Constants.RUBY_HOP_SPEED / 20f) {
             jump();
             player.animator().setNext(Enums.AnimationState.FALL);
         }
@@ -64,44 +64,42 @@ public class MoveComponent extends PlayerComponent
             // Normal movement controls
             if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
 
-                // Check for walking first, then hops
-                if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
-                    body.setLinearVelocity(
-                            Constants.RUBY_MOVE_SPEED / 4f,
-                            body.getLinearVelocity().y
-                    );
-                    player.animator().setNext(Enums.AnimationState.WALK);
-                    return true;
-                } else {
+                // Check for hopping first, then walking
+                if (Gdx.input.isKeyPressed(Constants.KEY_HOP)) {
                     jump();
                     body.setLinearVelocity(
-                            Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
-                            Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
+                            Constants.RUBY_HOP_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT),
+                            Constants.RUBY_HOP_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_RIGHT)
                     );
                     player.animator().setNext(Enums.AnimationState.HOP);
 
                     return true;
+                } else {
+                    body.setLinearVelocity(
+                            Constants.RUBY_WALK_SPEED,
+                            body.getLinearVelocity().y
+                    );
+                    player.animator().setNext(Enums.AnimationState.WALK);
                 }
 
             } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
 
-                // Check for walking first
-                if (Gdx.input.isKeyPressed(Constants.KEY_WALK)) {
-                    body.setLinearVelocity(
-                            -Constants.RUBY_MOVE_SPEED / 4f,
-                            body.getLinearVelocity().y
-                    );
-                    player.animator().setNext(Enums.AnimationState.WALK);
-                    return true;
-                } else {
+                // Check for hopping first, then walking
+                if (Gdx.input.isKeyPressed(Constants.KEY_HOP)) {
                     jump();
                     body.setLinearVelocity(
-                            Constants.RUBY_MOVE_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
-                            Constants.RUBY_MOVE_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
+                            Constants.RUBY_HOP_SPEED * MathUtils.cos(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT),
+                            Constants.RUBY_HOP_SPEED * MathUtils.sin(MathUtils.degreesToRadians * Constants.RUBY_HOP_ANGLE_LEFT)
                     );
                     player.animator().setNext(Enums.AnimationState.HOP);
 
                     return true;
+                } else {
+                    body.setLinearVelocity(
+                            -Constants.RUBY_WALK_SPEED,
+                            body.getLinearVelocity().y
+                    );
+                    player.animator().setNext(Enums.AnimationState.WALK);
                 }
             }
         } else {
@@ -110,7 +108,7 @@ public class MoveComponent extends PlayerComponent
                 if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT) || Gdx.input.isKeyPressed(Constants.KEY_RIGHT_ALT)) {
                     body.setLinearVelocity(
                             MathUtils.clamp(
-                                    body.getLinearVelocity().x + Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
+                                    body.getLinearVelocity().x + Constants.RUBY_HOP_SPEED * Gdx.graphics.getDeltaTime(),
                                     -Constants.RUBY_MAX_HORIZ_HOP_SPEED,
                                     Constants.RUBY_MAX_HORIZ_HOP_SPEED),
                             body.getLinearVelocity().y
@@ -118,7 +116,7 @@ public class MoveComponent extends PlayerComponent
                 } else if (Gdx.input.isKeyPressed(Constants.KEY_LEFT) || Gdx.input.isKeyPressed(Constants.KEY_LEFT_ALT)) {
                     body.setLinearVelocity(
                             MathUtils.clamp(
-                                    body.getLinearVelocity().x - Constants.RUBY_MOVE_SPEED * Gdx.graphics.getDeltaTime(),
+                                    body.getLinearVelocity().x - Constants.RUBY_HOP_SPEED * Gdx.graphics.getDeltaTime(),
                                     -Constants.RUBY_MAX_HORIZ_HOP_SPEED,
                                     Constants.RUBY_MAX_HORIZ_HOP_SPEED),
                             body.getLinearVelocity().y
