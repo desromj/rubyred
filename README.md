@@ -19,9 +19,15 @@ In order to run the project, do the following
 CONTROLS:
 
 Left/Right Arrow Keys = walk left or right
+
 Up Arrow = hop while walking (faster movement)
+
 Z = jump
+
 Shift + Z = long jump
+
 Down + Z = high jump
+
 Hold X while jumping towards a ledge to grab it and climb up
+
 R = restart the game, in case of bugs
