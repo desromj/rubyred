@@ -16,27 +16,18 @@ public class CustomFont
 {
     private CustomFont() {}
 
-    public static BitmapFont makeFont() {
+    public static BitmapFont makeFont(int fontSize, int borderWidth) {
 
         BitmapFont font;
-        Application.ApplicationType type = Gdx.app.getType();
 
-        // Use normal bitmaps if we're in HTML5, otherwise load truetype
-        if (type == Application.ApplicationType.WebGL) {
-            font = new BitmapFont();
-            font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            font.getData().setScale(Constants.GUI_FONT_SCALE);
-            font.setColor(Constants.GUI_FONT_COLOR);
-        } else {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Bombing.ttf"));
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Bombing.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-            parameter.size = (int) (Constants.WORLD_WIDTH / 12f);
-            parameter.borderWidth = 2;
+        parameter.size = fontSize;
+        parameter.borderWidth = borderWidth;
 
-            font = generator.generateFont(parameter);
-            generator.dispose();
-        }
+        font = generator.generateFont(parameter);
+        generator.dispose();
 
         return font;
     }

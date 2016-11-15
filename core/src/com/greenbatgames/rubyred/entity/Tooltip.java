@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
+import com.greenbatgames.rubyred.asset.CustomFont;
 import com.greenbatgames.rubyred.player.Player;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
@@ -27,8 +28,7 @@ public class Tooltip extends Actor
         bounds = new Rectangle(x, y, width, height);
         visible = false;
 
-        font = new BitmapFont();
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font = CustomFont.makeFont(32, 0);
         font.setColor(Constants.TOOLTIP_COLOR);
         font.getData().setScale(Constants.TOOLTIP_SCALE);
     }
@@ -44,7 +44,16 @@ public class Tooltip extends Actor
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (visible)
-            font.draw(batch, label, bounds.x, bounds.y, 0, Align.top, false);
+        if (visible) {
+            Player player = GameScreen.getInstance().getPlayer();
+            font.draw(
+                    batch,
+                    label,
+                    player.getLeft() - player.getWidth() * 4f,
+                    player.getTop() + player.getHeight() * 1.2f,
+                    Constants.WORLD_WIDTH / 2f,
+                    Align.top,
+                    true);
+        }
     }
 }

@@ -20,8 +20,7 @@ public class RubyHUD extends Actor
 
     public RubyHUD(Viewport viewport) {
         this.viewport = viewport;
-
-        font = CustomFont.makeFont();
+        font = CustomFont.makeFont(60, 2);
     }
 
 
