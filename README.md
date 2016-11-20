@@ -9,12 +9,18 @@ As you control a kangaroo, most movement is done by a combination of short and l
 
 NOTE: There is a current known softlock that triggers if the edge of your character lands exactly on the corner edge of a platform. The game thinks you are still trying to fall when in fact you are not, and you are rendered immobile indefinitely. This will be fixed soon.
 
-In order to run the project, do the following
+In order to run the project, do one of the following
 
-1. Import the project into Android Studio
-2. Open the terminal
-3. Type in "gradlew desktop:run" and press enter
-4. The project will build and launch
+a) Download and run the .jar file from itch.io
+    https://goldquiver.itch.io/ruby-red
+
+b) Import the project into Android Studio
+  
+  1. Open the terminal
+  
+  2. Type in "gradlew desktop:run" and press enter
+  
+  3. The project will build and launch
 
 CONTROLS:
 
