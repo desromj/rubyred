@@ -11,10 +11,7 @@ NOTE: There is a current known softlock that triggers if the edge of your charac
 
 In order to run the project, do one of the following
 
-a) Download and run the .jar file from itch.io
-    https://goldquiver.itch.io/ruby-red
-
-b) Import the project into Android Studio
+a) Import the project into Android Studio
   
   1. Open the terminal
   
