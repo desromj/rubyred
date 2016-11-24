@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.entity.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
+import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 
 /**
@@ -106,6 +107,9 @@ public class Player extends PhysicsBody implements Initializeable
             if (!mover.update(delta)) break;
         } while (false);
 
+        // Handle collisions to objects via raycasts
+        handleCollisions();
+
         // Set the direction facing based on x velocity, only if not recoiling
         if (animator.getNextLabel().compareTo("recoil") != 0) {
             if (body.getLinearVelocity().x > 0.1f)
@@ -118,6 +122,12 @@ public class Player extends PhysicsBody implements Initializeable
         this.body.setAwake(true);
     }
 
+
+
+    // Use box2d raycasting to check collision with the ground
+    private void handleCollisions() {
+
+    }
 
 
     @Override

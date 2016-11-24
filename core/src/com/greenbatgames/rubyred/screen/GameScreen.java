@@ -24,6 +24,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     public static final String TAG = GameScreen.class.getSimpleName();
     private static GameScreen instance = null;
 
+    private Level level;
+
     private GameScreen() {}
 
     public static final GameScreen getInstance()
@@ -36,7 +38,8 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         return instance;
     }
 
-    private Level level;
+    public static final Level currentLevel() { return instance.level; }
+
 
 
 
@@ -59,42 +62,10 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
         }
     }
 
-    /*
-        Physics body queueing methods
-     */
-
-    public void queueBodyToDestroy(PhysicsBody body) {
-        level.queueBodyToDestroy(body);
-    }
-
-    public void queueBodyToCreate(BodyDef bodyDef, FixtureDef fixtureDef, PhysicsBody newUserData) {
-        level.queueBodyToCreate(bodyDef, fixtureDef, newUserData);
-    }
-
 
 
     /*
-        Getters and Setters
-     */
-
-    public Player getPlayer() { return level.getPlayer(); }
-    public Viewport getViewport() {
-        return level.getViewport();
-    }
-    public ChaseCam getChaseCam() { return level.getChaseCam(); }
-
-    public void addActorToStage(Actor actor) { level.addActorToStage(actor); }
-
-    public boolean isCurrentCheckPoint(Checkpoint cp) {
-        return level.isCurrentCheckPoint(cp);
-    }
-    public void setCurrentCheckpoint(Checkpoint cp) {
-        level.setCurrentCheckpoint(cp);
-    }
-
-
-    /*
-        Other ScreenAdapter Overrides
+        ScreenAdapter Overrides
      */
 
     @Override
@@ -102,8 +73,6 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
     {
         level.getViewport().update(width, height, true);
     }
-
-
 
     /*
         InputProcessor Overrides

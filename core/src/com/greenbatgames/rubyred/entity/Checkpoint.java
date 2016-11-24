@@ -65,11 +65,11 @@ public class Checkpoint extends Actor
             return;
         }
 
-        if (bounds.overlaps(GameScreen.getInstance().getPlayer().getBounds())
-                && !GameScreen.getInstance().isCurrentCheckPoint(this)) {
+        if (bounds.overlaps(GameScreen.currentLevel().getPlayer().getBounds())
+                && !GameScreen.currentLevel().isCurrentCheckPoint(this)) {
             triggered = true;
             activeTime = Constants.CHECKPOINT_TEXT_ONSCREEN_TIME;
-            GameScreen.getInstance().setCurrentCheckpoint(this);
+            GameScreen.currentLevel().setCurrentCheckpoint(this);
         }
     }
 

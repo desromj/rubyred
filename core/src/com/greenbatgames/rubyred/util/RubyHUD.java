@@ -30,9 +30,9 @@ public class RubyHUD extends Actor
 
         font.draw(
                 batch,
-                "Lives: " + GameScreen.getInstance().getPlayer().getLives(),
-                GameScreen.getInstance().getChaseCam().getLeft() + Constants.HUD_MARGIN,
-                GameScreen.getInstance().getChaseCam().getTop() - Constants.HUD_MARGIN,
+                "Lives: " + GameScreen.currentLevel().getPlayer().getLives(),
+                GameScreen.currentLevel().getChaseCam().getLeft() + Constants.HUD_MARGIN,
+                GameScreen.currentLevel().getChaseCam().getTop() - Constants.HUD_MARGIN,
                 0f,
                 Align.topLeft,
                 false

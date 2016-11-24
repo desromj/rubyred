@@ -53,7 +53,7 @@ public class Bird extends Actor
 
         initAnimation();
 
-        GameScreen.getInstance().addActorToStage(this);
+        GameScreen.currentLevel().addActorToStage(this);
     }
 
 
@@ -90,7 +90,7 @@ public class Bird extends Actor
         // Rest of updates
         this.position.mulAdd(velocity, delta);
 
-        com.greenbatgames.rubyred.player.Player player = GameScreen.getInstance().getPlayer();
+        com.greenbatgames.rubyred.player.Player player = GameScreen.currentLevel().getPlayer();
 
         this.aabb.set(position.x, position.y, width, height);
 
