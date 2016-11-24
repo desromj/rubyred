@@ -14,7 +14,7 @@ import com.greenbatgames.rubyred.util.Utils;
  * Created by Quiv on 01-10-2016.
  */
 
-public class Skylight extends Platform implements Initializeable
+public class Skylight extends Platform implements Initializeable, Activateable
 {
     private boolean broken, active;
     private float lifetime;
@@ -88,11 +88,13 @@ public class Skylight extends Platform implements Initializeable
 
 
 
+    @Override
     public void activate()
     {
         active = true;
         Utils.playSound("sounds/glass-crack.wav", 1.0f);
     }
 
+    @Override
     public boolean isBroken() { return broken; }
 }
