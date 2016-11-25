@@ -13,7 +13,7 @@ import com.greenbatgames.rubyred.util.Utils;
  * Created by Quiv on 01-10-2016.
  */
 
-public class DropPlatform extends Platform implements Initializeable
+public class DropPlatform extends Platform implements Initializeable, Activateable
 {
     private boolean broken, active, pivotOnLeft = true;
     private float lifetime;
@@ -120,12 +120,15 @@ public class DropPlatform extends Platform implements Initializeable
 
 
 
-    public void activate()
-    {
-        active = true;
-        Utils.playSound("sounds/wood-creak.wav", 0.5f);
+    @Override
+    public void activate() {
+        if (!active) {
+            active = true;
+            Utils.playSound("sounds/wood-creak.wav", 0.5f);
+        }
     }
 
+    @Override
     public boolean isBroken() { return broken; }
 
     @Override

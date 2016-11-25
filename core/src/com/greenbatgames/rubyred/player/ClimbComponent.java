@@ -3,7 +3,12 @@ package com.greenbatgames.rubyred.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.greenbatgames.rubyred.entity.Activateable;
+import com.greenbatgames.rubyred.entity.Platform;
+import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Enums;
 
@@ -43,6 +48,9 @@ public class ClimbComponent extends PlayerComponent
     @Override
     public boolean update(float delta) {
 
+        if (!climbing)
+            handleCollision();
+
         climbTimeLeft -= delta;
 
         // Return true if we're not climbing or have been climbing for too long already
@@ -69,9 +77,71 @@ public class ClimbComponent extends PlayerComponent
         // set velocity to 0, in case we clip into the ledge area
         player.getBody().setLinearVelocity(0f, 0f);
 
-        //  return false to break any other movement updates if still climbing
+        // return false to break any other movement updates if still climbing
+        handleCollision();
         return !climbing;
     }
+
+
+
+    private void handleCollision() {
+
+        // Determine scenarios in which we just return immediately
+        if (!player.isClimbButtonHeld()) return;
+
+        // Draw the ray
+        Vector2 rayFrom = new Vector2(
+                (player.facingRight)
+                        ? (player.getRight() + player.getWidth() / 2.0f) / Constants.PTM
+                        : (player.getLeft() - player.getWidth() / 2.0f) / Constants.PTM,
+                player.getTop() / Constants.PTM
+        );
+
+        Vector2 rayTo = new Vector2(
+                rayFrom.x,
+                player.getBottom() / Constants.PTM
+        );
+
+        // Do the ray cast
+        GameScreen.currentLevel().getWorld().rayCast(makeRayCastCallback(), rayFrom, rayTo);
+    }
+
+
+
+    // Raycast collision handling
+    private RayCastCallback makeRayCastCallback() {
+
+        return new RayCastCallback() {
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+
+                Gdx.app.log(TAG, "Climbing raycast triggered.");
+
+                // Check that the platform allows climbing
+                Object userData = fixture.getBody().getUserData();
+
+                if (userData instanceof Platform) {
+
+                    Platform plat = (Platform) userData;
+                    if (!plat.allowClimbing())
+                        return 0;
+
+                    // determine the grip point based on the fixture location
+                    Vector2 gripPoint = new Vector2(
+                            (player.facingRight) ? plat.getLeft() : plat.getRight(),
+                            plat.getTop()
+                    );
+
+                    // startClimbing with the correct grip point
+                    startClimbing(gripPoint);
+                    return fraction;
+                }
+
+                return 0;
+            }
+        };
+    }
+
 
     /*
         Getters and Setters

@@ -25,7 +25,7 @@ public class BirdSpawner extends Actor
     @Override
     public void act(float delta)
     {
-        com.greenbatgames.rubyred.player.Player player = GameScreen.getInstance().getPlayer();
+        com.greenbatgames.rubyred.player.Player player = GameScreen.currentLevel().getPlayer();
 
         // Skip spawn if it is too far offscreen
         float dist = Math.abs(Vector2.dst(

@@ -2,7 +2,13 @@ package com.greenbatgames.rubyred.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
+import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.rubyred.entity.Activateable;
+import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Enums;
 
@@ -12,6 +18,8 @@ import com.greenbatgames.rubyred.util.Enums;
 
 public class MoveComponent extends PlayerComponent
 {
+    public static final String TAG = MoveComponent.class.getSimpleName();
+
     private boolean grounded, jumped;
     private float cannotJumpFor, disableCollisionFor;
 
@@ -23,8 +31,8 @@ public class MoveComponent extends PlayerComponent
 
     @Override
     public void init() {
-        jumped = true;
-        grounded = false;
+        jumped = false;
+        grounded = true;
         cannotJumpFor = 0.0f;
         disableCollisionFor = 0.0f;
     }
@@ -169,6 +177,7 @@ public class MoveComponent extends PlayerComponent
             }
         }
 
+        handleCollision();
         return true;
     }
 
@@ -176,13 +185,82 @@ public class MoveComponent extends PlayerComponent
 
     public void land() {
 
-        Gdx.app.log("MoveComp", "land triggered");
+        Gdx.app.log(TAG, "Land triggered");
+
+        if (grounded && !jumped) {
+            Gdx.app.log(TAG, "Already landed, ignored");
+            return;
+        }
 
         grounded = true;
         jumped = false;
 
         cannotJumpFor = Constants.RUBY_JUMP_RECOVERY;
         player.animator().setNext(Enums.AnimationState.LAND);
+    }
+
+
+
+
+    // Use box2d raycasting to check collision with the ground
+    private void handleCollision() {
+        // Only check for landing on the way down, while we're airborne
+        if (player.getBody().getLinearVelocity().y >= 0 || isOnGround()) return;
+
+        World world = GameScreen.currentLevel().getWorld();
+        float bot = player.getBottom() / Constants.PTM;
+
+        // Ray trace from bottom of player to just below the bottom
+        Vector2 rayFromRight = new Vector2(
+                player.getRight() / Constants.PTM,
+                bot);
+
+        Vector2 rayToRight = new Vector2(
+                player.getRight() / Constants.PTM,
+                bot - bot * 0.02f);
+
+        Vector2 rayFromLeft = new Vector2(
+                player.getLeft() / Constants.PTM,
+                bot);
+
+        Vector2 rayToLeft = new Vector2(
+                player.getLeft() / Constants.PTM,
+                bot - bot * 0.02f);
+
+        // Do left and right ray casts for landing
+        world.rayCast(makeRayCastCallback(), rayFromRight, rayToRight);
+        world.rayCast(makeRayCastCallback(), rayFromLeft, rayToLeft);
+    }
+
+
+
+    // Raycast collision handling
+    private RayCastCallback makeRayCastCallback() {
+
+        return new RayCastCallback() {
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+
+                Gdx.app.log(TAG, "Moving raycast triggered.");
+
+                Object userData = fixture.getBody().getUserData();
+
+                // Ignore intersections with ourself
+                if (userData == player) {
+                    Gdx.app.log(TAG, "Ignoring User Data");
+                    return 1;
+                }
+
+                // Cause the player to land
+                land();
+
+                // Activate any activateable objects the player lands on
+                if (userData instanceof Activateable)
+                    ((Activateable) userData).activate();
+
+                return 0;
+            }
+        };
     }
 
 
