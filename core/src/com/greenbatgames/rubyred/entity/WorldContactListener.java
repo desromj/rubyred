@@ -14,53 +14,8 @@ import com.greenbatgames.rubyred.util.Utils;
 public class WorldContactListener implements ContactListener
 {
     @Override
-    public void beginContact(Contact contact)
-    {
-        Object
-                a = Utils.getUserData(contact, true),
-                b = Utils.getUserData(contact, false);
-
-        if (a instanceof com.greenbatgames.rubyred.player.Player || b instanceof com.greenbatgames.rubyred.player.Player)
-        {
-            com.greenbatgames.rubyred.player.Player player;
-            Object other;
-
-            if (a instanceof com.greenbatgames.rubyred.player.Player)
-            {
-                player = (com.greenbatgames.rubyred.player.Player) a;
-                other = b;
-            }
-            else
-            {
-                player = (com.greenbatgames.rubyred.player.Player) b;
-                other = a;
-            }
-
-            // Collision logic for landing on other physics objects
-            if (other instanceof PhysicsBody)
-            {
-                PhysicsBody physical = (PhysicsBody) other;
-
-                // If the top of the platform is within player bounds,
-                // if the player is holding the jump button,
-                // start climbing on top of the platform
-                if (!player.climber().isClimbing()
-                        && player.isClimbButtonHeld()
-                        && other instanceof Platform
-                        && ((Platform)other).allowClimbing()
-                        && physical.getTop() < player.getTop() + player.getHeight() / 4.0f
-                        && physical.getTop() > player.getBottom())
-                {
-                    Vector2 gripPoint = new Vector2(
-                            (player.getX() < physical.getX()) ? physical.getLeft() : physical.getRight(),
-                            physical.getTop()
-                    );
-
-                    player.climber().startClimbing(gripPoint);
-
-                }
-            }
-        }
+    public void beginContact(Contact contact) {
+        
     }
 
     @Override
