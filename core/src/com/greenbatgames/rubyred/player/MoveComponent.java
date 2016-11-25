@@ -22,6 +22,7 @@ public class MoveComponent extends PlayerComponent
 
     private boolean grounded, jumped;
     private float cannotJumpFor, disableCollisionFor;
+    private Vector2 rayFrom, rayTo;
 
     public MoveComponent(Player player) {
         super(player);
@@ -35,6 +36,8 @@ public class MoveComponent extends PlayerComponent
         grounded = true;
         cannotJumpFor = 0.0f;
         disableCollisionFor = 0.0f;
+        rayFrom = new Vector2();
+        rayTo = new Vector2();
     }
 
 
@@ -208,28 +211,46 @@ public class MoveComponent extends PlayerComponent
         if (player.getBody().getLinearVelocity().y >= 0 || isOnGround()) return;
 
         World world = GameScreen.currentLevel().getWorld();
-        float bot = player.getBottom() / Constants.PTM;
+        float under = player.getBottom() / Constants.PTM;
 
-        // Ray trace from bottom of player to just below the bottom
-        Vector2 rayFromRight = new Vector2(
-                player.getRight() / Constants.PTM,
-                bot);
+        // Ray trace from bottom middle of player to just below the bottom middle
+        rayFrom.set(
+                (player.getX() + player.getWidth() / 2.0f) / Constants.PTM,
+                under);
 
-        Vector2 rayToRight = new Vector2(
-                player.getRight() / Constants.PTM,
-                bot - bot * 0.02f);
-
-        Vector2 rayFromLeft = new Vector2(
-                player.getLeft() / Constants.PTM,
-                bot);
-
-        Vector2 rayToLeft = new Vector2(
-                player.getLeft() / Constants.PTM,
-                bot - bot * 0.02f);
+        rayTo.set(
+                rayFrom.x,
+                under - under * 0.02f);
 
         // Do left and right ray casts for landing
-        world.rayCast(makeRayCastCallback(), rayFromRight, rayToRight);
-        world.rayCast(makeRayCastCallback(), rayFromLeft, rayToLeft);
+        world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
+
+        // If we collided, return. Otherwise, check the left and right edges for collision as well
+        if (isOnGround()) return;
+
+        // Left edge
+        rayFrom.set(
+                player.getLeft() / Constants.PTM,
+                under);
+
+        rayTo.set(
+                rayFrom.x,
+                under - under * 0.02f);
+
+        world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
+
+        if (isOnGround()) return;
+
+        // Right edge
+        rayFrom.set(
+                player.getRight() / Constants.PTM,
+                under);
+
+        rayTo.set(
+                rayFrom.x,
+                under - under * 0.02f);
+
+        world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
     }
 
 
