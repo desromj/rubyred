@@ -12,6 +12,8 @@ import com.greenbatgames.rubyred.util.Enums;
 
 public class MoveComponent extends PlayerComponent
 {
+    public static final String TAG = MoveComponent.class.getSimpleName();
+
     private boolean grounded, jumped;
     private float cannotJumpFor, disableCollisionFor;
 
@@ -23,8 +25,8 @@ public class MoveComponent extends PlayerComponent
 
     @Override
     public void init() {
-        jumped = true;
-        grounded = false;
+        jumped = false;
+        grounded = true;
         cannotJumpFor = 0.0f;
         disableCollisionFor = 0.0f;
     }
@@ -176,7 +178,12 @@ public class MoveComponent extends PlayerComponent
 
     public void land() {
 
-        Gdx.app.log("MoveComp", "land triggered");
+        Gdx.app.log(TAG, "Land triggered");
+
+        if (grounded && !jumped) {
+            Gdx.app.log(TAG, "Already landed, ignored");
+            return;
+        }
 
         grounded = true;
         jumped = false;

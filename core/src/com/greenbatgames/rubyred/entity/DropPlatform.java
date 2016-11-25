@@ -121,10 +121,11 @@ public class DropPlatform extends Platform implements Initializeable, Activateab
 
 
     @Override
-    public void activate()
-    {
-        active = true;
-        Utils.playSound("sounds/wood-creak.wav", 0.5f);
+    public void activate() {
+        if (!active) {
+            active = true;
+            Utils.playSound("sounds/wood-creak.wav", 0.5f);
+        }
     }
 
     @Override

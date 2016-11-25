@@ -304,7 +304,7 @@ public class Level implements Initializeable
         stage.draw();
 
         // Render the debug physics engine settings
-        // debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
     }
 
 
@@ -372,6 +372,7 @@ public class Level implements Initializeable
         return stage.getViewport();
     }
     public ChaseCam getChaseCam() { return chaseCam; }
+    public World getWorld() { return world; }
 
     public boolean hasWon() {
         return player.getBounds().overlaps(flag.getBounds());

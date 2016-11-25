@@ -89,10 +89,11 @@ public class Skylight extends Platform implements Initializeable, Activateable
 
 
     @Override
-    public void activate()
-    {
-        active = true;
-        Utils.playSound("sounds/glass-crack.wav", 1.0f);
+    public void activate() {
+        if (!broken && !active) {
+            active = true;
+            Utils.playSound("sounds/glass-crack.wav", 1.0f);
+        }
     }
 
     @Override
