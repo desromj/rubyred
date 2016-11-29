@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.greenbatgames.rubyred.entity.Platform;
+import com.greenbatgames.rubyred.iface.Activateable;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Enums;
@@ -120,6 +121,11 @@ public class ClimbComponent extends PlayerComponent
 
                 if (userData instanceof Platform) {
 
+                    // Activate the object if it can be
+                    if (userData instanceof Activateable) {
+                        ((Activateable) userData).activate();
+                    }
+                    
                     Platform plat = (Platform) userData;
                     if (!plat.allowClimbing())
                         return 0;
