@@ -188,6 +188,7 @@ public class ClimbComponent extends PlayerComponent
             climbingRight = true;
 
         climbing = true;
+        player.mover().land();
 
         player.animator().setNext(Enums.AnimationState.CLIMB, timeRatio);
     }

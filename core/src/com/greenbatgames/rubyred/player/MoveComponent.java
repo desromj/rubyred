@@ -217,7 +217,7 @@ public class MoveComponent extends PlayerComponent
 
         World world = GameScreen.currentLevel().getWorld();
         float under = player.getBottom() / Constants.PTM;
-        float editRatio = 0.025f;           // Percent to affect above/below bottom to account for physics wobbles
+        float editRatio = 0.02f;           // Percent to affect above/below bottom to account for physics wobbles
 
         // Ray trace from bottom middle of player to just below the bottom middle
         rayFrom.set(

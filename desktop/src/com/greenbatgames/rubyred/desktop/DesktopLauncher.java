@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.height = 720;
-		config.width = 960;
+		config.height = 960;
+		config.width = 1800;
 
 		new LwjglApplication(new RubyGame(), config);
 	}
