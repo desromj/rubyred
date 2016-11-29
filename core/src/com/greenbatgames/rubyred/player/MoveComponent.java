@@ -54,8 +54,13 @@ public class MoveComponent extends PlayerComponent
         // Horizontal hopping movement
         Body body = player.getBody();
 
-        // First check if we should be falling right now
-        if (isOnGround() && body.getLinearVelocity().y < -Constants.RUBY_HOP_SPEED / 20f) {
+        // First check if we should be stationary right now
+        if (player.getY() == player.getLastY() && body.getLinearVelocity().y == 0f) {
+            land();
+            player.animator().setNext(Enums.AnimationState.LAND);
+        }
+        // Then check if we should be falling right now
+        else if (isOnGround() && body.getLinearVelocity().y < -Constants.RUBY_HOP_SPEED / 20f) {
             jump();
             player.animator().setNext(Enums.AnimationState.FALL);
         }
