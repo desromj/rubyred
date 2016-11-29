@@ -99,7 +99,7 @@ public class Constants
     // Climbing values
     public static final float RUBY_CLIMB_TIME = 1.0f;
     public static final float RUBY_MAX_CLIMB_RATIO = 1f;
-    public static final float RUBY_MIN_CLIMB_RATIO = 0.35f;
+    public static final float RUBY_MIN_CLIMB_RATIO = 0.75f;
 
     public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
     public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.90f;
