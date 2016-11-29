@@ -27,7 +27,7 @@ import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.Checkpoint;
 import com.greenbatgames.rubyred.entity.DropPlatform;
 import com.greenbatgames.rubyred.entity.FinishFlag;
-import com.greenbatgames.rubyred.entity.Initializeable;
+import com.greenbatgames.rubyred.iface.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.entity.Tooltip;

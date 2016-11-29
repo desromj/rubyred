@@ -1,6 +1,5 @@
 package com.greenbatgames.rubyred.entity;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -63,8 +62,8 @@ public class WorldContactListener implements ContactListener
 
             // Collision disabling for other objects
 
-            if (other instanceof Activateable) {
-                if (((Activateable) other).isBroken())
+            if (other instanceof com.greenbatgames.rubyred.iface.Activateable) {
+                if (((com.greenbatgames.rubyred.iface.Activateable) other).isBroken())
                     contact.setEnabled(false);
             }
         }

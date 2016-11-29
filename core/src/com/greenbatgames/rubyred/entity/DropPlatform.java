@@ -13,7 +13,7 @@ import com.greenbatgames.rubyred.util.Utils;
  * Created by Quiv on 01-10-2016.
  */
 
-public class DropPlatform extends Platform implements Initializeable, Activateable
+public class DropPlatform extends Platform implements com.greenbatgames.rubyred.iface.Initializeable, com.greenbatgames.rubyred.iface.Activateable
 {
     private boolean broken, active, pivotOnLeft = true;
     private float lifetime;

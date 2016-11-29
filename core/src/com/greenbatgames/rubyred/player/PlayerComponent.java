@@ -1,6 +1,6 @@
 package com.greenbatgames.rubyred.player;
 
-import com.greenbatgames.rubyred.entity.Initializeable;
+import com.greenbatgames.rubyred.iface.Initializeable;
 
 /**
  * Created by Quiv on 02-11-2016.

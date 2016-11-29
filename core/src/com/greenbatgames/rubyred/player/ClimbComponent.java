@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.greenbatgames.rubyred.entity.Activateable;
 import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;

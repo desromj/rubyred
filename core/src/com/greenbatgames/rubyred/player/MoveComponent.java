@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
-import com.greenbatgames.rubyred.entity.Activateable;
+import com.greenbatgames.rubyred.iface.Activateable;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Enums;

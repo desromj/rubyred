@@ -1,11 +1,9 @@
 package com.greenbatgames.rubyred.entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.rubyred.util.Constants;
 import com.greenbatgames.rubyred.util.Utils;
@@ -14,7 +12,7 @@ import com.greenbatgames.rubyred.util.Utils;
  * Created by Quiv on 01-10-2016.
  */
 
-public class Skylight extends Platform implements Initializeable, Activateable
+public class Skylight extends Platform implements com.greenbatgames.rubyred.iface.Initializeable, com.greenbatgames.rubyred.iface.Activateable
 {
     private boolean broken, active;
     private float lifetime;

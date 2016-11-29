@@ -3,9 +3,8 @@ package com.greenbatgames.rubyred.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.greenbatgames.rubyred.entity.Initializeable;
+import com.greenbatgames.rubyred.iface.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
 
 /**
