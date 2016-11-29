@@ -45,7 +45,7 @@ public class Constants
      */
 
     public static final float WORLD_WIDTH = 640;
-    public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
+    public static final float WORLD_HEIGHT = WORLD_WIDTH * 4f / 5f;
 
     public static final float GUI_FONT_SCALE = 1.0f;
     public static final Color GUI_FONT_COLOR = Color.BLACK;
