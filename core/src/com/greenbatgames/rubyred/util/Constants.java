@@ -163,7 +163,7 @@ public class Constants
         Skylight values
      */
 
-    public static final float SKYLIGHT_LIFETIME = 2.0f;
+    public static final float SKYLIGHT_LIFETIME = 1.0f;
     public static final float DROP_PLATFORM_LIFETIME = 3.0f;
     public static final float DROP_PLATFORM_RESET_TIME = 1.5f;
     public static final float DROP_PLATFORM_FALL_DURATION = 0.75f;
