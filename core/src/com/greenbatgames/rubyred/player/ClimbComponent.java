@@ -121,14 +121,14 @@ public class ClimbComponent extends PlayerComponent
 
                 if (userData instanceof Platform) {
 
+                    Platform plat = (Platform) userData;
+                    if (!plat.allowClimbing())
+                        return 0;
+
                     // Activate the object if it can be
                     if (userData instanceof Activateable) {
                         ((Activateable) userData).activate();
                     }
-                    
-                    Platform plat = (Platform) userData;
-                    if (!plat.allowClimbing())
-                        return 0;
 
                     // determine the grip point based on the fixture location
                     Vector2 gripPoint = new Vector2(
