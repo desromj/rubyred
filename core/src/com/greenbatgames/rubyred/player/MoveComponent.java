@@ -212,15 +212,16 @@ public class MoveComponent extends PlayerComponent
 
         World world = GameScreen.currentLevel().getWorld();
         float under = player.getBottom() / Constants.PTM;
+        float editRatio = 0.025f;           // Percent to affect above/below bottom to account for physics wobbles
 
         // Ray trace from bottom middle of player to just below the bottom middle
         rayFrom.set(
                 (player.getX() + player.getWidth() / 2.0f) / Constants.PTM,
-                under);
+                under + under * editRatio);
 
         rayTo.set(
                 rayFrom.x,
-                under - under * 0.02f);
+                under - under * editRatio);
 
         // Do left and right ray casts for landing
         world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
@@ -231,11 +232,11 @@ public class MoveComponent extends PlayerComponent
         // Left edge
         rayFrom.set(
                 player.getLeft() / Constants.PTM,
-                under);
+                under + under * editRatio);
 
         rayTo.set(
                 rayFrom.x,
-                under - under * 0.02f);
+                under - under * editRatio);
 
         world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
 
@@ -244,11 +245,11 @@ public class MoveComponent extends PlayerComponent
         // Right edge
         rayFrom.set(
                 player.getRight() / Constants.PTM,
-                under);
+                under + under * editRatio);
 
         rayTo.set(
                 rayFrom.x,
-                under - under * 0.02f);
+                under - under * editRatio);
 
         world.rayCast(makeRayCastCallback(), rayFrom, rayTo);
     }
