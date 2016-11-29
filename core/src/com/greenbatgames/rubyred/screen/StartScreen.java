@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.RubyGame;
@@ -45,7 +46,7 @@ public class StartScreen extends ScreenAdapter
 
     public StartScreen(String logoPath, String title, String subtitle, float fadeTime)
     {
-        viewport = new FitViewport(
+        viewport = new ExtendViewport(
                 Constants.WORLD_WIDTH,
                 Constants.WORLD_HEIGHT);
 
