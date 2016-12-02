@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -97,18 +99,32 @@ public abstract class PhysicsBody extends Actor
      */
     public float getBottom()
     {
-        Shape shape = this.body.getFixtureList().first().getShape();
-
-        PolygonShape poly = (PolygonShape) shape;
         float lowest = 0f;
         Vector2 vert = new Vector2();
 
-        for (int i = 0; i < poly.getVertexCount(); i++)
-        {
-            poly.getVertex(i, vert);
+        for (Fixture fixture: body.getFixtureList()) {
+            if (fixture.isSensor()) continue;
 
-            if (i == 0 || vert.y < lowest)
-                lowest = vert.y;
+            Shape shape = fixture.getShape();
+
+            if (shape instanceof PolygonShape) {
+                PolygonShape poly = (PolygonShape) shape;
+
+                for (int i = 0; i < poly.getVertexCount(); i++)
+                {
+                    poly.getVertex(i, vert);
+
+                    if (i == 0 || vert.y < lowest)
+                        lowest = vert.y;
+                }
+            } else if (shape instanceof EdgeShape) {
+                EdgeShape edge = (EdgeShape) shape;
+
+                edge.getVertex1(vert);
+                if (vert.y < lowest) lowest = vert.y;
+                edge.getVertex2(vert);
+                if (vert.y < lowest) lowest = vert.y;
+            }
         }
 
         return (body.getPosition().y + lowest) * Constants.PTM;
@@ -118,18 +134,32 @@ public abstract class PhysicsBody extends Actor
 
     public float getTop()
     {
-        Shape shape = this.body.getFixtureList().first().getShape();
-
-        PolygonShape poly = (PolygonShape) shape;
         float highest = 0f;
         Vector2 vert = new Vector2();
 
-        for (int i = 0; i < poly.getVertexCount(); i++)
-        {
-            poly.getVertex(i, vert);
+        for (Fixture fixture: body.getFixtureList()) {
+            if (fixture.isSensor()) continue;
 
-            if (i == 0 || vert.y > highest)
-                highest = vert.y;
+            Shape shape = fixture.getShape();
+
+            if (shape instanceof PolygonShape) {
+                PolygonShape poly = (PolygonShape) shape;
+
+                for (int i = 0; i < poly.getVertexCount(); i++)
+                {
+                    poly.getVertex(i, vert);
+
+                    if (i == 0 || vert.y > highest)
+                        highest = vert.y;
+                }
+            } else if (shape instanceof EdgeShape) {
+                EdgeShape edge = (EdgeShape) shape;
+
+                edge.getVertex1(vert);
+                if (vert.y > highest) highest = vert.y;
+                edge.getVertex2(vert);
+                if (vert.y > highest) highest = vert.y;
+            }
         }
 
         return (body.getPosition().y + highest) * Constants.PTM;
@@ -139,18 +169,32 @@ public abstract class PhysicsBody extends Actor
 
     public float getLeft()
     {
-        Shape shape = this.body.getFixtureList().first().getShape();
-
-        PolygonShape poly = (PolygonShape) shape;
         float leftest = 0f;
         Vector2 vert = new Vector2();
 
-        for (int i = 0; i < poly.getVertexCount(); i++)
-        {
-            poly.getVertex(i, vert);
+        for (Fixture fixture: body.getFixtureList()) {
+            if (fixture.isSensor()) continue;
 
-            if (i == 0 || vert.x < leftest)
-                leftest = vert.x;
+            Shape shape = fixture.getShape();
+
+            if (shape instanceof PolygonShape) {
+                PolygonShape poly = (PolygonShape) shape;
+
+                for (int i = 0; i < poly.getVertexCount(); i++)
+                {
+                    poly.getVertex(i, vert);
+
+                    if (i == 0 || vert.x < leftest)
+                        leftest = vert.x;
+                }
+            } else if (shape instanceof EdgeShape) {
+                EdgeShape edge = (EdgeShape) shape;
+
+                edge.getVertex1(vert);
+                if (vert.x < leftest) leftest = vert.x;
+                edge.getVertex2(vert);
+                if (vert.x < leftest) leftest = vert.x;
+            }
         }
 
         return (body.getPosition().x + leftest) * Constants.PTM;
@@ -160,18 +204,32 @@ public abstract class PhysicsBody extends Actor
 
     public float getRight()
     {
-        Shape shape = this.body.getFixtureList().first().getShape();
-
-        PolygonShape poly = (PolygonShape) shape;
         float rightest = 0f;
         Vector2 vert = new Vector2();
 
-        for (int i = 0; i < poly.getVertexCount(); i++)
-        {
-            poly.getVertex(i, vert);
+        for (Fixture fixture: body.getFixtureList()) {
+            if (fixture.isSensor()) continue;
 
-            if (i == 0 || vert.x > rightest)
-                rightest = vert.x;
+            Shape shape = fixture.getShape();
+
+            if (shape instanceof PolygonShape) {
+                PolygonShape poly = (PolygonShape) shape;
+
+                for (int i = 0; i < poly.getVertexCount(); i++)
+                {
+                    poly.getVertex(i, vert);
+
+                    if (i == 0 || vert.x > rightest)
+                        rightest = vert.x;
+                }
+            } else if (shape instanceof EdgeShape) {
+                EdgeShape edge = (EdgeShape) shape;
+
+                edge.getVertex1(vert);
+                if (vert.x > rightest) rightest = vert.x;
+                edge.getVertex2(vert);
+                if (vert.x > rightest) rightest = vert.x;
+            }
         }
 
         return (body.getPosition().x + rightest) * Constants.PTM;
