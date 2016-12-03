@@ -23,21 +23,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.rubyred.RubyGame;
-import com.greenbatgames.rubyred.entity.BirdSpawner;
 import com.greenbatgames.rubyred.entity.Checkpoint;
-import com.greenbatgames.rubyred.entity.DropPlatform;
-import com.greenbatgames.rubyred.entity.FinishFlag;
 import com.greenbatgames.rubyred.iface.Initializeable;
 import com.greenbatgames.rubyred.entity.PhysicsBody;
-import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.entity.Tooltip;
 import com.greenbatgames.rubyred.player.Player;
-import com.greenbatgames.rubyred.entity.Skylight;
 import com.greenbatgames.rubyred.entity.WorldContactListener;
 import com.greenbatgames.rubyred.screen.StartScreen;
 import com.greenbatgames.rubyred.util.ChaseCam;
 import com.greenbatgames.rubyred.util.Constants;
-import com.greenbatgames.rubyred.util.RubyHUD;
+import com.greenbatgames.rubyred.util.PlayerHUD;
 
 /**
  * Created by Quiv on 27-10-2016.
@@ -50,8 +45,8 @@ public class Level implements Initializeable
 
     World world;
     Player player;
-    FinishFlag flag;
-    RubyHUD hud;
+    Vector2 spawnPosition;
+    PlayerHUD hud;
 
     Array<Checkpoint> checkpoints;
     Checkpoint currentCheckpoint;
@@ -69,8 +64,6 @@ public class Level implements Initializeable
     Array<PhysicsBody> userDataToAdd;
     Box2DDebugRenderer debugRenderer;
 
-    Array<Platform> platforms;
-
     Matrix4 debugMatrix;
 
 
@@ -87,7 +80,8 @@ public class Level implements Initializeable
     {
         // Level member variables
         world = new World(new Vector2(0, Constants.GRAVITY), true);
-        player = new Player(80.0f, 240.0f, Constants.RUBY_RADIUS * 2.0f, Constants.RUBY_RADIUS * 4.0f, world);
+        player = new Player(80.0f, 240.0f, Constants.PLAYER_RADIUS * 2.0f, Constants.PLAYER_RADIUS * 4.0f, world);
+        spawnPosition = new Vector2();
 
         checkpoints = new Array<Checkpoint>();
         currentCheckpoint = null;
@@ -99,7 +93,7 @@ public class Level implements Initializeable
         // Proceed with other instance variables
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera));
         chaseCam = new ChaseCam(camera, player);
-        hud = new RubyHUD(stage.getViewport());
+        hud = new PlayerHUD(stage.getViewport());
 
         tiledMap = new TmxMapLoader().load(resource);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -110,10 +104,7 @@ public class Level implements Initializeable
         bodiesToRemove = new Array<Body>();
         debugRenderer = new Box2DDebugRenderer();
 
-        platforms = new Array<Platform>();
-
-        // Load map from the tile map
-        loadTileMap();
+        // Load level objects from the tile map
         world.setContactListener(new WorldContactListener());
 
         // Finally, add actors to stage so they can be updated
@@ -130,119 +121,6 @@ public class Level implements Initializeable
         stage.addActor(player);
         stage.addActor(chaseCam);
         stage.addActor(hud);
-    }
-
-
-
-    /**
-     * All objects loaded through the tile map
-     */
-    private void loadTileMap()
-    {
-        // Set player position to the spawn position object in the TiledMap
-        for (MapLayer layer: tiledMap.getLayers()) {
-
-            if (layer.getName().compareTo("collision") == 0)
-            {
-                for (MapObject object : layer.getObjects()) {
-
-                    MapProperties props = object.getProperties();
-                    String type = props.get("type", String.class);
-
-                    if (type.compareTo("platform") == 0)
-                    {
-                        Platform plat = new Platform(
-                                props.get("x", Float.class),
-                                props.get("y", Float.class),
-                                props.get("width", Float.class),
-                                props.get("height", Float.class),
-                                world,
-                                false
-                        );
-                        platforms.add(plat);
-                        stage.addActor(plat);
-                    }
-                }
-            }
-
-            if (layer.getName().compareTo("obstacle") == 0) {
-
-                for (MapObject object : layer.getObjects()) {
-
-                    MapProperties props = object.getProperties();
-                    String type = props.get("type", String.class);
-
-                    if (type.compareTo("bird-spawner") == 0)
-                    {
-                        BirdSpawner spawner = new BirdSpawner(
-                                object.getProperties().get("x", Float.class),
-                                object.getProperties().get("y", Float.class)
-                        );
-
-                        stage.addActor(spawner);
-                    } else if (type.compareTo("skylight") == 0) {
-                        Skylight light = new Skylight(
-                                props.get("x", Float.class),
-                                props.get("y", Float.class),
-                                props.get("width", Float.class),
-                                props.get("height", Float.class),
-                                world
-                        );
-                        stage.addActor(light);
-                    } else if (type.compareTo("drop-platform") == 0) {
-                        DropPlatform plat = new DropPlatform(
-                                props.get("x", Float.class),
-                                props.get("y", Float.class),
-                                props.get("width", Float.class),
-                                props.get("height", Float.class),
-                                world,
-                                false
-                        );
-                        stage.addActor(plat);
-                    } else if (type.compareTo("finish-flag") == 0) {
-                        flag = new FinishFlag(
-                                props.get("x", Float.class),
-                                props.get("y", Float.class)
-                        );
-                        stage.addActor(flag);
-                    } else if (type.compareTo("tooltip") == 0) {
-                        Tooltip tt = new Tooltip(
-                                props.get("label", String.class),
-                                props.get("x", Float.class),
-                                props.get("y", Float.class),
-                                props.get("width", Float.class),
-                                props.get("height", Float.class)
-                        );
-                        stage.addActor(tt);
-                    } else if (type.compareTo("checkpoint") == 0) {
-                        Checkpoint cp = new Checkpoint(
-                                props.containsKey("label")
-                                    ? props.get("label", String.class)
-                                    : "Checkpoint Reached",
-                                props.get("x", Float.class),
-                                props.get("y", Float.class),
-                                props.get("width", Float.class),
-                                props.get("height", Float.class)
-                        );
-                        checkpoints.add(cp);
-                        stage.addActor(cp);
-                    }
-                }
-            }
-
-            if (layer.getName().compareTo("spawn") == 0) {
-                for (MapObject object : layer.getObjects()) {
-                    if (object.getName().compareTo("spawn-position") == 0) {
-                        player.setSpawnPosition(
-                                object.getProperties().get("x", Float.class),
-                                object.getProperties().get("y", Float.class)
-                        );
-
-                        player.init();
-                    }
-                }
-            }
-        }
     }
 
 
@@ -271,8 +149,6 @@ public class Level implements Initializeable
 
             if (currentCheckpoint != null)
                 player.setPosition(currentCheckpoint.x(), currentCheckpoint.y());
-
-            player.loseLife();
         }
 
         if (Gdx.input.isKeyPressed(Constants.KEY_RESTART)) {
@@ -304,7 +180,7 @@ public class Level implements Initializeable
         stage.draw();
 
         // Render the debug physics engine settings
-        // debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
     }
 
 
@@ -374,11 +250,13 @@ public class Level implements Initializeable
     public ChaseCam getChaseCam() { return chaseCam; }
     public World getWorld() { return world; }
 
+    // TODO: Determine accurate win/lose conditions
     public boolean hasWon() {
-        return player.getBounds().overlaps(flag.getBounds());
+        return false;
     }
+
     public boolean hasLost() {
-        return player.isOutOfLives();
+        return false;
     }
 
     public boolean isCurrentCheckPoint(Checkpoint cp) {
@@ -390,6 +268,9 @@ public class Level implements Initializeable
     public void setCurrentCheckpoint(Checkpoint cp) {
         currentCheckpoint = cp;
     }
+
+    public void setPlayerSpawnPosition(Vector2 newPos) { spawnPosition.set(newPos.x, newPos.y); }
+    public void setPlayerSpawnPosition(float x, float y) { spawnPosition.set(x, y); }
 
     /*
         Adders and Removers

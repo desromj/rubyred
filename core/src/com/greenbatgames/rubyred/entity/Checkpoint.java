@@ -33,7 +33,7 @@ public class Checkpoint extends Actor
 
         current = new Vector2(x + width / 2f, y);
         startPosition = new Vector2(x + width / 2f, y);
-        finishPosition = new Vector2(x + width / 2f, y + Constants.RUBY_RADIUS * 4f);
+        finishPosition = new Vector2(x + width / 2f, y + Constants.PLAYER_RADIUS * 4f);
         activeTime = -1;
 
         font = new BitmapFont();
@@ -65,12 +65,24 @@ public class Checkpoint extends Actor
             return;
         }
 
+        // TODO: Set triggered status in the contact listener
+
+        /*
         if (bounds.overlaps(GameScreen.currentLevel().getPlayer().getBounds())
                 && !GameScreen.currentLevel().isCurrentCheckPoint(this)) {
             triggered = true;
             activeTime = Constants.CHECKPOINT_TEXT_ONSCREEN_TIME;
             GameScreen.currentLevel().setCurrentCheckpoint(this);
         }
+        */
+    }
+
+
+
+    public void trigger() {
+        triggered = true;
+        activeTime = Constants.CHECKPOINT_TEXT_ONSCREEN_TIME;
+        GameScreen.currentLevel().setCurrentCheckpoint(this);
     }
 
 

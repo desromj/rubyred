@@ -18,6 +18,8 @@ public class Utils
 
     /**
      * Reads the user data from the contact and returns it as an Object
+     * This is the user data stored in the Body object, as one Body
+     * may contain multiple fixtures each with their own user data
      *
      * @param contact
      * @param first
@@ -27,79 +29,6 @@ public class Utils
         if (first)
             return contact.getFixtureA().getBody().getUserData();
         return contact.getFixtureB().getBody().getUserData();
-    }
-
-
-
-    /**
-     * Reads the Fixture from the contact and returns it as a Fixture
-     *
-     * @param contact
-     * @param first
-     */
-    public static Fixture getFixture(Contact contact, boolean first)
-    {
-        if (first)
-            return contact.getFixtureA();
-        return contact.getFixtureB();
-    }
-
-
-
-    /**
-     * @param verts
-     * @return The maximum height difference in an array of Vector2 objects
-     */
-    public static float getMaxHeight(Vector2[] verts)
-    {
-        float highest = 0f, lowest = 0f;
-
-        for (int i = 0; i < verts.length; i++)
-        {
-            if (i == 0)
-            {
-                highest = verts[i].y;
-                lowest = verts[i].y;
-                continue;
-            }
-
-            if (verts[i].y > highest)
-                highest = verts[i].y;
-
-            if (verts[i].y < lowest)
-                lowest = verts[i].y;
-        }
-
-        return highest - lowest;
-    }
-
-
-
-    /**
-     * @param verts
-     * @return The maximum height difference in an array of Vector2 objects
-     */
-    public static float getMaxWidth(Vector2 [] verts)
-    {
-        float highest = 0f, lowest = 0f;
-
-        for (int i = 0; i < verts.length; i++)
-        {
-            if (i == 0)
-            {
-                highest = verts[i].x;
-                lowest = verts[i].x;
-                continue;
-            }
-
-            if (verts[i].x > highest)
-                highest = verts[i].x;
-
-            if (verts[i].x < lowest)
-                lowest = verts[i].x;
-        }
-
-        return highest - lowest;
     }
 
 
@@ -152,13 +81,6 @@ public class Utils
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(filename));
         sound.play(volume * Constants.VOLUME_MUSIC);
         return sound;
-    }
-
-
-
-    public static boolean almostEqualTo(float first, float second, float variance)
-    {
-        return Math.abs(first - second) < variance;
     }
 
 

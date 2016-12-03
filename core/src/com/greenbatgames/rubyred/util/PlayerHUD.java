@@ -13,12 +13,12 @@ import com.greenbatgames.rubyred.screen.GameScreen;
  * Created by Quiv on 15-11-2016.
  */
 
-public class RubyHUD extends Actor
+public class PlayerHUD extends Actor
 {
     private Viewport viewport;
     private BitmapFont font;
 
-    public RubyHUD(Viewport viewport) {
+    public PlayerHUD(Viewport viewport) {
         this.viewport = viewport;
         font = CustomFont.makeFont(60, 2);
     }

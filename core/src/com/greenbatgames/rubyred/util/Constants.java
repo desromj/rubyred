@@ -23,113 +23,49 @@ public class Constants
     // Controls
 
     public static int KEY_RESTART = Input.Keys.R;
-
     public static int KEY_RIGHT = Input.Keys.RIGHT;
-    public static int KEY_RIGHT_ALT = Input.Keys.D;
-
     public static int KEY_LEFT = Input.Keys.LEFT;
-    public static int KEY_LEFT_ALT = Input.Keys.A;
-
     public static int KEY_JUMP = Input.Keys.Z;
-    public static int KEY_JUMP_ALT = Input.Keys.SPACE;
-
     public static int KEY_ATTACK = Input.Keys.X;
-    public static int KEY_ATTACK_ALT = Input.Keys.E;
-
-    public static int KEY_HOP = Input.Keys.UP;
-    public static int KEY_SPRING = Input.Keys.DOWN;
-    public static int KEY_LONG = Input.Keys.SHIFT_LEFT;
 
     /*
         World Aspect Ratio
      */
 
-    public static final float WORLD_WIDTH = 640;
+    public static final float WORLD_WIDTH = 800;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 4f / 5f;
 
-    public static final float GUI_FONT_SCALE = 1.0f;
-    public static final Color GUI_FONT_COLOR = Color.BLACK;
     public static final float HUD_MARGIN = WORLD_WIDTH / 80f;
 
     /*
         Physics and Tiled World Values
      */
 
-    public static final float GRAVITY = -32f;
+    public static final float GRAVITY = -9.81f;
     public static final float KILL_PLANE_Y = -100f;
 
     // Pixels-to-metres conversion
-    public static final float PTM = 40f;
+    public static final float PTM = 50f;
 
-    // Number of pixels per tile
-    public static final float TILED_TILE_SIZE = 32f;
-    public static final float TILED_UNIT_SCALE = TILED_TILE_SIZE / PTM;
-
-    public static final float WOBBLE_ROOM = WORLD_WIDTH / 16000f;
-    public static final float DISABLE_COLLISION_FOR_PLATFORM = 0.25f;
     public static final float PHYSICS_STEP_FREQ = 1f / 60f;
     public static final int PHYSICS_VEL_ITERATIONS = 6;
     public static final int PHYSICS_POS_ITERATIONS = 6;
 
     /*
-        Ruby Player Values
+        Player Values
      */
 
-    public static final int RUBY_STARTING_LIVES = 5;
-
-    public static final float RUBY_DENSITY = 400.0f;
-    public static final float RUBY_JUMP_IMPULSE = WORLD_WIDTH * RUBY_DENSITY * 2.5f;
-    public static final float RUBY_SPRING_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 1.25f;
-    public static final float RUBY_LONG_JUMP_IMPULSE = RUBY_JUMP_IMPULSE * 3.5f;
-    public static final float RUBY_RADIUS = WORLD_WIDTH / 30.0f;
-
-    // Give a bit of leeway between when Ruby lands and when she can jump again
-    // 0.1 second accounts for minimum player reaction time
-    public static final float RUBY_JUMP_RECOVERY = 0.04f;
-
-    public static final float RUBY_HOP_ANGLE_RIGHT = 45.0f;
-    public static final float RUBY_HOP_ANGLE_LEFT = 180.0f - RUBY_HOP_ANGLE_RIGHT;
-    public static final float RUBY_LONG_JUMP_ANGLE_RIGHT = 15.0f;
-    public static final float RUBY_LONG_JUMP_ANGLE_LEFT = 180.0f - RUBY_LONG_JUMP_ANGLE_RIGHT;
-
-    public static final float RUBY_HOP_SPEED = WORLD_WIDTH / 54.0f;
-    public static final float RUBY_WALK_SPEED = RUBY_HOP_SPEED / 4.0f;
-    public static final float RUBY_MAX_HORIZ_HOP_SPEED = MathUtils.degreesToRadians * 45.0f * RUBY_HOP_SPEED;
+    // Physics values
+    public static final float PLAYER_DENSITY = 400.0f;
+    public static final float PLAYER_RADIUS = WORLD_WIDTH / 30.0f;
 
     // Climbing values
-    public static final float RUBY_CLIMB_TIME = 1.0f;
-    public static final float RUBY_MAX_CLIMB_RATIO = 1f;
-    public static final float RUBY_MIN_CLIMB_RATIO = 0.75f;
+    public static final float PLAYER_CLIMB_TIME = 1.0f;
+    public static final float PLAYER_MAX_CLIMB_RATIO = 1f;
+    public static final float PLAYER_MIN_CLIMB_RATIO = 0.75f;
 
-    public static final float RUBY_HORIZONTAL_WALK_DAMPEN = 0.80f;
-    public static final float RUBY_HORIZONTAL_FALL_DAMPEN = 0.90f;
-
-    public static final float RUBY_VERTEX_X_SCALE = RUBY_RADIUS;
-    public static final float RUBY_VERTEX_Y_SCALE = RUBY_RADIUS * 2.0f;
-
-    public static final Vector2[] RUBY_VERTICES_NORMAL = new Vector2[] {
-            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, 0.67f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, 1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, 0.67f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * RUBY_VERTEX_X_SCALE / PTM, -0.67f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * RUBY_VERTEX_X_SCALE / PTM, -1.00f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.90f * RUBY_VERTEX_X_SCALE / PTM, -0.67f * RUBY_VERTEX_Y_SCALE / PTM)
-    };
-
-    public static final Vector2[] RUBY_VERTICIES_CROUCHED = new Vector2[] {
-            new Vector2(1.20f * RUBY_VERTEX_X_SCALE / PTM, 0.33f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.75f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.75f * RUBY_VERTEX_X_SCALE / PTM, 0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.20f * RUBY_VERTEX_X_SCALE / PTM, 0.33f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.20f * RUBY_VERTEX_X_SCALE / PTM, -0.33f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.75f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.75f * RUBY_VERTEX_X_SCALE / PTM, -0.50f * RUBY_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.20f * RUBY_VERTEX_X_SCALE / PTM, -0.33f * RUBY_VERTEX_Y_SCALE / PTM)
-    };
-
-
+    // Time before allowing another jump after landing
+    public static final float PLAYER_JUMP_RECOVERY = 0.25f;
 
     /*
         Camera Controls
@@ -138,42 +74,6 @@ public class Constants
     public static final float CHASE_CAM_MOVE_SPEED = WORLD_WIDTH * 2.0f;
     public static final float CHASE_CAM_X_LEEWAY = WORLD_WIDTH / 4f;
     public static final float CHASE_CAM_Y_LEEWAY = WORLD_WIDTH / 10f;
-
-
-
-    /*
-        Platform object values
-     */
-
-    public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 160.0f;
-    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 32.0f;
-
-    /*
-        Bird object values
-     */
-
-    public static final float BIRD_SPAWN_DELAY = 5f;
-
-    public static final float BIRD_WIDTH = WORLD_WIDTH / 30.0f;
-    public static final float BIRD_HEIGHT = WORLD_WIDTH / 80.0f;
-    public static final float BIRD_MOVE_SPEED = WORLD_WIDTH / 3.6f;
-    public static final Vector2 BIRD_KNOCKBACK_IMPULSE = new Vector2(1f, 1f).scl(RUBY_JUMP_IMPULSE * 0.6f);
-
-    /*
-        Skylight values
-     */
-
-    public static final float SKYLIGHT_LIFETIME = 1.0f;
-    public static final float DROP_PLATFORM_LIFETIME = 3.0f;
-    public static final float DROP_PLATFORM_RESET_TIME = 1.5f;
-    public static final float DROP_PLATFORM_FALL_DURATION = 0.75f;
-
-    /*
-        Finish Flag values
-     */
-
-    public static final float FINISH_FLAG_WIDTH = TILED_TILE_SIZE;
-    public static final float FINISH_FLAG_HEIGHT = TILED_TILE_SIZE * 4.0f;
 
     /*
         Font values

@@ -1,7 +1,5 @@
 package com.greenbatgames.rubyred.entity;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
@@ -42,8 +40,7 @@ public abstract class PhysicsBody extends Actor
     protected abstract void initPhysics(World world);
 
     @Override
-    public void act(float delta)
-    {
+    public void act(float delta) {
         // Update our last position for the next frame
         lastPosition.set(position.x, position.y);
 
@@ -52,12 +49,6 @@ public abstract class PhysicsBody extends Actor
                 (body.getPosition().x * Constants.PTM) - width / 2.0f,
                 (body.getPosition().y * Constants.PTM) - height / 2.0f
         );
-
-        // Check position last frame compared to this frame in update, within a variance.
-        if (position.dst(lastPosition) < Constants.WOBBLE_ROOM)
-            atRest = true;
-        else
-            atRest = false;
     }
 
 
@@ -94,9 +85,12 @@ public abstract class PhysicsBody extends Actor
     public float getLastX() { return lastPosition.x; }
     public float getLastY() { return lastPosition.y; }
 
+
+
     /*
         Get Bounds based on Body Shape
      */
+
     public float getBottom()
     {
         float lowest = 0f;

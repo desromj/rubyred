@@ -36,13 +36,6 @@ public class Tooltip extends Actor
 
 
     @Override
-    public void act(float delta) {
-        visible = (bounds.overlaps(GameScreen.currentLevel().getPlayer().getBounds()));
-    }
-
-
-
-    @Override
     public void draw(Batch batch, float parentAlpha) {
         if (visible) {
             Player player = GameScreen.currentLevel().getPlayer();
@@ -56,4 +49,6 @@ public class Tooltip extends Actor
                     true);
         }
     }
+
+    public void setVisible(boolean visible) { this.visible = visible; }
 }

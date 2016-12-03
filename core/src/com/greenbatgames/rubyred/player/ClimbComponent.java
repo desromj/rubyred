@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
-import com.greenbatgames.rubyred.entity.Platform;
 import com.greenbatgames.rubyred.iface.Activateable;
 import com.greenbatgames.rubyred.screen.GameScreen;
 import com.greenbatgames.rubyred.util.Constants;
@@ -70,7 +69,7 @@ public class ClimbComponent extends PlayerComponent
         // Set the player position to new position based on if we're climbing left or right
         player.setPosition(
                 (climbingRight) ? gripX() : gripX() - player.getWidth(),
-                gripY() + Constants.PLATFORM_EDGE_LEEWAY / 2.0f
+                gripY()
         );
 
         // set velocity to 0, in case we clip into the ledge area
@@ -88,63 +87,9 @@ public class ClimbComponent extends PlayerComponent
         // Determine scenarios in which we just return immediately
         if (!player.isClimbButtonHeld()) return;
 
-        // Draw the ray
-        Vector2 rayFrom = new Vector2(
-                (player.facingRight)
-                        ? (player.getRight() + player.getWidth() / 2.0f) / Constants.PTM
-                        : (player.getLeft() - player.getWidth() / 2.0f) / Constants.PTM,
-                player.getTop() / Constants.PTM
-        );
-
-        Vector2 rayTo = new Vector2(
-                rayFrom.x,
-                player.getBottom() / Constants.PTM
-        );
-
-        // Do the ray cast
-        GameScreen.currentLevel().getWorld().rayCast(makeRayCastCallback(), rayFrom, rayTo);
     }
 
 
-
-    // Raycast collision handling
-    private RayCastCallback makeRayCastCallback() {
-
-        return new RayCastCallback() {
-            @Override
-            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-
-                Gdx.app.log(TAG, "Climbing raycast triggered.");
-
-                // Check that the platform allows climbing
-                Object userData = fixture.getBody().getUserData();
-
-                if (userData instanceof Platform) {
-
-                    Platform plat = (Platform) userData;
-                    if (!plat.allowClimbing())
-                        return 0;
-
-                    // Activate the object if it can be
-                    if (userData instanceof Activateable) {
-                        ((Activateable) userData).activate();
-                    }
-
-                    // determine the grip point based on the fixture location
-                    Vector2 gripPoint = new Vector2(
-                            (player.facingRight) ? plat.getLeft() : plat.getRight(),
-                            plat.getTop()
-                    );
-
-                    // startClimbing with the correct grip point
-                    startClimbing(gripPoint);
-                    return fraction;
-                }
-
-                return 0;
-            }
-        };
-    }
 
 
     /*
@@ -183,8 +128,11 @@ public class ClimbComponent extends PlayerComponent
             The top of the player hitbox must also contain the range of the gripY point
         */
         float timeRatio = 1f - (player.getTop() - gripY()) / player.getHeight();
-        timeRatio = MathUtils.clamp(timeRatio, Constants.RUBY_MIN_CLIMB_RATIO, Constants.RUBY_MAX_CLIMB_RATIO);
-        this.climbTimeLeft = Constants.RUBY_CLIMB_TIME * timeRatio;
+        timeRatio = MathUtils.clamp(
+                timeRatio,
+                Constants.PLAYER_MIN_CLIMB_RATIO,
+                Constants.PLAYER_MAX_CLIMB_RATIO);
+        this.climbTimeLeft = Constants.PLAYER_CLIMB_TIME * timeRatio;
 
         if (gripPoint.x < player.getLeft())
             climbingRight = false;
@@ -194,7 +142,8 @@ public class ClimbComponent extends PlayerComponent
         climbing = true;
         player.mover().land();
 
-        player.animator().setNext(Enums.AnimationState.CLIMB, timeRatio);
+        // TODO: Uncomment when climbing ready
+        // player.animator().setNext(Enums.AnimationState.CLIMB, timeRatio);
     }
 
     /*
