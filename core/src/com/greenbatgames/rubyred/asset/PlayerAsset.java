@@ -54,9 +54,9 @@ public class PlayerAsset extends SpineAnimationAsset
     }
 
     public void loadBlends() {
-        AnimationStateData data = animationState.getData();
-
         // TODO: Add more blends here when more animations become available
+
+        // AnimationStateData data = animationState.getData();
     }
 
     @Override
@@ -65,4 +65,7 @@ public class PlayerAsset extends SpineAnimationAsset
 
         sprite.draw(batch);
     }
+
+    // TODO: Remove when Spine assets take over
+    public Sprite getSprite() { return sprite; }
 }

@@ -26,6 +26,11 @@ public final class LevelLoader
 
                     MapProperties props = object.getProperties();
                     String type = props.get("type", String.class);
+
+                    // TODO: Add terrain to the level
+                    if (type.compareTo("terrain") == 0) {
+
+                    }
                 }
             }
 
@@ -36,7 +41,12 @@ public final class LevelLoader
                     MapProperties props = object.getProperties();
                     String type = props.get("type", String.class);
 
-                    if (type.compareTo("tooltip") == 0) {
+                    if (type.compareTo("player-spawn") == 0) {
+                        newLevel.spawnPosition.set(
+                            props.get("x", Float.class),
+                            props.get("y", Float.class)
+                        );
+                    } else if (type.compareTo("tooltip") == 0) {
                         Tooltip tt = new Tooltip(
                                 props.get("label", String.class),
                                 props.get("x", Float.class),
@@ -57,19 +67,6 @@ public final class LevelLoader
                         );
                         newLevel.checkpoints.add(cp);
                         newLevel.stage.addActor(cp);
-                    }
-                }
-            }
-
-            if (layer.getName().compareTo("spawn") == 0) {
-                for (MapObject object : layer.getObjects()) {
-                    if (object.getName().compareTo("spawn-position") == 0) {
-                        newLevel.setPlayerSpawnPosition(
-                                object.getProperties().get("x", Float.class),
-                                object.getProperties().get("y", Float.class)
-                        );
-
-                        newLevel.player.init();
                     }
                 }
             }

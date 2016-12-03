@@ -30,7 +30,7 @@ public class PlayerHUD extends Actor
 
         font.draw(
                 batch,
-                "Lives: " + GameScreen.currentLevel().getPlayer().getLives(),
+                "Testing",
                 GameScreen.currentLevel().getChaseCam().getLeft() + Constants.HUD_MARGIN,
                 GameScreen.currentLevel().getChaseCam().getTop() - Constants.HUD_MARGIN,
                 0f,

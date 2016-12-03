@@ -70,6 +70,17 @@ public class Level implements Initializeable
 
     public Level(String resource) {
         this.resource = resource;
+
+        // Ensure certain objects are instantiated - usually overwritten in init() as well
+        spawnPosition = new Vector2();
+
+        checkpoints = new Array<Checkpoint>();
+        bodiesToAdd = new Array<BodyDef>();
+        fixturesToAdd = new Array<FixtureDef>();
+        userDataToAdd = new Array<PhysicsBody>();
+        bodiesToRemove = new Array<Body>();
+        debugRenderer = new Box2DDebugRenderer();
+
         init();
     }
 
@@ -78,33 +89,35 @@ public class Level implements Initializeable
     @Override
     public void init()
     {
-        // Level member variables
+        // First initialize the physics world
         world = new World(new Vector2(0, Constants.GRAVITY), true);
-        player = new Player(80.0f, 240.0f, Constants.PLAYER_RADIUS * 2.0f, Constants.PLAYER_RADIUS * 4.0f, world);
-        spawnPosition = new Vector2();
 
-        checkpoints = new Array<Checkpoint>();
-        currentCheckpoint = null;
-
-        // local Orthographic Camera for the viewport
+        // Set the Scene2D stage
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-
-        // Proceed with other instance variables
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera));
-        chaseCam = new ChaseCam(camera, player);
-        hud = new PlayerHUD(stage.getViewport());
 
+        // Clear previous queued changes
+        currentCheckpoint = null;
+        spawnPosition.set(0f, 0f);
+        checkpoints.clear();
+        bodiesToAdd.clear();
+        fixturesToAdd.clear();
+        userDataToAdd.clear();
+        bodiesToRemove.clear();
+
+        // Load data from the tile map and populate the physics world and Scene2D stage
         tiledMap = new TmxMapLoader().load(resource);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-        bodiesToAdd = new Array<BodyDef>();
-        fixturesToAdd = new Array<FixtureDef>();
-        userDataToAdd = new Array<PhysicsBody>();
-        bodiesToRemove = new Array<Body>();
-        debugRenderer = new Box2DDebugRenderer();
+        // Initialize the Player, using the loaded Spawn Position
+        player = new Player(spawnPosition.x, spawnPosition.y, Constants.PLAYER_RADIUS * 2.0f, Constants.PLAYER_RADIUS * 4.0f, world);
 
-        // Load level objects from the tile map
+        // Camera and HUD to track the Player
+        chaseCam = new ChaseCam(camera, player);
+        hud = new PlayerHUD(stage.getViewport());
+
+        // Set the contact listener
         world.setContactListener(new WorldContactListener());
 
         // Finally, add actors to stage so they can be updated
