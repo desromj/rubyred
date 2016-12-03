@@ -2,6 +2,7 @@ package com.greenbatgames.rubyred.player;
 
 import com.esotericsoftware.spine.AnimationState;
 import com.greenbatgames.rubyred.asset.Assets;
+import com.greenbatgames.rubyred.asset.SpineAnimationAsset;
 import com.greenbatgames.rubyred.util.Enums;
 
 import static com.greenbatgames.rubyred.util.Enums.AnimationState.*;
@@ -12,7 +13,7 @@ import static com.greenbatgames.rubyred.util.Enums.AnimationState.*;
 
 public class AnimationComponent extends PlayerComponent
 {
-    Assets.SpineAnimationAsset asset;
+    SpineAnimationAsset asset;
     private Enums.AnimationState animationState, previousState;
 
     private float nextPercentRatioComplete;
@@ -31,7 +32,7 @@ public class AnimationComponent extends PlayerComponent
         this.asset.skeleton.setPosition(
                 player.getX() + player.getWidth() / 2.0f,
                 player.getY());
-        this.asset.skeleton.setFlipX(!player.facingRight);
+        this.asset.skeleton.setFlipX(!player.mover().isFacingRight());
 
         // Update our animation if it has changed
         if (this.animationState != this.previousState) {

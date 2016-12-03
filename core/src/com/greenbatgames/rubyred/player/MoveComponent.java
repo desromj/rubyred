@@ -111,4 +111,5 @@ public class MoveComponent extends PlayerComponent
 
     public boolean isOnGround() { return grounded && !jumped; }
     public boolean isInAir() { return !grounded; }
+    public boolean isFacingRight() { return facingRight; }
 }
