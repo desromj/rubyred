@@ -69,10 +69,10 @@ public class ChaseCam extends Actor implements Initializeable
             if (Gdx.input.isKeyPressed(Input.Keys.L)) {
                 camera.position.x += delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.I)) {
                 camera.position.y += delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.K)) {
                 camera.position.y -= delta * Constants.CHASE_CAM_MOVE_SPEED;
             }
         }

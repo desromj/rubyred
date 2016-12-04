@@ -31,10 +31,10 @@ public class AnimationComponent extends PlayerComponent
 
         // Temp code to draw the sprite
         asset.getSprite().setPosition(
-                player.getX() + player.getWidth() / 2.0f,
-                player.getY());
+                player.getX() - player.getWidth() / 4.0f,
+                player.getY() + player.getHeight() / 2.0f);
 
-        asset.getSprite().setFlip(!player.mover().isFacingRight(), true);
+        asset.getSprite().setFlip(!player.mover().isFacingRight(), false);
 
         /*
             TODO: Un-comment when Spine animation assets are created

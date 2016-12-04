@@ -25,6 +25,7 @@ public class PlayerAsset extends SpineAnimationAsset
         super();
 
         sprite = new Sprite(new Texture(Gdx.files.internal("sprites/placeholder/robot.png")));
+        sprite.setScale(2.0f);
     }
 
     @Override

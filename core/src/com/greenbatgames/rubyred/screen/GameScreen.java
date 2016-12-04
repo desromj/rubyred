@@ -45,6 +45,7 @@ public class GameScreen  extends ScreenAdapter implements InputProcessor
 
     public void init() {
         level = LevelLoader.loadLevel("levels/test-plane.tmx");
+        level.spawnPlayer();
         Gdx.input.setInputProcessor(this);
     }
 

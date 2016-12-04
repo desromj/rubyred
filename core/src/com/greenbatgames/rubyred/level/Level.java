@@ -111,7 +111,12 @@ public class Level implements Initializeable
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         // Initialize the Player, using the loaded Spawn Position
-        player = new Player(spawnPosition.x, spawnPosition.y, Constants.PLAYER_RADIUS * 2.0f, Constants.PLAYER_RADIUS * 4.0f, world);
+        player = new Player(
+                spawnPosition.x,
+                spawnPosition.y,
+                Constants.PLAYER_RADIUS * 2.0f,
+                Constants.PLAYER_RADIUS * 4.0f,
+                world);
 
         // Camera and HUD to track the Player
         chaseCam = new ChaseCam(camera, player);
@@ -291,11 +296,14 @@ public class Level implements Initializeable
 
     public void addActorToStage(Actor actor) { stage.addActor(actor); }
 
-    private void reinitializeAllActors()
-    {
+    private void reinitializeAllActors() {
         for (Actor actor: stage.getActors())
             if (actor instanceof Initializeable)
                 ((Initializeable) actor).init();
     }
 
+    public void spawnPlayer() {
+        Gdx.app.log(TAG, "Spawning player at: (" + spawnPosition.x + ", " + spawnPosition.y + ")");
+        player.setPosition(spawnPosition.x, spawnPosition.y);
+    }
 }

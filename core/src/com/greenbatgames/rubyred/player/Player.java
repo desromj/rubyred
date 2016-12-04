@@ -91,8 +91,8 @@ public class Player extends PhysicsBody implements Initializeable
 
             shape.set(new float[]{
                     b2Unit, 0f,
-                    b2Unit, 3f,
-                    -b2Unit, 3f,
+                    b2Unit, b2Unit * 3f,
+                    -b2Unit, b2Unit * 3f,
                     -b2Unit, 0f
             });
 

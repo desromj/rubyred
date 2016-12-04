@@ -1,10 +1,11 @@
 package com.greenbatgames.rubyred.level;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.greenbatgames.rubyred.entity.Checkpoint;
+import com.greenbatgames.rubyred.entity.Terrain;
 import com.greenbatgames.rubyred.entity.Tooltip;
 
 /**
@@ -13,6 +14,8 @@ import com.greenbatgames.rubyred.entity.Tooltip;
 
 public final class LevelLoader
 {
+    public static final String TAG = LevelLoader.class.getSimpleName();
+
     private LevelLoader() {}
 
     public static Level loadLevel(String filename) {
@@ -27,9 +30,32 @@ public final class LevelLoader
                     MapProperties props = object.getProperties();
                     String type = props.get("type", String.class);
 
-                    // TODO: Add terrain to the level
-                    if (type.compareTo("terrain") == 0) {
+                    // Add terrain to the level
+                    if ((object instanceof PolylineMapObject)
+                        && type.compareTo("terrain") == 0) {
 
+                        PolylineMapObject plmo = (PolylineMapObject) object;
+                        float [] verts = plmo.getPolyline().getTransformedVertices();
+
+                        // Determine the width and height, as these are not present in the Tiled program
+                        float xMin = verts[0], xMax = verts[0], yMin = verts[1], yMax = verts[1];
+
+                        for (int i = 2; i < verts.length; i += 2) {
+                            if (verts[i] < xMin) xMin = verts[i];
+                            if (verts[i] > xMax) xMax = verts[i];
+                            if (verts[i+1] < yMin) yMin = verts[i+1];
+                            if (verts[i+1] > yMax) yMax = verts[i+1];
+                        }
+
+                        Terrain terrain = new Terrain(
+                                props.get("x", Float.class),
+                                props.get("y", Float.class),
+                                xMax - xMin,
+                                yMax - yMin,
+                                newLevel.getWorld(),
+                                verts
+                        );
+                        newLevel.stage.addActor(terrain);
                     }
                 }
             }

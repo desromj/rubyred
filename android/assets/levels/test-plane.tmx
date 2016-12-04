@@ -11,6 +11,6 @@
   </object>
  </objectgroup>
  <objectgroup name="obstacle">
-  <object id="2" name="player-spawn" type="player-spawn" x="320" y="448" width="32" height="64"/>
+  <object id="2" name="player-spawn" type="player-spawn" x="320" y="384" width="32" height="64"/>
  </objectgroup>
 </map>
