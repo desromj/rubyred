@@ -54,6 +54,19 @@ public class MoveComponent extends PlayerComponent
 
         // Then determine what to do based on if we're in the air or one the ground
         if (isOnGround()) {
+            if (Gdx.input.isKeyPressed(Constants.KEY_RIGHT)) {
+                body.applyForceToCenter(
+                        Constants.PLAYER_WALK_FORCE.x,
+                        Constants.PLAYER_WALK_FORCE.y,
+                        true);
+            }
+
+            if (Gdx.input.isKeyPressed(Constants.KEY_LEFT)) {
+                body.applyForceToCenter(
+                        -Constants.PLAYER_WALK_FORCE.x,
+                        Constants.PLAYER_WALK_FORCE.y,
+                        true);
+            }
 
         }
 
